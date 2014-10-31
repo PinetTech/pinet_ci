@@ -99,8 +99,8 @@ function get_attr($params, $template) {
 		$attr[$k] = $v;
 	}
 
-	if($f->placeHolder != '')
-		$attr['placeholder'] = $f->placeHolder;
+	if($f->placeholder != '')
+		$attr['placeholder'] = $f->placeholder;
 	return $attr;
 }
 

@@ -53,9 +53,9 @@
             var $this = $(el),
               $controlGroup = $this.parents(".control-group").first();
             if (
-              $controlGroup.hasClass("warning")
+              $controlGroup.hasClass("has-warning")
             ) {
-              $controlGroup.removeClass("warning").addClass("error");
+              $controlGroup.removeClass("has-warning").addClass("has-error");
               warningsFound++;
             }
           });
@@ -473,33 +473,35 @@
               // Were there any errors?
               if (errorsFound.length) {
                 // Better flag it up as a warning.
-                $controlGroup.removeClass("success error").addClass("warning");
+                $controlGroup.removeClass("has-success has-error").addClass("has-warning");
 
                 // How many errors did we find?
                 if (settings.options.semanticallyStrict && errorsFound.length === 1) {
                   // Only one? Being strict? Just output it.
                   $helpBlock.html(errorsFound[0] + 
                     ( settings.options.prependExistingHelpBlock ? $helpBlock.data("original-contents") : "" ));
+                  $form.find("input,select,textarea").not($this).not("[name=\"" + $this.attr("name") + "\"]").trigger("validation.validation.warning.onlyone", [$helpBlock]);
                 } else {
                   // Multiple? Being sloppy? Glue them together into an UL.
                   $helpBlock.html("<ul role=\"alert\"><li>" + errorsFound.join("</li><li>") + "</li></ul>" +
                     ( settings.options.prependExistingHelpBlock ? $helpBlock.data("original-contents") : "" ));
+                  $form.find("input,select,textarea").not($this).not("[name=\"" + $this.attr("name") + "\"]").trigger("validation.validation.warning.many", [$helpBlock]);
                 }
               } else {
-                $controlGroup.removeClass("warning error success");
+                $controlGroup.removeClass("has-warning has-error has-success");
                 if (value.length > 0) {
-                  $controlGroup.addClass("success");
+                  $controlGroup.addClass("has-success");
                 }
                 $helpBlock.html($helpBlock.data("original-contents"));
               }
 
               if (e.type === "blur") {
-                $controlGroup.removeClass("success");
+                $controlGroup.removeClass("has-success");
               }
             }
           );
           $this.bind("validationLostFocus.validation", function () {
-            $controlGroup.removeClass("success");
+            $controlGroup.removeClass("has-success");
           });
         });
       },

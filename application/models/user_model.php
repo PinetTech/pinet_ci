@@ -3,7 +3,7 @@
 class User_Model extends Pinet_Model {
 	function __construct() {
 		parent::__construct('users');
-		$this->load->model(array('group_model','account_model'));					
+		$this->load->model(array('group_model'));
 	}
 
 	public function getByUsername($username) {
@@ -79,47 +79,6 @@ class User_Model extends Pinet_Model {
 		$this->session->unset_userdata('user_id');
 	}
 
-	public function register($userInfo) {
-		if($this->haveUser($userInfo['username'])) {
-			return -1;
-		}else{
-			$user = array(
-				'email_address'=> $userInfo['email_address'],
-				'password'=> md5($userInfo['password']),
-				'username'=>$userInfo['username'],
-				'status'=>'ACTIVE',
-                'user_type' => $userInfo['user_type']
-			);
-			$user_id = $this->insert($user);
-
-			//add user account info
-			$this->addAccount($user_id, $userInfo);
-
-			//add association
-			$this->addGroups2Users($user_id, $userInfo['group_id']);
-
-			return $user_id;
-		}
-	}
-
-	public function addAccount($userid, $post) {
-		$this->user_model->myinsert('accounts',array(
-			'user_id'=>$userid,
-			'name'=>$post['name'],
-			'mobile'=>$post['mobile'],
-			'sex'=>$post['sex'],
-			'birthday'=>(isset($post['birthday']) && $post['birthday'] ? $post['birthday'] : null),
-			'contact_company'=>(isset($post['contact_company'])? $post['contact_company'] : null),
-			'contact_name'=>$post['contact_name'],
-			'contact_country'=>$post['contact_country'],
-			'contact_province'=>$post['contact_province'],
-			'contact_city'=>$post['contact_city'],
-			'contact_street'=>$post['contact_street'],
-			'contact_postalcode'=>$post['contact_postalcode'],
-			'contact_profile'=>$post['contact_profile']	
-		));
-	}
-
 	public function addGroups2Users($userid, $groupid) {
 		$group_id = $this->getGroupID($userid);
 		if($group_id == -1) {
@@ -160,49 +119,5 @@ class User_Model extends Pinet_Model {
             }
         }
         return lang('Not find current user');
-    }
-
-    public function getUserInfo($user_id){
-        $this->db->select('u.id,u.username,u.email_address,a.first_name,a.last_name,a.birthday,a.sex,a.mobile,a.contact_company,a.contact_street,a.contact_city,a.contact_province,a.contact_postalcode,a.contact_profile,a.profile_image_path');
-        $this->db->from('users as u');
-        $this->db->join('accounts as a', 'u.id=a.user_id', 'inner');
-        $this->db->where('u.id', $user_id);
-        $data = $this->db->get()->result();
-        if(count($data)){
-            $user_info = $data[0];
-            if($user_info->birthday == '0000-00-00'){
-                $user_info->birthday = '';
-            }
-            return $user_info;
-        }
-        return null;
-    }
-
-    public function updateUserInfo($data){
-        $user_id = $data['id'];
-        $result = $this->update($user_id, array(
-            'email_address'=> $data['email_address'],
-            'username'=> $data['username']
-        ));
-        $account = $this->account_model->getAccount($user_id);
-        if($account){
-            $result = $this->myupdate('accounts', $account->id, array(
-                'first_name'=> $data['first_name'],
-                'last_name'=> $data['last_name'],
-                'name'=> $data['last_name'].' '.$data['first_name'],
-                'mobile'=> $data['mobile'],
-                'sex'=> $data['sex'],
-                'birthday'=> $data['birthday'],
-                'contact_company'=> $data['contact_company'],
-                'contact_street'=> $data['contact_street'],
-                'contact_city'=> $data['contact_city'],
-                'contact_province'=> $data['contact_province'],
-                'contact_postalcode'=> $data['contact_postalcode'],
-                'contact_profile'=> $data['contact_profile'],
-                'type'=> $data['type'],
-                'profile_image_path'=> $data['path']
-            ));
-        }
-        return $result;
     }
 }

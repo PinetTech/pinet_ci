@@ -191,67 +191,104 @@
 
 		var op = $.extend(defaults, options);
 
-	    $(op.selector).each(function(){
-	        var self = $(this);
-	        var container = self.parent();
-	        var display_box = self.parentsUntil('.sns-display-box').parent();
-	        var display_box_height = display_box.height();
-	        var iframe = self.find('iframe');
-	        var isIframeInit = false;
+		if($(op.selector).length > 0) {
+		    $(op.selector).each(function(){
+		        var self = $(this);
+		        var container = self.parent();
+		        var display_box = self.parentsUntil('.sns-display-box').parent();
+		        var display_box_height = display_box.height();
+		        var iframe = self.find('iframe');
+		        var isIframeInit = false;
 
-	        //init iframe
-	        if(iframe.length < 1) {
-	        	iframe = $('<iframe src="'+op.url+'" frameborder="0"></iframe>');
-	        	iframe.css('width', '100%');
-	        	iframe.height(op.iframeheight);
-	        }
+		        //init iframe
+		        if(iframe.length < 1) {
+		        	iframe = $('<iframe src="'+op.url+'" frameborder="0"></iframe>');
+		        	iframe.css('width', '100%');
+		        	iframe.height(op.iframeheight);
+		        }
 
-	     	self.data('show', false);
+		     	self.data('show', false);
+		     	// if(self.find('.switch-box .btn.on').hasClass('active')){
+		     	// 	self.data('show', true);
+		     	// };
 
-	        self.find('.switch-box').off('click.iframe.on').on('click.iframe.on', '.btn.on', function(e){
-	        	var btn_group = $(e.delegateTarget);
-	        	if(btn_group.find("input[type=radio]").length > 0 && btn_group.attr("data-toggle") == "buttons" ) {
-	        		// iframe不显示的时候
-		        	if(!self.data('show')) {
-			           	container.addClass('on');
-		        		self.trigger('switch-box.on');
-			            if(!isIframeInit) {
-			            	isIframeInit = true;
-				            container.append(iframe);
-				            iframe.load(function(){
-				            	var doc = iframe.contents();
-								doc.find('body').removeClass('pc').addClass('iframe');
-								resize_scrollcontent_height(doc.find('body'));
-				                display_box.stop().animate({'height': display_box_height + op.iframeheight}, 500, function(){
-				                	self.data('show', true);
-				                });
-				                iframe.show();
-				            })
-			            }else {
-			            	iframe.show();
-			            	display_box.stop().animate({'height': display_box_height + op.iframeheight}, 500, function(){
-			            		self.data('show', true);
-			            	});
-			            }
+		     	function set_btn_group_state_disable(btn_group) {
+		    		btn_group.on_btn_input_clone = btn_group.on_btn.find('input[type=radio]').clone();
+		    		btn_group.off_btn_input_clone = btn_group.off_btn.find('input[type=radio]').clone();
+		    		btn_group.removeAttr('data-toggle');
+		    		btn_group.find('input[type=radio]').remove();
+		     	}
+
+		     	function set_btn_group_state_enable(btn_group) {
+		        	btn_group.on_btn.prepend(btn_group.on_btn_input_clone);
+		        	btn_group.off_btn.prepend(btn_group.off_btn_input_clone);
+		        	btn_group.attr('data-toggle', 'buttons');
+		     	}
+
+		        self.find('.switch-box').off('click.iframe.on').on('click.iframe.on', '.btn.on', function(e){
+		        	var btn_group = $(e.delegateTarget);
+		        	btn_group.on_btn = btn_group.find('.btn.on');
+		        	btn_group.off_btn = btn_group.find('.btn.off');
+
+		        	if(btn_group.find(".btn.on input[type=radio]").length > 0 && btn_group.attr("data-toggle") == "buttons" ) {
+		        		// iframe不显示的时候
+			        	if(!self.data('show')) {
+				           	container.addClass('on');
+							btn_group.off_btn.removeClass('active');
+							btn_group.on_btn.addClass('active');
+			        		self.trigger('switch-box.on');
+							set_btn_group_state_disable(btn_group);
+
+				            if(!isIframeInit) {
+				            	isIframeInit = true;
+					            container.append(iframe);
+					            iframe.load(function(){
+					            	var doc = iframe.contents();
+									doc.find('body').removeClass('pc').addClass('iframe');
+									resize_scrollcontent_height(doc.find('body'));
+					                display_box.stop().animate({'height': display_box_height + op.iframeheight}, 500, function(){
+					                	self.data('show', true);
+										set_btn_group_state_enable(btn_group);
+					                });
+					                iframe.show();
+					            })
+				            }else {
+				            	iframe.show();
+				            	display_box.stop().animate({'height': display_box_height + op.iframeheight}, 500, function(){
+				            		self.data('show', true);
+									set_btn_group_state_enable(btn_group);
+				            	});
+				            }
+			        	}
 		        	}
-	        	}
-	        });  
+		        });
 
-	        self.find('.switch-box').off('click.iframe.off').on('click.iframe.off', '.btn.off', function(e){
-	        	var btn_group = $(e.delegateTarget);
-	        	if(btn_group.find("input[type=radio]").length > 0 && btn_group.attr("data-toggle") == "buttons" ) {
-	        		// ifrmae显示的时候
-		        	if(self.data('show')) {
-		        		self.data('show', false);
-	        			self.trigger('switch-box.off');
-			        	display_box.stop().animate({'height': display_box_height}, 1000, function(){
-			        		iframe.hide();
-			        	});
+		        self.find('.switch-box').off('click.iframe.off').on('click.iframe.off', '.btn.off', function(e){
+		        	var btn_group = $(e.delegateTarget);
+		        	btn_group.on_btn = btn_group.find('.btn.on');
+		        	btn_group.off_btn = btn_group.find('.btn.off');
+
+
+		        	if(btn_group.find(".btn.off input[type=radio]").length > 0 && btn_group.attr("data-toggle") == "buttons" ) {
+		        		// ifrmae显示的时候
+			        	if(self.data('show')) {
+			        		self.data('show', false);
+		            		btn_group.on_btn.removeClass('active');
+		            		btn_group.off_btn.addClass('active');
+		        			self.trigger('switch-box.off');
+							set_btn_group_state_disable(btn_group);
+
+				        	display_box.stop().animate({'height': display_box_height}, 1000, function(){
+				        		iframe.hide();
+				        		set_btn_group_state_enable(btn_group);
+				        	});
+			        	}
 		        	}
-	        	}
-	        });
+		        });
 
-	    })
+		    })
+
+		}
 	}
 
 })(jQuery)

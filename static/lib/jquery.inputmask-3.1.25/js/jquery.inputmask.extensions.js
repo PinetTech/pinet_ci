@@ -102,6 +102,23 @@ Optional extensions on the jquery.inputmask base
                 }
             }
         },
+        "eip": { //ip-address mask
+            mask: "i[i[i]]",
+            definitions: {
+                'i': {
+                    validator: function (chrs, maskset, pos, strict, opts) {
+                        if (pos - 1 > -1 && maskset.buffer[pos - 1] != ".") {
+                            chrs = maskset.buffer[pos - 1] + chrs;
+                            if (pos - 2 > -1 && maskset.buffer[pos - 2] != ".") {
+                                chrs = maskset.buffer[pos - 2] + chrs;
+                            } else chrs = "0" + chrs;
+                        } else chrs = "00" + chrs;
+                        return new RegExp("25[0-5]|2[0-4][0-9]|[01][0-9][0-9]").test(chrs);
+                    },
+                    cardinality: 1
+                }
+            }
+        },
         "email": {
             mask: "*{1,20}[.*{1,20}][.*{1,20}][.*{1,20}]@*{1,20}[.*{2,20}][.*{2,6}][.*{1,2}]",
             greedy: false,

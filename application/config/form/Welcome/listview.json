@@ -1,7 +1,0 @@
-[
-	{
-		"field": "test.username",
-		"label": "Username",
-		"rules": ["required"]
-	}
-]

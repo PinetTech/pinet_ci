@@ -94,7 +94,7 @@ class FormField {
 	public $label;
 	public $defaultValue;
 	public $rules;
-	public $placeHolder;
+	public $placeholder;
 	public $translateRules;
 	public $field = '';
 
@@ -102,8 +102,8 @@ class FormField {
 	public function init() {
 		$this->name = $this->field;
         $this->state = 'default';
-		if(isset($this->placeHolder))
-			$this->placeHolder = $this->label;
+		if(isset($this->placeholder))
+			$this->placeholder = $this->label;
 		$r = $this->rules;
 		if(!is_array($r)){
 			$r = array($r);
