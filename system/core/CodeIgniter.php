@@ -171,6 +171,7 @@
  */
 	$RTR =& load_class('Router', 'core');
 	$RTR->_set_routing();
+	$GLOBALS['ROUTER'] = $RTR;
 
 	// Set any routing overrides that may exist in the main index file
 	if (isset($routing))
@@ -240,20 +241,25 @@
 	}
 
 	// Added for Pinet_Controller support
-	if (file_exists(APPPATH.'core/Pinet_Controller.php'))
+	if (file_exists(FCPATH.'pinet/core/Pinet_Controller.php'))
 	{
-		require APPPATH.'core/Pinet_Controller.php';
+		require FCPATH.'pinet/core/Pinet_Controller.php';
 	}
 
-	// Load the local application controller
-	// Note: The Router class automatically validates the controller path using the router->_validate_request().
-	// If this include fails it means that the default controller in the Routes.php file is not resolving to something valid.
-	if ( ! file_exists(APPPATH.'controllers/'.$RTR->fetch_directory().$RTR->fetch_class().'.php'))
-	{
-		show_error('Unable to load your default controller. Please make sure the controller specified in your Routes.php file is valid.');
+	if (file_exists('pinet/controllers/'.$RTR->fetch_directory().$RTR->fetch_class().'.php')) { // Take controllers in pinet first
+		include('pinet/controllers/'.$RTR->fetch_directory().$RTR->fetch_class().'.php');
 	}
+	else {
 
-	include(APPPATH.'controllers/'.$RTR->fetch_directory().$RTR->fetch_class().'.php');
+		// Load the local application controller
+		// Note: The Router class automatically validates the controller path using the router->_validate_request().
+		// If this include fails it means that the default controller in the Routes.php file is not resolving to something valid.
+		if ( ! file_exists(APPPATH.'controllers/'.$RTR->fetch_directory().$RTR->fetch_class().'.php')) {
+			show_error('Unable to load your default controller. Please make sure the controller specified in your Routes.php file is valid.');
+		}
+
+		include(APPPATH.'controllers/'.$RTR->fetch_directory().$RTR->fetch_class().'.php');
+	}
 
 	// Set a mark point for benchmarking
 	$BM->mark('loading_time:_base_classes_end');

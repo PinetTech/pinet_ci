@@ -171,6 +171,17 @@ if ( ! function_exists('load_class'))
 			}
 		}
 
+		// Is the request a class extension?  If so we load it too
+		if (file_exists('pinet/'.$directory.'/Pinet_'.$class.'.php'))
+		{
+			$name = 'Pinet_'.$class;
+
+			if (class_exists($name) === FALSE)
+			{
+				require('pinet/'.$directory.'/Pinet_'.$class.'.php');
+			}
+		}
+
 		// Did we find the class?
 		if ($name === FALSE)
 		{
