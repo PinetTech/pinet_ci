@@ -35,6 +35,10 @@ class Pinet_Widget {
 	}
 
 	public function initSCSS() {
+		if(!isset($this->CI->sasscompiler)) {
+			$this->CI->load->library('sasscompiler');
+		}
+		$this->CI->sasscompiler->addIncludePath(dirname(get_class_script_path($this)).'/scss');
 		if(isset($this->config->scss)) {
 			$scss_config = $this->config->scss;
 			if(isset($scss_config->depends)) {
@@ -49,7 +53,7 @@ class Pinet_Widget {
 			if(isset($scss_config->files)) {
 				ci_log('The files is ', $scss_config->files);
 				foreach($scss_config->files as $file) {
-					$this->CI->scss('widgets/'.$file);
+					$this->CI->scss($file);
 				}
 			}
 		}
