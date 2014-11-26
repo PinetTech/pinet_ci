@@ -171,7 +171,7 @@ class JavaScriptSrc {
 				$src = "static/lib/".$this->module.'/js/';
 		}
 		$src .= $this->name.'.js';
-		foreach(array(APPPATH, 'pinet/') as $d) {
+		foreach(array('', APPPATH, 'pinet/') as $d) {
 			$p = FCPATH.$d.$src;
 			if(file_exists($p))
 				return "<script type='text/javascript' src='".base_url($d.$src)."'></script>\n";
