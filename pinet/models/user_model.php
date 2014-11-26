@@ -178,8 +178,41 @@ class User_Model extends Pinet_Model {
         return null;
     }
 
+    public function checkUserUsername($user_id, $username){
+        $this->db->select('id');
+        $this->db->from('users');
+        $this->db->where('id <>', $user_id);
+        $this->db->where_or_and(array(
+            'username' => $username,
+            'email_address' => $username
+        ));
+        $this->result_mode = 'object';
+        $result = $this->db->get()->row();
+        if($result)
+            return false;
+        return true;
+    }
+
+    public function checkUserEmail($user_id, $email){
+        $this->db->select('id');
+        $this->db->from('users');
+        $this->db->where('id <>', $user_id);
+        $this->db->where_or_and(array(
+            'username' => $email,
+            'email_address' => $email
+        ));
+        $this->result_mode = 'object';
+        $result = $this->db->get()->row();
+        if($result)
+            return false;
+        return true;
+    }
+
     public function updateUserInfo($data){
         $user_id = $data['id'];
+        if((!$this->checkUserUsername($user_id, $data['username'])) || (!$this->checkUserEmail($user_id, $data['email_address']))){
+            return lang('Username or email is exits!');
+        }
         $result = $this->update($user_id, array(
             'email_address'=> $data['email_address'],
             'username'=> $data['username']

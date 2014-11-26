@@ -362,8 +362,6 @@ $config['proxy_ips'] = '';
 | The customised configs
 |--------------------------------------------------------------------------
  */
-$config['use_less'] = 'true';
-
 $config['js_folder'] = 'static/js/';
 
 $config['css_folder'] = 'static/css/';
@@ -386,7 +384,7 @@ $config['breadscrum_depth'] = 5;
 
 $config['heart_beat_rate'] = 5;//minute
 
-$config['less_js'] = true; // Using js to compile less
+$config['less_js'] = false; // Using js to compile less
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */

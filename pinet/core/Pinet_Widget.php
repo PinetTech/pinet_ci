@@ -14,10 +14,19 @@ class Pinet_Widget {
 	 */
 	public function init() {
 		$this->loadConfig();
+		$this->initDepends();
 		$this->initJS();
 		$this->initCSS();
 		$this->initSCSS();
 		$this->initSmarty();
+	}
+
+	public function initDepends() {
+		if(isset($this->config->depends)) {
+			foreach($this->config->depends as $d) {
+				$this->CI->load->widget($d);
+			}
+		}
 	}
 
 	public function initSmarty() {
@@ -28,7 +37,6 @@ class Pinet_Widget {
 	public function initSCSS() {
 		if(isset($this->config->scss)) {
 			$scss_config = $this->config->scss;
-			ci_log('The scss config is ', $scss_config);
 			if(isset($scss_config->depends)) {
 				foreach($scss_config->depends as $d) {
 					$module = get_default((array)$d, 'module', null);
