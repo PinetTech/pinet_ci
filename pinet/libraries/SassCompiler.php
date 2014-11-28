@@ -57,6 +57,7 @@
 
 			$this->prefix = '';
 			$this->suffix = '';
+			$this->addSass('variables', 0); // Auto added the variables scss before compile
 			foreach($this->ps as $plugin) {
 				if(method_exists($plugin, 'prefix')) {
 					$plugin->prefix($this);
@@ -81,10 +82,6 @@
 		public function readFile($file) {
 			foreach($this->includePathes as $path) {
 				$filepath = $path.'/'.$file;
-				// echo $path."\n";
-				// echo $filepath. "\n";
-				// echo  "exist=".file_exists($filepath);
-				// echo "\n";
 				if(file_exists($filepath) && is_file($filepath) &&
 					is_readable($filepath)) {
 					return file_get_contents($filepath);
@@ -104,7 +101,7 @@
 			$content = $this->precompile();
 			$this->sass->setIncludePath(implode(PATH_SEPARATOR, $this->includePathes));
 			$this->sass->setImagePath('/~andy/think_scss'); // TODO: Which directory is this?
-			echo $this->sass->compile($content);
+			return $this->sass->compile($content);
 		}
 
 		public function addIncludePath($path, $index = -1) {

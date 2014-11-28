@@ -51,7 +51,6 @@ class Pinet_Widget {
 				}
 			}
 			if(isset($scss_config->files)) {
-				ci_log('The files is ', $scss_config->files);
 				foreach($scss_config->files as $file) {
 					$this->CI->scss($file);
 				}
@@ -109,7 +108,6 @@ class Pinet_Widget {
 		$path = dirname(get_class_script_path($this)).'/widget.json';
 		if(file_exists($path)) {
 			$json = file_get_contents($path);
-			ci_log('The json is ', json_decode($json));
 			$this->config = json_decode($json);
 			ci_log('The config is ', $this->config);
 		}

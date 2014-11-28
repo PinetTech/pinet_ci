@@ -9,7 +9,7 @@ function smarty_function_css($params, $template) {
 	if(isset($CI->sasscompiler)) {
 		ci_log('The compiler is ', $CI->sasscompiler);
 		echo "<style>\n";
-		$CI->sasscompiler->compile();
+		echo $CI->sasscompiler->compile();
 		echo "</style>\n";
 	}
 }
