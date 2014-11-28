@@ -2,7 +2,11 @@
 	class Base_Precompiler {
 		public function prefix($compiler) {
 			$compiler->prefix .= ' @function site_url($url) {
-	@return "/~jack/think_scss" + $url
+	@return "'.site_url('/').'" + $url;
+}
+';
+			$compiler->prefix .= '@function base_path($path) {
+				@return "'.FCPATH.' + $path";
 }
 ';
 			// if (isset($compiler->resolutions) && is_array($compiler->resolutions)) {
