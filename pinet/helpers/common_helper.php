@@ -134,6 +134,8 @@ function get_breadscrums() {
 
 function set_breadscrum() {
 	$CI = &get_instance();
+	if($CI->input->is_cli_request()) // Skip the breadscrum for cli request
+		return;
 	if(isset($CI->action_model) && !$CI->action_model->getCurrentAction()) {
 		return;
 	}

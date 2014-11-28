@@ -1,5 +1,5 @@
 #! /bin/bash
 for line in $(cat deps)
 do
-	./spark install $line
+	./tools/spark install $line
 done

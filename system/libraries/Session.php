@@ -660,6 +660,8 @@ class CI_Session {
 	 */
 	function _set_cookie($cookie_data = NULL)
 	{
+		print_r(debug_backtrace());
+		exit;
 		if (is_null($cookie_data))
 		{
 			$cookie_data = $this->userdata;

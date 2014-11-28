@@ -15,6 +15,7 @@
 			$this->sass = new Sass();
 			$this->sasses = array();
 			$this->includePathes = array();
+			$this->resolutions = get_ci_config('resolutions');
 			foreach(array(APPPATH, 'pinet/') as $p) {
 				$this->includePathes []= FCPATH.$p.'static/scss/';
 			}
