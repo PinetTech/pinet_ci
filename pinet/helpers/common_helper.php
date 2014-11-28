@@ -15,6 +15,12 @@ class Action {
     public $args;
 	public $fields;
 
+	public function __construct($label = null, $controller = null, $method = null) {
+		$this->label = $label;
+		$this->controller = $controller;
+		$this->method = $method;
+	}
+
 	public function data() {
 		$arr = (array) $this;
 		unset($arr['fields']);
