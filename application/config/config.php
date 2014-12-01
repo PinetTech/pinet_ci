@@ -26,7 +26,7 @@ $config['base_url']	= '';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = '';
+$config['index_page'] = 'index.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -248,7 +248,7 @@ $config['sess_cookie_name']		= 'ci_session';
 $config['sess_expiration']		= 7200;
 $config['sess_expire_on_close']	= FALSE;
 $config['sess_encrypt_cookie']	= FALSE;
-$config['sess_use_database']	= TRUE;
+$config['sess_use_database']	= FALSE;
 $config['sess_table_name']		= 'ci_sessions';
 $config['sess_match_ip']		= FALSE;
 $config['sess_match_useragent']	= TRUE;
@@ -376,11 +376,11 @@ $config['retry_count'] = 5;
 
 $config['resolutions'] = array(480, 640, 720, 1280, 1440, 1920, 2880);
 
-$config['enable_audit'] = true;
+$config['enable_audit'] = false;
 
 $config['enable_transaction'] = false;
 
-$config['enable_security'] = true;
+$config['enable_security'] = false;
 
 $config['breadscrum_depth'] = 5;
 

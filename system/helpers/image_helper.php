@@ -58,6 +58,10 @@ function create_image_thumbnail($orig, $width, $height = 0) {
 		}
 
 		$dst_img=ImageCreateTrueColor($width,$height);
+        imagesavealpha($dst_img, true);
+        $trans_colour = imagecolorallocatealpha($dst_img, 0, 0, 0, 127);
+        imagefill($dst_img, 0, 0, $trans_colour);
+
 		imagecopyresampled($dst_img,$src_img,0,0,0,0,$width,$height,$old_x,$old_y);
 		if($ext == 'jpg' || $ext == 'jpeg')
 			imagejpeg($dst_img, $out_file);
@@ -65,6 +69,7 @@ function create_image_thumbnail($orig, $width, $height = 0) {
 			imagepng($dst_img,$out_file);
 		imagedestroy($dst_img);
 		imagedestroy($src_img);
+        return file_get_contents($out_file);
 	}
 	return null;
 }

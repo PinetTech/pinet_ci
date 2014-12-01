@@ -1,7 +1,7 @@
 [
     {
         "field": "name",
-        "label": "Box Name",
+        "label": "iBox Name",
         "placeholder": "",
         "rules": ["required"]
     },
@@ -12,9 +12,9 @@
         "rules": ["required"]
     }
     ,{
-    "field": "manual",
-    "label": "Manual",
-    "rules": ["required"]
+        "field": "manual",
+        "label": "Manual",
+        "rules": ["required"]
     },
     {
         "field": "address",

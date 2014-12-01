@@ -100,6 +100,7 @@ class FormField {
 
 
 	public function init() {
+        $this->label = lang($this->label);
 		$this->name = $this->field;
         $this->state = 'default';
 		if(isset($this->placeholder))
@@ -119,7 +120,7 @@ class FormField {
 			}
 			if($rule->isRequired()) {
 				$this->required = true;
-				$this->label .= '*';
+				$this->label .= '<b>*</b>';
 			}
 			$this->rules []= $rule;
 		}

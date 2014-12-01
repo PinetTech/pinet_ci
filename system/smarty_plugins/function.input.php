@@ -100,7 +100,7 @@ function get_attr($params, $template) {
 	}
 
 	if($f->placeholder != '')
-		$attr['placeholder'] = $f->placeholder;
+		$attr['placeholder'] = lang($f->placeholder);
 	return $attr;
 }
 

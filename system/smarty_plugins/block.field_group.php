@@ -80,7 +80,7 @@ function smarty_block_field_group($params, $content = '', $template, &$repeat) {
 	$label = create_tag('label', array(
 		'for' => $f->getId(),
 		'class' => array($label_layout_class, $labelClass, 'control-label', $f->required?'form_field_required':'')
-	), array(), $f->label);
+	), array(), lang($f->label));
 
 	if(trim($content) == '') { // If we don't have any sub element, just add an input
 		$content = smarty_function_input(array(), $template);

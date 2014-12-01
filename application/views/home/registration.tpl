@@ -80,22 +80,24 @@
             </ul>
             <ul class="nav navbar-nav nav-body">
                 <li>
-                    {form class='form-horizontal' attr=['novalidate'=>''] action="{site_url url='ibox/register'}" method="POST"}
+                    {form class='form-horizontal' attr=['novalidate'=>''] action="{$pineturl}" method="POST"}
                         <div class="panel panel-default">
-                            <div class="panel-heading">{lang}Registration Page {/lang}</div>
+                            <div class="panel-heading">{lang}Registration Page{/lang}</div>
                             <div class="panel-body">
 
                                 <div class="registration-form">
                                     <div class="info"> {lang}Pinet WIFI Box Information{/lang}</div>
                                     {field_group field='name'  layout=false}
                                     {label}
-                                        <p class="help-block">Please name your Pinet WiFi Box This is for your reference only</p>
+                                        <p class="info">{lang}Please name your Pinet WiFi Box{/lang}</p>
+                                        <p class="help-block"></p>
                                     {input}
                                     {/field_group}
 
                                     {field_group field='hostname' layout=false}
                                     {label}
-                                        <p class="help-block">This is the hostname of your box, can't be changed </p>
+                                        <p class="info">{lang}This is the hostname of your box, can't be changed{/lang}</p>
+                                        <p class="help-block"></p>
                                     {input}
                                     {/field_group}
 
@@ -105,17 +107,19 @@
 
                                     {field_group layout=false field='address'}
                                     {input}
+                                        <p class="help-block hints hints-first"></p>
                                     {/field_group}
                                     <div class="row">
                                         {field_group  layout=false field='city' class='col-1280-6'}
                                         {input}
+                                            <p class="help-block hints"></p>
                                         {/field_group}
 
-                                        {field_group  layout=false field='country' class='col-1280-6'} {input}{/field_group}
+                                        {field_group  layout=false field='country' class='col-1280-6'} {input} <p class="help-block hints"></p>{/field_group}
                                     </div>
                                     <div class="row">
-                                        {field_group  layout=false field='state' class='col-1280-6'} {input}{/field_group}
-                                        {field_group  field='zip_code' layout=false class='col-1280-6'} {input}{/field_group}
+                                        {field_group  layout=false field='state' class='col-1280-6'} {input} <p class="help-block hints"></p>{/field_group}
+                                        {field_group  field='zip_code' layout=false class='col-1280-6'} {input} <p class="help-block hints"></p>{/field_group}
                                     </div>
                                     {field_group field='notes' layout=false}
                                     {label}
@@ -124,12 +128,10 @@
 
                                     {input field='longitude' type='hidden'}
                                     {input field='latitude' type='hidden'}
-                                    {input field='serial' type='hidden' value='123'}
                                 </div>
                                 <div class="registration-map">
-                                    <div class="info"> {lang} Location<br>
-                                            Please pinpoint the location of your business using
-                                            Maps and manually enter the full address {/lang}</div>
+                                    <div class="info"> {lang}Location{/lang}<br>
+                                       {lang}Please pinpoint the location of your business using Maps and manually enter the full address{/lang}</div>
                                     <div class="row">
                                         {field_group class='col-1280-11' field='search' layout=false}
                                         {input}
@@ -158,19 +160,19 @@
             </ul>
             <ul id="nav-address" class="nav navbar-nav nav-content">
                 <li>
-                    <p class="info">Suzhou Pyle Network Technology Co., Ltd. Suzhou City, Jiangsu Province Star Lake Street, 328 Industrial Park 15 506 Creative Industry Park</p>
+                    <p class="info">{lang}Suzhou Office, Creative Industrial Park, 328 Xinghu Street, Industrial District, Suzhou, Jiangsu Province{/lang}</p>
                 </li>
                 <li>
-                    <p class="info">Suzhou Pyle Network Technology Co., Ltd. Anhui Branch Luyang District, Hefei, Anhui Changjiang Road, Renhe Building 1106</p>
+                    <p class="info">{lang}Hefei Office, 241 Anqing Road, Luyang District, Hefei, Anhui Province{/lang}</p>
                 </li>
                 <li>
-                    <p class="info">Suzhou Pyle Network Technology Co., Ltd. Hubei Branch Hongshan District, Wuhan City, Hubei Province Guangbutun Central China Digital City 7018</p>
+                    <p class="info">{lang}Wuhan Office, Guizi Garden, Hongshan Distrcit, Wuhan, Hubei Province{/lang}</p>
                 </li>
             </ul>
             <ul  id="copyright" class="nav navbar-nav nav-text">
                 <li>
                     <p class="logo">{picture path='/responsive/size' alt=$title title=$title src='home/logo_grey.png'}</p>
-                    <p class="info">©COPY RIGHT PINET,INC TERMS,PRIVACY,CONTACT</p>
+                    <p class="info">©{lang}Copyright Pinet Technology Solutions 2014{/lang}</p>
                     <p class="email"><a target="_top" href="mailto:info@pinet.co">info@pinet.co</a></p>
                 </li>
             </ul>
@@ -195,18 +197,12 @@
         var map;
         $(function(){
             $('.search').on('click', function(){
-                console.log($('#field_search').val());
-                $('#place_container').find('iframe').get(0).contentWindow.localSearch.search($('#field_search').val());
+                if($('#field_search').val())
+                    $('#place_container').find('iframe').get(0).contentWindow.localSearch.search($('#field_search').val());
             });
             if($.isFunction($.fn.jqBootstrapValidation)) {
                 $("input,select,textarea").not("[type=image],[type=submit],[type=file]").jqBootstrapValidation();
             }
-
-            $("input,select,textarea").not("[type=image],[type=submit],[type=file]").on('validation.validation.warning.many', function(e, helpBlock){
-                if(helpBlock && $.isFunction(helpBlock.find)) {
-                    helpBlock.find('ul li').addClass('text-danger');
-                }
-            });
         })
     </script>
 {/block}
