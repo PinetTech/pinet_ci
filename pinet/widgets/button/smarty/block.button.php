@@ -28,6 +28,16 @@ function smarty_block_button($params, $content = '', $template, &$repeat) {
 		$params['title'] = trim(strip_tags($content));
 	}
 
+	if(isset($params['icon']) && $params['icon'] != '') {
+		$iconName = $params['icon'];
+		unset($params['icon']);
+		$iconParams = array();
+		$iconParams['class'] = make_classes('glyphicon', 'glyphicon-'.$iconName);
+		$iconParams['aria-hidden'] = 'true';
+		$icon = create_tag('span', $iconParams, array(), '');
+		$content = $icon.$content;
+	}
+
 	if($tag == 'input')
 		return create_tag('input', $params, array());
 	return create_tag($tag, $params, array(), $content);
