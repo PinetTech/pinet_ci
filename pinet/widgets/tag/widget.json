@@ -1,0 +1,15 @@
+{
+	"author": "Andy",
+	"date": "Mon Dec 01 11:31:39 2014",
+	"version": "1.0",
+	"name": "pinet.tag",
+	"doc":"[doc]",
+	"js": {
+		"depends": [],
+		"files" : []
+	},
+	"scss": {
+		"depends": [],
+		"files": ["pinet_tag"]
+	}
+}
