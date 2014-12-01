@@ -98,7 +98,7 @@ function smarty_block_field_group($params, $content = '', $template, &$repeat) {
 	}
 
 	// Adding the error notification area
-	$content .= create_tag('p', array('class' => array('help-block', 'test')));
+	$content .= create_tag('p', array('class' => array('help-block', 'test')), array(), '');
 
 	// Creating the element div
 	$element = create_tag('div', array('class' => array($element_layout_class, $inputClass)), array(), $content);
