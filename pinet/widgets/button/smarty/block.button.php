@@ -25,7 +25,7 @@ function smarty_block_button($params, $content = '', $template, &$repeat) {
 	$params['role'] = 'button';
 
 	if(!isset($params['title'])) {
-		$params['title'] = strip_tags($content);
+		$params['title'] = trim(strip_tags($content));
 	}
 
 	if($tag == 'input')
