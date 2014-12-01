@@ -58,6 +58,11 @@
 			},
 			{
 				"module": "bootstrap",
+				"file": "bootstrap/mixins/_labels",
+				"version": "3.3.1"
+			},
+			{
+				"module": "bootstrap",
 				"file": "bootstrap/mixins/_grid",
 				"version": "3.3.1"
 			},
@@ -69,6 +74,11 @@
 			{
 				"module": "bootstrap",
 				"file": "bootstrap/mixins/_forms",
+				"version": "3.3.1"
+			},
+			{
+				"module": "bootstrap",
+				"file": "bootstrap/mixins/_hide-text",
 				"version": "3.3.1"
 			},
 			{
@@ -97,6 +107,6 @@
 				"version": "3.3.1"
 			}
 		],
-		"files": []
+		"files": ["pinet_form"]
 	}
 }
