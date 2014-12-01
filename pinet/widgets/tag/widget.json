@@ -9,7 +9,13 @@
 		"files" : []
 	},
 	"scss": {
-		"depends": [],
+		"depends": [
+			{
+				"module": "bootstrap",
+				"file": "bootstrap/mixins/_labels.scss",
+				"version": "3.3.1"
+			}
+		],
 		"files": ["pinet_tag"]
 	}
 }
