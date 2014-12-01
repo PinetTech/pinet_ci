@@ -65,5 +65,10 @@ function smarty_block_dropbutton($params, $content = '', $template, &$repeat) {
 		$tags []= $content;
 	}
 
-	return create_tag('div', array('class' => 'btn-group'), array(), implode("", $tags));
+	$direction = get_default($params, 'direction', '');
+	$dropbuttonClass = array('btn-group');
+	if($direction == 'up') {
+		$dropbuttonClass[] = "dropup";
+	}
+	return create_tag('div', array('class' => $dropbuttonClass), array(), implode("", $tags));
 }
