@@ -70,7 +70,7 @@ test_db:
 db:
 	@$(call recreate_db,${DB},"default")
 dep:
-	./install_deps
+	./tools/install_deps
 tags:
 	ctags -R .
 fix_cache:

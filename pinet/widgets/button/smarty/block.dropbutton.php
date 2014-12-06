@@ -26,7 +26,7 @@ function smarty_block_dropbutton($params, $content = '', $template, &$repeat) {
 
 	$show = get_default($params, 'show', 'default');
 	$params['class'] = make_classes('btn', 'btn-'.$show, 'dropdown-toggle', get_default($params, 'class', null));
-	$label = get_default($params, 'label', '');
+	$label = get_default($params, 'label', '').' ';
 	if(!isset($params['title'])) {
 		$params['title'] = strip_tags($label);
 	}
@@ -37,6 +37,13 @@ function smarty_block_dropbutton($params, $content = '', $template, &$repeat) {
 	if(isset($params['items']))
 		unset($params['items']);
 
+	$split = get_default($params, 'split', null);
+	if(isset($split) && $split == true) {
+		unset($params['split']);
+		$tags []= create_tag('button', array('class'=>array('btn','btn-'.$show)), array(), $label);
+		$label = '';
+	}
+
 	$tags []= create_tag('button', $params, array(), $label.create_tag('span', array('class' => 'caret'), array(), ''));
 
 
@@ -44,7 +51,7 @@ function smarty_block_dropbutton($params, $content = '', $template, &$repeat) {
 		$list_tags = array();
 		foreach($items as $item) {
 			$a = dropdown_button_process_item($item);
-			if($a != '')	
+			if($a != '')
 				$list_tags []= create_tag('li', array(), array(), dropdown_button_process_item($item));
 			else
 				$list_tags []= create_tag('li', array('class' => 'divider'), array(), '');
@@ -58,5 +65,10 @@ function smarty_block_dropbutton($params, $content = '', $template, &$repeat) {
 		$tags []= $content;
 	}
 
-	return create_tag('div', array('class' => 'btn-group'), array(), implode("", $tags));
+	$direction = get_default($params, 'direction', '');
+	$dropbuttonClass = array('btn-group');
+	if($direction == 'up') {
+		$dropbuttonClass[] = "dropup";
+	}
+	return create_tag('div', array('class' => $dropbuttonClass), array(), implode("", $tags));
 }
