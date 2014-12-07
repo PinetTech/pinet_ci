@@ -29,11 +29,6 @@
 				"module": "bootstrap",
 				"file": "bootstrap/mixins/_grid.scss",
 				"version": "3.3.1"
-			},
-			{
-				"module": "matcha",
-				"file": "_matcha",
-				"version": "1.0.0"
 			}
 		],
 		"files": ["pinet_grid_mixin","pinet_grid"]

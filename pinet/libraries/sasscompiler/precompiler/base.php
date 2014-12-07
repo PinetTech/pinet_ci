@@ -9,6 +9,10 @@
 				@return "'.FCPATH.' + $path";
 }
 ';
+			$compiler->prefix .= '$screen_width: 0;
+@function res($n) {
+	@return $screen_width / $screen_max_width * $n;
+}';
 			// if (isset($compiler->resolutions) && is_array($compiler->resolutions)) {
 			// 	$compiler->prefix .= '$_resolutions: (';
 			// 	foreach ($compiler->resolutions as $k => $rs) {
