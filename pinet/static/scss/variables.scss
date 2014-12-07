@@ -7,6 +7,10 @@ $bootstrap-sass-asset-helper: (twbs-font-path("") != unquote('twbs-font-path("")
 // Variables
 // --------------------------------------------------
 
+//== System
+//
+//## Settings for responsive
+$screen_max_width: 		 2880px !default;
 
 //== Colors
 //
