@@ -5,17 +5,12 @@
 	"name": "pinet.button",
 	"doc":"The button widget",
 	"js": {
-		"depends": [{
-			"module": "jquery",
-			"file": "jquery",
-			"version": "2.1.1",
-			"index": 0,
-			"position": "foot"
-		}],
+		"depends": [],
 		"files" : [
 			"button", "dropdown"
 		]
 	},
+	"depends": ["jquery"],
 	"scss": {
 		"depends": [{
 			"module": "bootstrap",
@@ -59,9 +54,14 @@
 		},
 		{
 			"module": "bootstrap",
+			"file": "bootstrap/_close",
+			"version": "3.3.1"
+		},		
+		{
+			"module": "bootstrap",
 			"file": "bootstrap/_button-groups",
 			"version": "3.3.1"
-		}
+		}		
 		],
 		"files": ["pinet_button_mixin", "pinet_button"]
 	}
