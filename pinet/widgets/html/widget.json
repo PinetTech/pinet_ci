@@ -1,6 +1,22 @@
 {
-	"author": "Jack <jack.fu@pinet.co>",
-	"date": "Sun Nov 16 18:26:54 2014",
+	"author": "Lbc",
+	"date": "Sat Dec 06 18:24:34 2014",
 	"version": "1.0",
-	"name": "pinet.html"
+	"name": "pinet.html",
+	"doc":"[doc]",
+	"js": {
+		"depends": [],
+		"files" : []
+	},
+	"depends": ["link"],
+	"scss": {
+		"depends": [			
+			{
+				"module": "bootstrap",
+				"file": "bootstrap/_normalize",
+				"version": "3.3.1"
+			}
+		],
+		"files": []
+	}
 }

@@ -1,0 +1,42 @@
+@mixin alert-variant($width) {
+	display: inline-block; 
+	width: 100%;
+	padding-top: 0;
+	padding-bottom: 0;
+ 	.info {
+		float: left;
+		height: 100%;
+ 	} 
+	.menu {
+		float:right; 
+		height:100%;
+		& > .btn {
+			line-height: 0;
+			&:hover {
+				color: #ffffff;
+			}
+ 		}
+		& > .yes {
+		}
+ 	} 		
+}
+
+@mixin alert-color($background, $border, $text-color, $btn-bg, $btn-bg-hover) {
+	background-color: $background;
+	border-color: $border;
+	color: $text-color;
+
+	hr {
+	}
+	.alert-link {
+	}
+
+	.menu {
+		& > .btn {
+			background-color: $btn-bg;
+			&:hover {
+				background-color: $btn-bg-hover;
+			}
+ 		}
+ 	} 	
+}

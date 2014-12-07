@@ -1,8 +1,8 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-if(!function_exists('smarty_function_input')) {
-	require_once(dirname(__FILE__).'/function.input.php');
-}
+// if(!function_exists('smarty_function_input')) {
+// 	require_once(dirname(__FILE__).'/function.input.php');
+// }
 
 function smarty_function_picture($params, $template) {
 	$src = smarty_plugin_get_variable($params, $template, 'src', true);

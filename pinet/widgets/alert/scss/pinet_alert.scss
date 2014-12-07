@@ -1,0 +1,6 @@
+@mixin responsive_pinet_alert($width) {
+	$screen_width: $width; 
+	h3 {
+		width: res(200px);
+	}
+}

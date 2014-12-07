@@ -9,7 +9,7 @@ class Tools extends Pinet_Controller {
 	"author": "$user",
 	"date": "$now",
 	"version": "1.0",
-	"name": "$name",
+	"name": "pinet.$name",
 	"doc":"[doc]",
 	"js": {
 		"depends": [],

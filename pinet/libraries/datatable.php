@@ -173,7 +173,6 @@ EOT;
 	}
 
 	public function getTransport($data) {
-        ci_log('tttt', $data);
 		$this->transport = copy_new($data, 'DataTableTransport');
 		if(isset($this->model->joins))
 			$this->transport->joins = $this->model->joins;

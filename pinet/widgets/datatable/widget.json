@@ -1,0 +1,29 @@
+{
+	"author": "Lbc",
+	"date": "Sat Dec 06 18:30:53 2014",
+	"version": "1.0",
+	"name": "pinet.datatable",
+	"doc":"[doc]",
+	"js": {
+		"depends": [
+			{
+				"module": "jquery.dataTables",
+				"file": "jquery.dataTables",
+				"version": "1.10.1"
+			}
+		],
+		"files" : []
+	},
+	"depends": ["jquery","jquery_ui_common"],
+	"css": [
+		{
+			"module": "jquery.dataTables",
+			"file": "jquery.dataTables",
+			"version": "1.10.1"
+		}		
+	],
+	"scss": {
+		"depends": [],
+		"files": []
+	}
+}
