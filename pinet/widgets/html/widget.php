@@ -4,4 +4,8 @@ class Html_Widget extends Pinet_Widget {
 	public function __construct() {
 		parent::__construct();
 	}
+
+	public function init() {
+		parent::init();
+	}
 }

@@ -137,7 +137,7 @@ class DataTable_Model extends Pinet_Model {
 		$class = get_class(get_instance());
 		$method = $this->uri->segment(2);
 		if($method == null)
-			$method = 'index';
+			$method = 'index';		
 		$location = BASEPATH.'../'.APPPATH.'config/datatable/'.$class.'/'.$method.'.json';
 		if(file_exists($location)) { // The configuration file is there
 			$json = file_get_contents($location);

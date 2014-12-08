@@ -1,9 +1,5 @@
 <?php defined("BASEPATH") or exit("No direct script access allowed");
 
-if(!function_exists('smarty_function_picture')) {
-	require_once(dirname(__FILE__).'/function.picture.php');
-}
-
 function smarty_function_action($params, $template) {
 	$action = get_default($params, 'obj', null);
 	$alt = get_default($params, 'alt', '');
@@ -17,7 +13,7 @@ function smarty_function_action($params, $template) {
 		return '';
 	}
 
-    $fields = json_decode($action->fields);
+    	$fields = json_decode($action->fields);
 	ci_log('The action to show is', $action);
 	$data = array();
 	$uri = $action->uri();
@@ -41,9 +37,9 @@ function smarty_function_action($params, $template) {
 		}
 
 		$content = smarty_function_picture($data, $template);
-        if(isset($action->controller) && isset($action->method) && $uri){
-            $data['href'] = $uri;
-        }
+		if(isset($action->controller) && isset($action->method) && $uri){
+	    	$data['href'] = $uri;
+		}
 	}
 	return build_tag('a', $data, $content);
 }

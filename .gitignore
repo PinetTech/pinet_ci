@@ -5,7 +5,6 @@ sparks
 .project
 .settings
 tags
-application/
 application/logs
 application/cache
 .DS_Store
