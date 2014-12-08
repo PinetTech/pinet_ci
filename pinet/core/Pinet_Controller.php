@@ -858,10 +858,29 @@ class Pinet_Controller extends CI_Controller {
 		return 'index';
 	}
 
+	function processAutoload() {
+		if (defined('ENVIRONMENT') AND file_exists(APPPATH.'config/'.ENVIRONMENT.'/autoload.php')) {
+			include(APPPATH.'config/'.ENVIRONMENT.'/autoload.php');
+		}
+		else {
+			include(APPPATH.'config/autoload.php');
+		}
+
+		if(!isset($autoload)) {
+			return FALSE;
+		}
+
+		if(isset($autoload['widgets'])) {
+			foreach($autoload['widgets'] as $w) {
+				$this->load->widget($w);
+			}
+		}
+	}
 	/**
 	 * Overload the CI's default method to support ajax, form and the interceptors
 	 */
 	function _remap($method, $args) {
+		$this->processAutoload();
 		set_breadscrum(); // Setting the breadscrums
 		$method = $this->_get_method($method, $args);
 		// Checking for the interceptors
