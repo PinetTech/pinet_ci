@@ -7,6 +7,7 @@ sparks
 tags
 application/logs
 application/cache
+/application
 .DS_Store
 .idea
 *~
