@@ -1,0 +1,12 @@
+@mixin responsive_test($width) {
+	$screen_width: $width;
+	@include full_screen();
+	.container {
+		nav {
+			width: res(450px);
+		}
+		#main {
+			width: 100%;
+		}
+	}
+}
