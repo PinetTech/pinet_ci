@@ -674,6 +674,19 @@ function read_config_file($file) {
 	return null;
 }
 
+function require_widget_smarty($widget, $smarty = null) {
+	foreach(array('pinet/', APPPATH) as $path) {
+		foreach(array('block.', 'function.') as $prefix) {
+			$p = FCPATH.$path.'widgets/'.$widget.'/smarty/'.$prefix.($smarty == null? $widget: $smarty).'.php';
+			if(file_exists($p)) {
+				require_once($p);
+				return $p;
+			}
+		}
+	}
+	return false;
+}
+
 function &get_current_module() {
 	return Pinet_Module::get_instance();
 }
