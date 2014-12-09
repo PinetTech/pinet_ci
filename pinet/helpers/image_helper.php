@@ -50,6 +50,8 @@ function create_image_thumbnail($orig, $width, $height = 0) {
     }
 
 	if (extension_loaded('imagick')) {
+		Imagick::setResourceLimit(6, 1); // Set the thread limit to image magick
+		
 		$img = new Imagick($file);
 		$img->thumbnailImage($width, $height);
 		$img->writeImage($out_file);
