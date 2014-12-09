@@ -43,7 +43,11 @@ function create_image_thumbnail($orig, $width, $height = 0) {
 	$path_parts = pathinfo($file);
 	$name = $path_parts['filename'];
 	$ext = $path_parts['extension'];
-	$out_file = FCPATH.$output_dir.$name.'.'.$ext;
+    $out_file = FCPATH.$output_dir.$orig;
+    $dir = dirname($out_file);
+    if(!file_exists($dir)) {
+    	mkdir($dir, 0755, true);
+    }
 
 	if (extension_loaded('imagick')) {
 		$img = new Imagick($file);
