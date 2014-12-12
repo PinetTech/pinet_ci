@@ -103,8 +103,18 @@ class MY_Migration extends CI_Migration {
 		$this->dbforge->create_table($table, $if_not_exists);
 	}
 
+	public function drop_tables() {
+		$this->drop_table(func_get_args());
+	}
+
 	public function drop_table($table_name) {
-		$this->dbforge->drop_table($table_name);
+		if(is_array($table_name)) {
+			foreach($table_name as $t) {
+				$this->dbforge->drop_table($t);
+			}
+		}
+		else
+			$this->dbforge->drop_table($table_name);
 	}
 
 	public function rename_table($table_name, $new_table_name) {
