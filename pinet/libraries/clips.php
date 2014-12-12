@@ -1,4 +1,5 @@
 <?php defined("BASEPATH") or exit("No direct script access allowed");
+
 function clips_str_match($str, $pattern) {
 	return !!preg_match('/'.$pattern.'/', $str);
 }
@@ -35,6 +36,7 @@ class Clips {
 	private function _init_base_support() {
 		$this->defineClasses();
 		$this->defineMethods();
+		$this->ci = get_instance(); // Add the ci object to the context
 	}
 
 	private function defineMethods() {
@@ -222,7 +224,7 @@ class Clips {
 		return false;
 	}
 
-	public function assertFacts($name, $data) {
+	public function assertFacts($data) {
 		$ret = array();
 		foreach($data as $fact) {
 			$ret []= '(assert '.$this->defineFact($fact).')';

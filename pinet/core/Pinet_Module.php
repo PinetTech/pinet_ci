@@ -11,11 +11,16 @@ class Pinet_Module {
 			return;
 		self::$instance =& $this;
 		$this->CI = &get_instance();
+		$this->load = $CI->load;
 		$module_path = dirname(get_class_script_path(get_class($this)));
 		$this->CI->load->add_package_path($module_path);
 		$this->CI->addTemplateDir($module_path.'/views');
 	}
 
+
+	public function scss($file, $version = null, $index = -1, $module = null, $scssFolder = null) {
+		$this->CI->scss($file, $version, $index, $module, $scssFolder);
+	}
 	public function widget($widget) {
 		return $this->CI->load->widget($widget);
 	}
