@@ -674,6 +674,25 @@ function read_config_file($file) {
 	return null;
 }
 
+function merge_objects() {
+	if(func_num_args() <= 0)
+		return null;
+
+	if(func_num_args() == 1)
+		return func_get_arg(0);
+
+	$args = func_get_args();
+	$obj = array_shift($args);
+	foreach($args as $o) {
+		foreach($o as $k => $v) {
+			if(!isset($obj->$k)) {
+				$obj->$k = $v;
+			}
+		}
+	}
+	return $obj;
+}
+
 function require_widget_smarty($widget, $smarty = null) {
 	foreach(array('pinet/', APPPATH) as $path) {
 		foreach(array('block.', 'function.') as $prefix) {

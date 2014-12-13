@@ -50,9 +50,14 @@ class Clips {
 	}
 
 	private function translate($var) {
+		if($var === null)
+			return 'nil';
+
 		switch(gettype($var)) {
 		case 'string':
 			return '"'.$var.'"';
+		case 'boolean':
+			return $var? 'TRUE' : 'FALSE';
 		case 'array':
 		case 'object':
 			// For array and object, let's make them multiple values
@@ -225,11 +230,10 @@ class Clips {
 	}
 
 	public function assertFacts($data) {
-		$ret = array();
 		foreach($data as $fact) {
-			$ret []= '(assert '.$this->defineFact($fact).')';
+			$this->command('(assert '.$this->defineFact($fact).')');
 		}
-		return $this->command(implode("\n", $ret));
+		return true;
 	}
 
 
@@ -265,7 +269,7 @@ class Clips {
 
 			$ret []= '('.$name;
 			foreach($obj as $key => $value) {
-				if($key == 'template' || $value === null) // Skip template
+				if($key == 'template') // Skip template
 					continue;
 				$ret []= '('.$key;
 				$ret []= $this->translate($value).')';
@@ -318,7 +322,6 @@ class Clips {
 		else {
 			foreach(array(APPPATH, 'pinet/') as $p) {
 				$path = FCPATH.$p.'config/rules/'.$file;
-				ci_log($path);
 				if(file_exists($path)) {
 					$this->load($path);
 					break;
