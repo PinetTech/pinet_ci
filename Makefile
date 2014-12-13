@@ -74,6 +74,7 @@ dep:
 tags:
 	ctags -R .
 fix_cache:
+	@sudo chown -R _www:_www application/cache
 	@sudo find application/cache/ -type d -exec chmod 755 {} \;
 	@sudo find application/cache/ -type f -exec chmod 644 {} \;
 data:

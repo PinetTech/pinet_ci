@@ -309,6 +309,24 @@ class Clips {
 		$this->command('(list-deftemplates)');
 	}
 
+	public function ci_load($file) {
+		if(is_array($file)) {
+			foreach($file as $f) {
+				$this->ci_load($f);
+			}
+		}
+		else {
+			foreach(array(APPPATH, 'pinet/') as $p) {
+				$path = FCPATH.$p.'config/rules/'.$file;
+				ci_log($path);
+				if(file_exists($path)) {
+					$this->load($path);
+					break;
+				}
+			}
+		}
+	}
+
 	/**
 	 * Load and execute the clips rule file
 	 */
