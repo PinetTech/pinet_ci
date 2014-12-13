@@ -32,6 +32,10 @@ class Clips {
 		$this->clear();
 	}
 
+	public function __destruct() {
+		clips_close();
+	}
+
 	private function _init_base_support() {
 		$this->defineClasses();
 		$this->defineMethods();

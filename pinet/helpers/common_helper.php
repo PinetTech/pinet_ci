@@ -721,6 +721,11 @@ function require_widget_smarty($widget, $smarty = null) {
 	return false;
 }
 
+function display_error($msg) {
+	show_error($msg);
+	exit;
+}
+
 function &get_current_module() {
 	return Pinet_Module::get_instance();
 }
