@@ -28,7 +28,6 @@ class Clips {
 		if(!Clips::$context) {
 			Clips::$context = array();
 			clips_init(Clips::$context);
-			$this->_init_base_support();
 		}
 		$this->clear();
 	}
@@ -37,6 +36,7 @@ class Clips {
 		$this->defineClasses();
 		$this->defineMethods();
 		$this->ci = get_instance(); // Add the ci object to the context
+		$this->haha = new stdclass();
 	}
 
 	private function defineMethods() {
@@ -154,8 +154,8 @@ class Clips {
 		foreach(Clips::$context as $key => $value) {
 			unset(Clips::$context[$key]);
 		}
-		$this->_init_base_support();
 		$this->command('(clear)');
+		$this->_init_base_support();
 	}
 
 	public function facts() {

@@ -684,6 +684,8 @@ function merge_objects() {
 	$args = func_get_args();
 	$obj = array_shift($args);
 	foreach($args as $o) {
+		if(!is_array($o) && !is_object($o))
+			continue;
 		foreach($o as $k => $v) {
 			if(!isset($obj->$k)) {
 				$obj->$k = $v;
@@ -691,6 +693,19 @@ function merge_objects() {
 		}
 	}
 	return $obj;
+}
+
+function forward() {
+	if(func_num_args() > 0) {
+		$args = func_get_args();
+		$method = array_shift($args);
+		$CI = &get_instance();
+		if(method_exists($CI, $method)) {
+			call_user_func_array(array($CI, $method), $args);
+			return true;
+		}
+	}
+	return false;
 }
 
 function require_widget_smarty($widget, $smarty = null) {
