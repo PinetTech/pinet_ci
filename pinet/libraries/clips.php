@@ -39,7 +39,7 @@ class Clips {
 	private function _init_base_support() {
 		$this->defineClasses();
 		$this->defineMethods();
-		if(function_exists('get_instnace'))
+		if(function_exists('get_instance'))
 			$this->ci = get_instance(); // Add the ci object to the context, if function get_instance is exists
 	}
 
