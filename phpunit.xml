@@ -11,6 +11,7 @@
 		<const name="PHPUNIT_CHARSET" value="UTF-8" />
 		<server name="REMOTE_ADDR" value="192.168.1.100" />
 		<server name="HTTP_HOST" value="localhost" />
+		<server name="REQUEST_METHOD" value="GET" />
 	</php>
 	<filter>
 		<whitelist>

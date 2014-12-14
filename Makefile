@@ -16,8 +16,8 @@
 ################################################################################
 
 SERVER := 218.244.128.8
-TEST_DB := pinet_php_test
-DB := pinet_php
+TEST_DB := pinet_usercenter_test
+DB := pinet_usercenter
 
 ################################################################################
 #
@@ -74,6 +74,7 @@ dep:
 tags:
 	ctags -R .
 fix_cache:
+	@sudo chown -R _www:_www application/cache
 	@sudo find application/cache/ -type d -exec chmod 755 {} \;
 	@sudo find application/cache/ -type f -exec chmod 644 {} \;
 data:

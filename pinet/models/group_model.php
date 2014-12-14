@@ -10,7 +10,7 @@ class Group_Model extends Pinet_Model {
 		if($group)
 			return $group;
 
-        $group['group_name'] = $name;
+        $group['name'] = $name;
         if($id)
             $group['id'] = $id;
 
@@ -21,7 +21,7 @@ class Group_Model extends Pinet_Model {
 	public function getGroup($groupname) {
 		$this->result_mode = 'object';
 		$ret = $this->get(array(
-			'group_name'=>$groupname
+			'name'=>$groupname
 		));	
 		if(isset($ret->id)) {
 			return $ret;
@@ -31,9 +31,9 @@ class Group_Model extends Pinet_Model {
 
 	public function getGroupID($groupname) {
 		$ret = $this->getGroup($groupname);
-		if($ret){
+		if($ret) {
 			return $ret->id;
-		}else{
+		} else {
 			return -1;
 		}
 	}
@@ -54,12 +54,12 @@ class Group_Model extends Pinet_Model {
 		if(is_array($groups)){
 			foreach ($groups as $group) {
 				$this->insert(array(
-					'group_name'=>$group
+					'name'=>$group
 				));				
 			}
 		}else{
 			$this->insert(array(
-				'group_name'=>$groups
+				'name'=>$groups
 			));
 		}
 	}

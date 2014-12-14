@@ -699,6 +699,40 @@ function get_paths() {
 	return $ret;
 }
 
+function merge_objects() {
+	if(func_num_args() <= 0)
+		return null;
+
+	if(func_num_args() == 1)
+		return func_get_arg(0);
+
+	$args = func_get_args();
+	$obj = array_shift($args);
+	foreach($args as $o) {
+		if(!is_array($o) && !is_object($o))
+			continue;
+		foreach($o as $k => $v) {
+			if(!isset($obj->$k)) {
+				$obj->$k = $v;
+			}
+		}
+	}
+	return $obj;
+}
+
+function forward() {
+	if(func_num_args() > 0) {
+		$args = func_get_args();
+		$method = array_shift($args);
+		$CI = &get_instance();
+		if(method_exists($CI, $method)) {
+			call_user_func_array(array($CI, $method), $args);
+			return true;
+		}
+	}
+	return false;
+}
+
 function require_widget_smarty($widget, $smarty = null) {
 	foreach(array('pinet/', APPPATH) as $path) {
 		foreach(array('block.', 'function.') as $prefix) {
@@ -710,6 +744,11 @@ function require_widget_smarty($widget, $smarty = null) {
 		}
 	}
 	return false;
+}
+
+function display_error($msg) {
+	show_error($msg);
+	exit;
 }
 
 function &get_current_module() {
