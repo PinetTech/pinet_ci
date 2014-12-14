@@ -10,15 +10,26 @@
 }
 ';
                $compiler->prefix .= '$screen_width: 0;
+$alias_width: 0;
+
+@function strip-units($val) {
+     @return ($val / ($val * 0 + 1));
+}
+
 @function res($n) {
-     @return $screen_width / $screen_max_width * $n;
-}';
+     @return $n / strip-units($max_screen_width) * $screen_width;
+}
+';
 
                if (isset($compiler->resolutions) && is_array($compiler->resolutions)) {
                     $compiler->prefix .= "\n".'$pinet_resolutions: (';
                     foreach ($compiler->resolutions as $k => $rs) {
-                         $compiler->prefix .= ''.$rs;
-                         if($k < count($compiler->resolutions) - 1 ) {
+                         if (is_string($k)) {
+                              $compiler->prefix .=  '('.$k.':'.$rs.')';
+                         }else {
+                              $compiler->prefix .= '('.$rs.')';
+                         }
+                         if($rs != end($compiler->resolutions)) {
                               $compiler->prefix .= ",";
                          }
                     }
