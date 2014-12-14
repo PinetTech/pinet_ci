@@ -39,8 +39,8 @@ class Clips {
 	private function _init_base_support() {
 		$this->defineClasses();
 		$this->defineMethods();
-		$this->ci = get_instance(); // Add the ci object to the context
-		$this->haha = new stdclass();
+		if(function_exists('get_instnace'))
+			$this->ci = get_instance(); // Add the ci object to the context, if function get_instance is exists
 	}
 
 	private function defineMethods() {
@@ -303,6 +303,13 @@ class Clips {
 		if(!$name)
 			return clips_query_facts();
 		return clips_query_facts($name);
+	}
+
+	public function queryOneFact($name = null) {
+		$ret = $this->queryFacts($name);
+		if(count($ret))
+			return $ret[0];
+		return null;
 	}
 
 	public function lib($file) {
