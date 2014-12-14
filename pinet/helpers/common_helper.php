@@ -674,6 +674,31 @@ function read_config_file($file) {
 	return null;
 }
 
+function find_rule($rule) {
+	return find_path('config/rules/'.$rule);
+}
+
+function find_path() {
+	foreach(array('pinet/', APPPATH) as $prefix) {
+		foreach(func_get_args() as $p) {
+			$path = FCPATH.$prefix.$p;
+			if(file_exists($path))
+				return $path;
+		}
+	}
+	return null;
+}
+
+function get_paths() {
+	$ret = array();
+	foreach(array('pinet/', APPPATH) as $prefix) {
+		foreach(func_get_args() as $p) {
+			$ret []= FCPATH.$prefix.$p;
+		}
+	}
+	return $ret;
+}
+
 function require_widget_smarty($widget, $smarty = null) {
 	foreach(array('pinet/', APPPATH) as $path) {
 		foreach(array('block.', 'function.') as $prefix) {
