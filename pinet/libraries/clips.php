@@ -233,6 +233,9 @@ class Clips {
 
 	public function assertFacts($data) {
 		foreach($data as $fact) {
+			if(is_object($fact)) { // Add the class as template for the object
+				$this->template(get_class($fact));
+			}
 			$this->command('(assert '.$this->defineFact($fact).')');
 		}
 		return true;
