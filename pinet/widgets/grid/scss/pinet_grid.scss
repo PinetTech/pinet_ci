@@ -82,49 +82,44 @@
   @return ($val / ($val * 0 + 1));
 }
 
-@mixin responsive_pinet_grid($width) {
-  $grid-col-rs: strip-units($width);  //need bourbon support
 
-  @if $width == $mobile_min_width {
-    $grid_sel: (#{$grid-col-rs}, mobile);
-  }
-  @else if $width == $pad_min_width {
-    $grid_sel: (#{$grid-col-rs}, pad);
-  }
-  @else if $width == $pc_min_width {
-    $grid_sel: (#{$grid-col-rs}, pc);
-  } @else {
-    $grid_sel: (#{$grid-col-rs});
-  }
+@mixin responsive_pinet_grid($args...) {
+  	$grid-col-rs: $screen_width;
+	@if type-of($alias_width) == number {
+		$grid_sel: $grid-col-rs;
+	}
+	@else {
+		$grid_sel: $grid-col-rs, $alias_width;
+	}
 
-  @for $i from 1 through $grid-columns {
-    $grid-col-width: percentage(($i / $grid-columns));
+	@for $i from 1 through $grid-columns {
+		$grid-col-width: percentage(($i / $grid-columns));
 
-    @each $sel in $grid_sel {
-      .col-#{$sel}-#{$i} {
-        float: left;
-          min-height: 1px;
-        width: $grid-col-width;
-        padding-left: ($grid-gutter-width / 2);
-          padding-right: ($grid-gutter-width / 2);
-          position: relative;
-      }
+		@each $sel in $grid_sel {
+		  .col-#{$sel}-#{$i} {
+		   	 	float: left;
+		      	min-height: 1px;
+		    	width: $grid-col-width;
+		    	padding-left: ($grid-gutter-width / 2);
+		      	padding-right: ($grid-gutter-width / 2);
+		      	position: relative;
+		  }
 
-      .col-#{$sel}-offset-#{$i} {
-        margin-left: $grid-col-width;
-      }
+		  .col-#{$sel}-offset-#{$i} {
+		    	margin-left: $grid-col-width;
+		  }
 
-      .col-#{$sel}-push-#{$i} {
-        left: $grid-col-width;
-      }
+		  .col-#{$sel}-push-#{$i} {
+		    	left: $grid-col-width;
+		  }
 
-      .col-#{$sel}-pull-#{$i} {
-        right: $grid-col-width;
-      }
+		  .col-#{$sel}-pull-#{$i} {
+		    	right: $grid-col-width;
+		  }
 
-      .col-#{$sel}-#{$i}.col-center {
-        left: (100% - $grid-col-width) / 2;
-      }
-    }
-  }
+		  .col-#{$sel}-#{$i}.col-center {
+		    	left: (100% - $grid-col-width) / 2;
+		  }
+		}
+	}
 }

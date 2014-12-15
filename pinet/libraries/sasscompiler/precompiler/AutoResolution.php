@@ -2,19 +2,24 @@
 	class AutoResolution_Precompiler {
 
 		public function suffix($compiler) {
-			if(!isset($compiler->resolutions)) 
+			if(!isset($compiler->resolutions))
 				return;
 
-			foreach($compiler->resolutions as $r) {
-				$compiler->suffix .= '@media screen and (min-width: '.$r.'px) {'."\n";
+			foreach($compiler->resolutions as $k => $r) {
+				$compiler->suffix .= 'h3 { eco: $screen_max_width}';
+				$compiler->suffix .= '
+';
+				$compiler->suffix .= '@media screen and (min-width: '.$r.'px){'."\n";
+				$compiler->suffix .= '$screen_width:'. $r.';';
+				$compiler->suffix .= '$alias_width:'.$k.';';
 				foreach($compiler->sasses as $s) {
 					$s = str_replace('.scss', '', $s);
-					$basename = basename($s);	
+					$basename = basename($s);
 					$name = str_replace('/', '_', $s);
 					if($basename != $name) {
-						$this->addConstruct($basename, $compiler, $r);
+						$this->addConstruct($basename, $compiler, $k.','.$r);
 					}
-					$this->addConstruct($name, $compiler, $r);
+					$this->addConstruct($name, $compiler, $k.','.$r);
 				}
 				$compiler->suffix .= '}'."\n";
 			}
