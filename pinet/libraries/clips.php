@@ -75,7 +75,8 @@ class Clips {
 	}
 
 	public function template($class) {
-		$this->command($this->defineTemplate($class));
+		if(!$this->templateExists($class))
+			$this->command($this->defineTemplate($class));
 	}
 
 	public function defineTemplate($class) {
@@ -87,8 +88,7 @@ class Clips {
 					$ret []= '(multislot '.$slot.')';
 				else
 					$ret []= '(slot '.$slot.')';
-			}
-			return implode(' ', $ret).')';
+			} return implode(' ', $ret).')';
 		}
 		return null;
 	}
