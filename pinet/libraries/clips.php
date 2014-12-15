@@ -73,8 +73,9 @@ class Clips {
 	}
 
 	public function template($class) {
-		if(!$this->templateExists($class))
+		if(!$this->templateExists($class)) {
 			$this->command($this->defineTemplate($class));
+		}
 	}
 
 	public function defineTemplate($class) {
@@ -275,6 +276,8 @@ class Clips {
 			$ret []= '('.$name;
 			foreach($obj as $key => $value) {
 				if($key == 'template') // Skip template
+					continue;
+				if(strpos($key, '__') === 0) // Skip __ variables
 					continue;
 				$ret []= '('.$key;
 				$ret []= $this->translate($value).')';
