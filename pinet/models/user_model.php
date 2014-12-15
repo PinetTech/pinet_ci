@@ -238,4 +238,22 @@ class User_Model extends Pinet_Model {
         }
         return $result;
     }
+	//morgan Test
+	public function getTestInfo($user_id){
+		
+        $this->db->select('u.id,u.status,u.create_date,u.modify_date,a.type,a.appid,a.appsecret,a.status');
+        $this->db->from('users as u');
+        $this->db->join('user_social_apps as a', 'u.id=a.uid', 'inner');
+        $this->db->where('u.id', $user_id);
+        $data = $this->db->get()->result();
+		
+        if(count($data)){
+            $user_info = $data[0];
+            if($user_info->create_date == '0000-00-00'){
+                $user_info->create_date = '';
+            }
+            return $user_info;
+        }
+        return null;
+    }
 }
