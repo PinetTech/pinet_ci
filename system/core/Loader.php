@@ -966,7 +966,7 @@ class CI_Loader {
 					continue;
 
 				// Safety:  Was the class already loaded by a previous call?
-				if (in_array($filepath, $this->_ci_loaded_files))
+				if (in_array(strtolower($filepath), $this->_ci_loaded_files))
 				{
 					// Before we deem this to be a duplicate request, let's see
 					// if a custom object name is being supplied.  If so, we'll
@@ -988,7 +988,7 @@ class CI_Loader {
 				include_once($filepath);
 				if(!isset($prefix))
 					$prefix = '';
-				$this->_ci_loaded_files[] = $filepath;
+				$this->_ci_loaded_files[] = strtolower($filepath);
 				return $this->_ci_init_class($class, $prefix, $params, $object_name);
 			}
 
