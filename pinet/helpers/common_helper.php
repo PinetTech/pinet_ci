@@ -751,6 +751,15 @@ function display_error($msg) {
 	exit;
 }
 
+function clips_load_rule($rule) {
+	$CI = &get_instance();
+	if(isset($CI) && isset($CI->clips)) {
+		$CI->clips->ci_load($rule);
+		return true;
+	}
+	return false;
+}
+
 function &get_current_module() {
 	return Pinet_Module::get_instance();
 }

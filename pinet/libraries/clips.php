@@ -35,12 +35,14 @@ class Clips {
 	private function _init_base_support() {
 		$this->defineClasses();
 		$this->defineMethods();
-		if(function_exists('get_instance'))
+		if(function_exists('get_instance')) {
 			$this->ci = get_instance(); // Add the ci object to the context, if function get_instance is exists
+		}
+		$path = dirname(__FILE__).'/rules/clips.rules'; // Load the default functions
 	}
 
 	private function defineMethods() {
-		$this->command('(defmethod php_property ((?obj INSTANCE-NAME INSTANCE-ADDRESS) (?property STRING)) (php_call "clips_get_property" ?obj ?property))'); // Define the php_property function
+		$this->command('(deffunction ci_load (?file) (php_call "clips_load_rule" ?file))'); // Define the ci_load function
 	}
 
 	private function defineClasses() {
