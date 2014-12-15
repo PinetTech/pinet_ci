@@ -746,8 +746,8 @@ function require_widget_smarty($widget, $smarty = null) {
 	return false;
 }
 
-function display_error($msg) {
-	show_error($msg);
+function display_error($img) {
+	show_error(implode(' ', $img));
 	exit;
 }
 
