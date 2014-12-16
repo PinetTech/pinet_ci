@@ -1,6 +1,6 @@
 <?php defined("BASEPATH") or exit("No direct script access allowed");
 
-class MY_Upload extends CI_Upload {
+class Pinet_Upload extends CI_Upload {
 	private $system_upload_path = 'application/static/uploads';
     public $relative_path='';
 	public function __construct($props = array()) {

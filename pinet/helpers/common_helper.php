@@ -746,9 +746,18 @@ function require_widget_smarty($widget, $smarty = null) {
 	return false;
 }
 
-function display_error($msg) {
-	show_error($msg);
+function display_error($img) {
+	show_error(implode(' ', $img));
 	exit;
+}
+
+function clips_load_rule($rule) {
+	$CI = &get_instance();
+	if(isset($CI) && isset($CI->clips)) {
+		$CI->clips->ci_load($rule);
+		return true;
+	}
+	return false;
 }
 
 function &get_current_module() {

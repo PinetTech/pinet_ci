@@ -942,16 +942,31 @@ class CI_Loader {
 			$is_duplicate = FALSE;
 			foreach ($this->_ci_library_paths as $path)
 			{
-				$filepath = $path.'libraries/'.$subdir.$class.'.php';
+				$filepath = null;
+				foreach(array('pinet_', 'Pinet_', config_item('subclass_prefix'), strtolower(config_item('subclass_prefix')), '') as $prefix) {
+					foreach(array($class, strtolower($class), ucfirst($class)) as $c) {
+						$filepath = $path.'libraries/'.$subdir.$prefix.$c.'.php';
+						if (file_exists($filepath)) {
+							$basescript =  BASEPATH.'libraries/'.ucfirst($c).'.php';
+							if(file_exists($basescript)) {
+								if (!in_array($basescript, $this->_ci_loaded_files)) {
+									include_once($basescript);
+								}
+							}
 
-				// Does the file exist?  No?  Bummer...
-				if ( ! file_exists($filepath))
-				{
-					continue;
+							break;
+						}
+						$filepath = null;
+					}
+					if($filepath) // We have found the path
+						break;
 				}
 
+				if(!isset($filepath))
+					continue;
+
 				// Safety:  Was the class already loaded by a previous call?
-				if (in_array($filepath, $this->_ci_loaded_files))
+				if (in_array(strtolower($filepath), $this->_ci_loaded_files))
 				{
 					// Before we deem this to be a duplicate request, let's see
 					// if a custom object name is being supplied.  If so, we'll
@@ -971,8 +986,10 @@ class CI_Loader {
 				}
 
 				include_once($filepath);
-				$this->_ci_loaded_files[] = $filepath;
-				return $this->_ci_init_class($class, '', $params, $object_name);
+				if(!isset($prefix))
+					$prefix = '';
+				$this->_ci_loaded_files[] = strtolower($filepath);
+				return $this->_ci_init_class($class, $prefix, $params, $object_name);
 			}
 
 		} // END FOREACH

@@ -32,19 +32,17 @@ class Clips {
 		$this->clear();
 	}
 
-	public function __destruct() {
-		clips_close();
-	}
-
 	private function _init_base_support() {
 		$this->defineClasses();
 		$this->defineMethods();
-		if(function_exists('get_instance'))
+		if(function_exists('get_instance')) {
 			$this->ci = get_instance(); // Add the ci object to the context, if function get_instance is exists
+		}
+		$path = dirname(__FILE__).'/rules/clips.rules'; // Load the default functions
 	}
 
 	private function defineMethods() {
-		$this->command('(defmethod php_property ((?obj INSTANCE-NAME INSTANCE-ADDRESS) (?property STRING)) (php_call "clips_get_property" ?obj ?property))'); // Define the php_property function
+		$this->command('(deffunction ci_load (?file) (php_call "clips_load_rule" ?file))'); // Define the ci_load function
 	}
 
 	private function defineClasses() {
@@ -75,7 +73,9 @@ class Clips {
 	}
 
 	public function template($class) {
-		$this->command($this->defineTemplate($class));
+		if(!$this->templateExists($class)) {
+			$this->command($this->defineTemplate($class));
+		}
 	}
 
 	public function defineTemplate($class) {
@@ -87,8 +87,7 @@ class Clips {
 					$ret []= '(multislot '.$slot.')';
 				else
 					$ret []= '(slot '.$slot.')';
-			}
-			return implode(' ', $ret).')';
+			} return implode(' ', $ret).')';
 		}
 		return null;
 	}
@@ -235,6 +234,9 @@ class Clips {
 
 	public function assertFacts($data) {
 		foreach($data as $fact) {
+			if(is_object($fact)) { // Add the class as template for the object
+				$this->template(get_class($fact));
+			}
 			$this->command('(assert '.$this->defineFact($fact).')');
 		}
 		return true;
@@ -274,6 +276,8 @@ class Clips {
 			$ret []= '('.$name;
 			foreach($obj as $key => $value) {
 				if($key == 'template') // Skip template
+					continue;
+				if(strpos($key, '_') === 0) // Skip _ variables
 					continue;
 				$ret []= '('.$key;
 				$ret []= $this->translate($value).')';
