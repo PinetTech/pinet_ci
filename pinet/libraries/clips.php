@@ -277,7 +277,7 @@ class Clips {
 			foreach($obj as $key => $value) {
 				if($key == 'template') // Skip template
 					continue;
-				if(strpos($key, '__') === 0) // Skip __ variables
+				if(strpos($key, '_') === 0) // Skip _ variables
 					continue;
 				$ret []= '('.$key;
 				$ret []= $this->translate($value).')';
