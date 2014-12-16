@@ -19,14 +19,23 @@ $alias_width: 0;
 @function res($n) {
      @return $n / strip-units($max_screen_width) * $screen_width;
 }
+
 ';
 
+// two support config
+// $config['resolutions'] = array(320=>'device1', 480, 640);
+// $config['resolutions'] = array('device1'=>320, 480, 640);
+
+
                if (isset($compiler->resolutions) && is_array($compiler->resolutions)) {
-                    $compiler->prefix .= "\n".'$pinet_resolutions: (';
+                    $compiler->prefix .= "\n".'$pinet-resolutions: (';
                     foreach ($compiler->resolutions as $k => $rs) {
-                         if (is_string($k)) {
+                         if (is_numeric($k) && is_string($rs) && !is_numeric($rs) ) {
                               $compiler->prefix .=  '('.$k.':'.$rs.')';
-                         }else {
+                         } else if (is_string($k) && !is_numeric($k)) {
+                              $compiler->prefix .=  '('.$rs.':'.$k.')';
+                         }
+                         else {
                               $compiler->prefix .= '('.$rs.')';
                          }
                          if($rs != end($compiler->resolutions)) {
