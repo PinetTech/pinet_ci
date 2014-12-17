@@ -84,7 +84,7 @@
 
 
 @mixin responsive_pinet_grid($args...) {
-  	$grid-col-rs: $screen_width;
+  	$grid-col-rs: $screen-width;
 	@if type-of($alias_width) == number {
 		$grid_sel: $grid-col-rs;
 	}
