@@ -42,6 +42,11 @@ class MY_Migration extends CI_Migration {
 		}
 	}
 
+	public function helper($helpers) {
+		$CI = &get_instance();
+		$CI->load->helper($helpers);
+	}
+
 	public function library($name, $alias = null) {
 		$CI = &get_instance();
 		if(is_array($name)) {
