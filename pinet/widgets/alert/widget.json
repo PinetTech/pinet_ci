@@ -21,7 +21,6 @@
 				"file": "bootstrap/_alerts",
 				"version": "3.3.1"
 			}
-		],	
-		"files": ["pinet_alert_mixins","pinet_alert"]
+		]	
 	}
 }
