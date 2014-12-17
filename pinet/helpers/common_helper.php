@@ -401,7 +401,11 @@ function build_tag($tag, $params, $content) {
 }
 
 function get_default($arr, $key, $default = '') {
-	return isset($arr[$key])? $arr[$key]: $default;
+	if(is_object($arr))
+		return isset($arr->$key)? $arr->$key: $default;
+	if(is_array($arr))
+		return isset($arr[$key])? $arr[$key]: $default;
+	return $default;
 }
 
 function copy_new($src, $class = null) {

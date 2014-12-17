@@ -73,6 +73,12 @@ class Clips {
 	}
 
 	public function template($class) {
+		if(is_array($class)) {
+			foreach($class as $c) {
+				$this->template($c);
+			}
+			return true;
+		}
 		if(!$this->templateExists($class)) {
 			$this->command($this->defineTemplate($class));
 		}
