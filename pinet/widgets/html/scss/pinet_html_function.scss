@@ -6,6 +6,9 @@
                 $map: map-merge($map, (nth($value, $i)));
             }
         }
+        @else {
+        	@return $value;
+        }
         @return $map;
     }
 
@@ -59,12 +62,165 @@
   @return if(type-of($value) != list, ($value,), $value);
 }
 
+@function _sc-find-digits($source, $pointer) {
+  $source: to-lower-case($source);
+  $length: str-length($source);
+  $numbers: '0' '1' '2' '3' '4' '5' '6' '7' '8' '9';
+  $result: 0;
+  $runs: 1;
+
+  @while $pointer <= $length {
+    $token: str-slice($source, $pointer, $pointer);
+    $index: index($numbers, $token);
+
+    @if $token == '.' {
+      // @continue;
+    }
+    @else if $index and $index > 0 {
+      $runs: $runs * 10;
+      $result: $result * 10 + ($index - 1);
+    }
+    @else {
+      @return $pointer, $result / $runs;
+    }
+
+    $pointer: $pointer + 1;
+  }
+
+  @return $pointer, $result / $runs;
+}
+
+@function _sc-find-integer($source, $pointer) {
+  $source: to-lower-case($source);
+  $length: str-length($source);
+  $numbers: '0' '1' '2' '3' '4' '5' '6' '7' '8' '9';
+  $result: 0;
+
+  @while $pointer <= $length {
+    $token: str-slice($source, $pointer, $pointer);
+    $index: index($numbers, $token);
+
+    @if $token == '-' {
+      // @continue;
+    }
+    @else if $index {
+      $result: $result * 10 + ($index - 1);
+    }
+    @else {
+      @return $pointer, $result;
+    }
+
+    $pointer: $pointer + 1;
+  }
+
+  @return $pointer, $result;
+}
+
+@function _sc-length($number, $unit) {
+  $strings: 'px' 'cm' 'mm' '%' 'ch' 'pica' 'in' 'em' 'rem' 'pt' 'pc' 'ex' 'vw' 'vh' 'vmin' 'vmax';
+  $units:   1px  1cm  1mm  1%  1ch  1pica  1in  1em  1rem  1pt  1pc  1ex  1vw  1vh  1vmin  1vmax;
+  $index: index($strings, $unit);
+  
+  @if $index == null {
+    @warn "Unknown unit `#{inspect($unit)}`.";
+    @return 0;
+  }
+  
+  @return $number * nth($units, $index);
+}
+
+@function _sc-pow($x, $n) {
+  $ret: 1;
+
+  @if $n >= 0 {
+    @for $i from 1 through $n {
+      $ret: $ret * $x;
+    }
+  } @else {
+    @for $i from $n to 0 {
+      $ret: $ret / $x;
+    }
+  }
+
+  @return $ret;
+}
+
+@function _sc-to-number($value) {
+  // In case everything's good
+  @if type-of($value) == number {
+    @return $value;
+  }
+
+  // Boolean to number
+  @if $value == true  {
+    @return 1;
+  }
+
+  // Fail
+  @if type-of($value) != string {
+    @return 0;
+  }
+
+  // Trying to cast
+  $pointer: 1;
+  $result: 0;
+  $allowed: '-' '0' '1' '2' '3' '4' '5' '6' '7' '8' '9'; // Allowed characted to start with
+  $first: str-slice($value, $pointer, $pointer); // First character of the number
+  $minus: $first == '-'; // Is it negative?
+
+  // Early check for errors
+  @if index($allowed, $first) == null {
+    @warn "Could not cast `#{inspect($value)} into number.";
+    @return 0;
+  }
+
+  // Find the integer part
+  $find-integer: _sc-find-integer($value, $pointer);
+  $pointer: nth($find-integer, 1);
+  $result:  nth($find-integer, 2);
+
+  // Find digits
+  @if str-slice($value, $pointer, $pointer) == '.' {
+    $find-digits: _sc-find-digits($value, $pointer);
+    $pointer: nth($find-digits, 1);
+    $digits:  nth($find-digits, 2);
+    $result: $result + $digits;
+  }
+
+  // In case of negative
+  @if $minus {
+    $result: $result * -1;
+  }
+
+  // In case of possible CSS unit
+  @if $pointer < str-length($value) {
+    $result: _sc-length($result, str-slice($value, $pointer));
+  }
+
+  @return $result;
+}
+
+@function to-number($value) {
+    @return _sc-to-number($value);
+}
+
 @function to-list($value, $keep: 'both') {
     @return _sc-to-list($value,$keep);
 }
 
 @function last($list) {
   @return nth($list, length($list));
+}
+
+@function replace-space($string) {
+	$result: '';
+	$strlen: str-length($string);
+	@for $i from 1 through $strlen {
+		@if str-get($string, $i) != ' ' {
+			$result: $result + str-get($string, $i);
+		}
+	}		
+	@return unquote($result);
 }
 
 @function get-alias-by-width($key) {
@@ -96,7 +252,41 @@
 	@return $newmap;
 }
 
+@function str-remove-first($value) {
+	@return str-slice($value, 2, str-length($value) );
+}
+
+
+@function str-remove-last($value) {
+	@return str-slice($value, 1, str-length($value) - 1);
+}
+
+@function str-get($string, $index) {
+	@return str-slice($string, $index, $index);
+}
+
+@function _ma-split($string) {
+	$result: ();
+	$first: '';
+	$second: '';
+	$strlen: str-length($string);
+	$splitindex: str-index($string, ':');
+	// @return $string;
+	@for $i from 1 to $splitindex {
+		$first: unquote($first + str-get($string, $i));
+	}
+	@for $m from ($splitindex + 1) through $strlen {
+		$second: unquote($second + str-get($string, $m));
+	}
+	@return ($first, $second);
+}
+
+@function split($string) {
+	@return _ma-split($string);
+}
+
 @function get-width-by-alias($alias) {
+	$result: null;
 	@if is_like_string($alias) == true {
 		$resolution: ();
 		@if variable-exists(pinet-resolutions) {
@@ -105,14 +295,32 @@
 					$resolution: append($resolution, $res);
 				}
 			}
+			@if length($resolution) == 0 {
+				@return false;				
+			}
 			$result: to-array-map($resolution);
-			$result: map-swap($result);
-			@return map-get($result, $alias);
+			@if type-of($result) == list {
+				$result: unquote($result+'');
+				$result: str-remove-first($result);
+				$result: str-remove-last($result);
+				$result: split($result);
+				$ralias: replace-space(nth($result, 2));
+				@if $ralias == $alias {
+					@return nth($result, 1);	
+				}
+				@else {
+					@return false;
+				}				
+			}
+			@else {
+				$result: map-swap($result);
+				@return map-get($result, $alias);				
+			}
 		}
 	}
 	@else {
 		@error "#($alias} must be like string";
-		@return;
+		@return false;
 	}
 }
 
@@ -135,10 +343,15 @@
 
 @function trans-to-width($value) {
 	@if is_like_string($value) {
-		@return get-width-by-alias($value);
+		@if get-width-by-alias($value) == false {
+			@return false;
+		}
+		@else {
+			@return get-width-by-alias($value);
+		}
 	}
 	@else {
-		@return $value;
+		@return false;
 	}
 }
 
@@ -154,7 +367,7 @@
 				$second: nth($listres, 1);
 				$res: trans-to-width(nth($second,1));
 
-				@if strip-units($screen-width) > ($res - 1) and strip-units($screen-width) < 2880 {
+				@if strip-units($screen-width) > ($res - 1) and strip-units($screen-width) < 2881 {
 					@return true, nth($second, 2);
 				}
 				@else {
@@ -167,10 +380,33 @@
 				$sres: trans-to-width(nth($second,1));
 				$tres: trans-to-width(nth($thids,1));
 
+
+				@if $sres == false and  $tres == false {
+					@return false, nth($params, 1);
+				}
+				@else if $sres != false and $tres == false {
+					$sres: to-number($sres);
+					@if strip-units($screen-width) > ($sres - 1) and strip-units($screen-width) < 2881 {
+						@return true, nth($second, 2);
+					}
+					@else {
+						@return false, nth($params, 1);
+					}					
+				}				
+				@else if $sres == false and $tres != false {
+					$tres: to-number($tres);
+					@if strip-units($screen-width) > ($tres - 1) and strip-units($screen-width) < 2881 {
+						@return true, nth($thids, 2);
+					}
+					@else {
+						@return false, nth($params, 1);
+					}
+				}
+
 				@if strip-units($screen-width) > ($sres - 1) and strip-units($screen-width) < $tres {
 					@return true, nth($second, 2);
 				}
-				@if strip-units($screen-width) > ($tres - 1) and strip-units($screen-width) < 2880 {
+				@if strip-units($screen-width) > ($tres - 1) and strip-units($screen-width) < 2881 {
 					@return true, nth($thids, 2);
 				}
 				@else {
@@ -220,15 +456,20 @@
 
 @function autos($args...)  {
 	$params: $args;
-	@if type-of(last($args)) == string {
+	@if length($params) == 2 {
+		@if type-of(last($args)) == string {
+			$callback: last($args);
+			$result: autocheck(nth($params, 1));
+		}
+		@else {
+			$callback: -1;
+			$result: autocheck(nth($params, 1), nth($params, 2));
+		}
+	}
+	@else if  length($params) == 3 {
 		$callback: last($args);
-		$params: remove-last($args);
+		$result: autocheck(nth($params, 1), nth($params, 2));
 	}
-	@else {
-		$callback: -1;
-		$params: $args;
-	}
-	$result: autocheck($params...);
 	@if nth($result, 1) == false {
 		$result: nth(nth($result, 2), 1);
 		@if $callback != -1 {
