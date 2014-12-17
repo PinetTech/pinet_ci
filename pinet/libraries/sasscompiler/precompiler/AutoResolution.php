@@ -30,12 +30,14 @@
 					$s = str_replace('.scss', '', $s);
 					$basename = basename($s);
 					$name = str_replace('/', '_', $s);
-					if($basename != $name) {
+					if($basename == $name) {
 						$this->addConstruct($basename, $compiler, $screen_width.','.$alias_width);
+					}else {
+						$this->addConstruct($name, $compiler, $screen_width.','.$alias_width);
 					}
-					$this->addConstruct($name, $compiler, $screen_width.','.$alias_width);
 				}
 				$compiler->suffix .= '}'."\n";
+				$this->addAfterConstruct($name, $compiler);
 			}
 		}
 
@@ -45,4 +47,12 @@
 					$compiler->suffix .= "\t".'@include '.$the_name.'('.$args.');'."\n";
 			}
 		}
+
+		protected function addAfterConstruct($name, $compiler) {
+			$the_name = 'responsive_after_'.$name;
+			if(strpos($compiler->content, $the_name) !== FALSE) {
+					$compiler->suffix .= "\t".'@include '.$the_name.'();'."\n";
+			}
+		}
+
 	}
