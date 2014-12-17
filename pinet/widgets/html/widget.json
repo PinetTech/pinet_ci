@@ -10,7 +10,7 @@
 	},
 	"depends": ["link"],
 	"scss": {
-		"depends": [			
+		"depends": [
 			{
 				"module": "bootstrap",
 				"file": "bootstrap/_normalize",
@@ -50,12 +50,12 @@
 				"module": "bootstrap",
 				"file": "bootstrap/mixins/_text-emphasis",
 				"version": "3.3.1"
-			},			
+			},
 			{
 				"module": "bootstrap",
 				"file": "bootstrap/mixins/_text-overflow",
 				"version": "3.3.1"
-			},	
+			},
 			{
 				"module": "bootstrap",
 				"file": "bootstrap/mixins/_background-variant",
@@ -65,8 +65,8 @@
 				"module": "bootstrap",
 				"file": "bootstrap/_type",
 				"version": "3.3.1"
-			}			
+			}
 		],
-		"files": ["pinet_html"]
+		"files": ["pinet_html_function","pinet_html"]
 	}
 }

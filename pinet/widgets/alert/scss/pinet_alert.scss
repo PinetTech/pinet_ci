@@ -1,5 +1,4 @@
-@mixin responsive_pinet_alert($width) {
-	$screen_width: $width; 
+@mixin responsive_pinet_alert($args...) {
 	[class*=pinet-alert] {
 		@include alert-variant($screen-width);
 	}
@@ -22,5 +21,5 @@
 	.pinet-alert-error {
 	 	@include alert-color($pinet-alert-error-bg, $pinet-alert-error-border, $pinet-alert-error-text, 
 	 		$pinet-alert-error-btn-bg, $pinet-alert-error-btn-bg-hover);
-	}	
+	}
 }

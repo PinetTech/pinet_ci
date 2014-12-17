@@ -767,3 +767,151 @@ function clips_load_rule($rule) {
 function &get_current_module() {
 	return Pinet_Module::get_instance();
 }
+
+function generate_ad($zone_id, $type='image'){
+    switch($type){
+        case 'image':
+        default:
+            return "<script type='text/javascript'><!--//<![CDATA[
+                var m3_u = (location.protocol=='https:'?'https://revive.pinet.co/www/delivery/ajs.php':'http://revive.pinet.co/www/delivery/ajs.php');
+                var m3_r = Math.floor(Math.random()*99999999999);
+                if (!document.MAX_used) document.MAX_used = ',';
+                document.write (\"<scr\"+\"ipt type='text/javascript' src='\"+m3_u);
+                document.write (\"?zoneid=$zone_id\");
+                document.write ('&amp;cb=' + m3_r);
+                if (document.MAX_used != ',') document.write (\"&amp;exclude=\" + document.MAX_used);
+                document.write (document.charset ? '&amp;charset='+document.charset : (document.characterSet ? '&amp;charset='+document.characterSet : ''));
+                document.write (\"&amp;loc=\" + escape(window.location));
+                if (document.referrer) document.write (\"&amp;referer=\" + escape(document.referrer));
+                if (document.context) document.write (\"&context=\" + escape(document.context));
+                if (document.mmm_fo) document.write (\"&amp;mmm_fo=1\");
+                document.write (\"'><\/scr\"+\"ipt>\");
+                //]]>--></script><noscript><a href='http://revive.pinet.co/www/delivery/ck.php?n=ac2a362f&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='http://revive.pinet.co/www/delivery/avw.php?zoneid=5&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=ac2a362f' border='0' alt='' /></a></noscript>";
+            break;
+    }
+}
+
+/**
+ * url 为服务的url地址
+ * query 为请求串
+ */
+function sock_post($url,$query){
+    $data = "";
+    $info=parse_url($url);
+    $fp=fsockopen($info["host"],80,$errno,$errstr,30);
+    if(!$fp){
+        return $data;
+    }
+    $head="POST ".$info['path']." HTTP/1.0\r\n";
+    $head.="Host: ".$info['host']."\r\n";
+    $head.="Referer: http://".$info['host'].$info['path']."\r\n";
+    $head.="Content-type: application/x-www-form-urlencoded\r\n";
+    $head.="Content-Length: ".strlen(trim($query))."\r\n";
+    $head.="\r\n";
+    $head.=trim($query);
+    $write=fputs($fp,$head);
+    $header = "";
+    while ($str = trim(fgets($fp,4096))) {
+        $header.=$str;
+    }
+    while (!feof($fp)) {
+        $data .= fgets($fp,4096);
+    }
+    return $data;
+}
+
+/**
+ * 模板接口发短信
+ * apikey 为云片分配的apikey
+ * tpl_id 为模板id
+ * tpl_value 为模板值
+ * mobile 为接受短信的手机号
+ */
+function tpl_send_sms($apikey, $tpl_id, $tpl_value, $mobile){
+    $url="http://yunpian.com/v1/sms/tpl_send.json";
+    $encoded_tpl_value = urlencode("$tpl_value");
+    $post_string="apikey=$apikey&tpl_id=$tpl_id&tpl_value=$encoded_tpl_value&mobile=$mobile";
+    return sock_post($url, $post_string);
+}
+
+/**
+ * 普通接口发短信
+ * apikey 为云片分配的apikey
+ * text 为短信内容
+ * mobile 为接受短信的手机号
+ */
+function send_sms($apikey, $text, $mobile){
+    $url="http://yunpian.com/v1/sms/send.json";
+    $encoded_text = urlencode("$text");
+    $post_string="apikey=$apikey&text=$encoded_text&mobile=$mobile";
+    return sock_post($url, $post_string);
+}
+
+function sms_send_randcode($code, $mobile, $tpl_id=1){
+    $CI = &get_instance();
+    $CI->config->load('oauth2');
+    $sms_info = $CI->config->item('sms_info');
+    $api_key = $sms_info['apikey'];
+    $company = $sms_info['company'];
+    $tpl_value="#code#=$code&#company#=$company";
+    return tpl_send_sms($api_key, $tpl_id, $tpl_value, $mobile);
+}
+
+function sms_send_randcode_nocompany($code, $mobile, $tpl_id){
+    $CI = &get_instance();
+    $CI->config->load('oauth2');
+    $sms_info = $CI->config->item('sms_info');
+    $api_key = $sms_info['apikey'];
+    $tpl_value="#code#=$code";
+    return tpl_send_sms($api_key, $tpl_id, $tpl_value, $mobile);
+}
+
+function generate_shorturl($url){
+    $generated_url="http://api.t.sina.com.cn/short_url/shorten.json?source=1681459862&url_long=";
+    $url = trim($url);
+    if(substr($url,0,7)!="http://"){
+        $url = "http://".$url;
+    }
+    $generated_url.=urlencode($url);
+    $respone = @file_get_contents($generated_url);
+    $respone = json_decode($respone, true);
+    if(is_array($respone)&&count($respone)){
+        return $respone[0]['url_short'];
+    }
+    return '';
+}
+
+function check_port($port) {
+    $errno = null;
+    $errstr = null;
+    $e = error_reporting();
+    error_reporting(0);
+    $fp = fsockopen('127.0.0.1', $port, $errno, $errstr, 5);
+    error_reporting($e);
+    if($fp) {
+        fclose($fp);
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
+function get_available_port($start = 1080, $end = 65535) {
+    while(true) {
+        $p = rand($start, $end);
+        if(check_port($p))
+            return $p;
+    }
+}
+
+function filter_crlf($post){
+    $post = trim($post);
+    $post = strip_tags($post,"");
+    $post = preg_replace("/\t/","",$post);
+    $post = preg_replace("/\r\n/","",$post);
+    $post = preg_replace("/\r/","",$post);
+    $post = preg_replace("/\n/","",$post);
+    $post = preg_replace("/ /","",$post);
+    return preg_replace("/'/","",$post);
+}

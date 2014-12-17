@@ -15,11 +15,6 @@ $alias_width: 0;
 @function strip-units($val) {
      @return ($val / ($val * 0 + 1));
 }
-
-@function res($n) {
-     @return $n / strip-units($max_screen_width) * $screen_width;
-}
-
 ';
 
 // two support config
