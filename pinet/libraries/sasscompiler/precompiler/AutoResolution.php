@@ -6,9 +6,6 @@
 				return;
 
 			foreach($compiler->resolutions as $k => $r) {
-				$compiler->suffix .= 'h3 { eco: $screen_max_width}';
-				$compiler->suffix .= '
-';
 				$compiler->suffix .= '@media screen and (min-width: '.$r.'px){'."\n";
 				$compiler->suffix .= '$screen_width:'. $r.';';
 				$compiler->suffix .= '$alias_width:'.$k.';';
@@ -16,10 +13,11 @@
 					$s = str_replace('.scss', '', $s);
 					$basename = basename($s);
 					$name = str_replace('/', '_', $s);
-					if($basename != $name) {
+					if($basename == $name) {
 						$this->addConstruct($basename, $compiler, $k.','.$r);
+					}else{
+						$this->addConstruct($name, $compiler, $k.','.$r);
 					}
-					$this->addConstruct($name, $compiler, $k.','.$r);
 				}
 				$compiler->suffix .= '}'."\n";
 			}
