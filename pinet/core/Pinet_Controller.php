@@ -97,11 +97,13 @@ class FormField {
 	public $placeholder;
 	public $translateRules;
 	public $field = '';
+	public $state;
 
 
 	public function init() {
 		$this->name = $this->field;
-        $this->state = 'default';
+		if(!isset($this->state))
+			$this->state = 'default';
 		if(isset($this->placeholder))
 			$this->placeholder = $this->label;
 		$r = $this->rules;
@@ -720,7 +722,7 @@ class Pinet_Controller extends CI_Controller {
 	function getField($name) {
 		foreach($this->formFields as $field) {
 			if($name == $field->name) {
-				if($this->state != 'default') {
+				if($this->state && $this->state != 'default') {
 					$field->state = $this->state;
 				}
 				return $field;

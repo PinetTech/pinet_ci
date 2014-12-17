@@ -1,6 +1,6 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
-	RewriteCond $1 !^(index\.php|sitemap|images|.*.css|.*.less|.*.js|static|application|.*.txt|.*.html)
+	RewriteCond $1 !^(index\.php|.*.eot|.*.ttf|.*.woff|.*.svg|sitemap|images|.*.png|.*.css|.*.less|.*.js|static|application|.*.txt|.*.html)
 	RewriteRule ^(.*)$ /~jack/usercenter/index.php/$1 [L]
 
 	RewriteCond %{REQUEST_FILENAME} !-f
