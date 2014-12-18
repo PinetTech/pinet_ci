@@ -2,6 +2,11 @@
 	@include full_screen();
 	.container-table {
 		@include display_table();
+		#navigation {
+			.tooltip.in {
+				position: fixed;
+			}
+		}
 		#main {
 			width: 100%;
 		}
@@ -11,5 +16,10 @@
 		#workbench {
 			width: 100%;
 		}
+	}
+	@-moz-document url-prefix() {
+    	.container-table .col {
+    		height: 100%;
+    	}
 	}
 }

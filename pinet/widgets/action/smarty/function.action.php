@@ -1,5 +1,7 @@
 <?php defined("BASEPATH") or exit("No direct script access allowed");
 
+require_widget_smarty('image', 'picture');
+
 function smarty_function_action($params, $template) {
 	$action = get_default($params, 'obj', null);
 	$alt = get_default($params, 'alt', '');
@@ -22,12 +24,16 @@ function smarty_function_action($params, $template) {
 	$content = lang($action->label);
 	if(isset($action->logo) && $action->logo != '') {
 		$data = array(
-			'src'=>$action->logo, 
+			'src'=>$action->logo,
 			'path'=>'/responsive/size',
-			'data-toggle'=>'tooltip',
 			'data-placement'=> isset($fields->placement) ? $fields->placement : 'right',
 			'data-original-title'=> $action->label
 		);
+		$auto = get_default($params, 'auto', true);
+		if ($auto) {
+			$data["data-toggle"] = "tooltip";
+		}
+
 		$CI = &get_instance();
 		$CI->load->helper('image');
 
@@ -36,7 +42,9 @@ function smarty_function_action($params, $template) {
 			$data['src'] = 'default.png';
 		}
 
-		$content = smarty_function_picture($data, $template);
+		$picturedata = $data;
+		unset($picturedata['data-toggle']);
+		$content = smarty_function_picture($picturedata, $template);
 		if(isset($action->controller) && isset($action->method) && $uri){
 	    	$data['href'] = $uri;
 		}

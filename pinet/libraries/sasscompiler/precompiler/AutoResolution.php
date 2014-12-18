@@ -28,6 +28,7 @@
 				$compiler->suffix .= '@media screen and (min-width: '.$screen_width.'px){'."\n";
 				$compiler->suffix .= '$screen-width:'. $screen_width.';';
 			 	$compiler->suffix .= '$alias-width:'.$alias_width.';';
+			 	$this->addPrependResolution($compiler, $screen_width);
 				foreach($compiler->sasses as $s) {
 					$s = str_replace('.scss', '', $s);
 					$basename = basename($s);
@@ -38,6 +39,7 @@
 						$this->addConstruct($name, $compiler, $screen_width.','.$alias_width);
 					}
 				}
+				$this->addAppendResolution($compiler, $screen_width);
 				$compiler->suffix .= '}'."\n";
 				$this->addAfterResolution($compiler, $screen_width);
 			}
@@ -51,15 +53,29 @@
 			}
 		}
 
+		protected function addPrependResolution($compiler, $res) {
+			$the_name = 'prepend_resolution_'.$res;
+			if(strpos($compiler->content, $the_name) !== FALSE) {
+				$compiler->suffix .= "\t".'@include '.$the_name.'();'."\n";
+			}
+		}
+
+		protected function addAppendResolution($compiler, $res) {
+			$the_name = 'append_resolution_'.$res;
+			if(strpos($compiler->content, $the_name) !== FALSE) {
+				$compiler->suffix .= "\t".'@include '.$the_name.'();'."\n";
+			}
+		}
+
 		protected function addBeforeResolution($compiler, $res) {
-			$the_name = 'before_responsive_'.$res;
+			$the_name = 'before_resolution_'.$res;
 			if(strpos($compiler->content, $the_name) !== FALSE) {
 				$compiler->suffix .= "\t".'@include '.$the_name.'();'."\n";
 			}
 		}
 
 		protected function addAfterResolution($compiler, $res) {
-			$the_name = 'after_responsive_'.$res;
+			$the_name = 'after_resolution_'.$res;
 			if(strpos($compiler->content, $the_name) !== FALSE) {
 				$compiler->suffix .= "\t".'@include '.$the_name.'();'."\n";
 			}
