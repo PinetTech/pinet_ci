@@ -1,0 +1,15 @@
+@mixin responsive_pinet_tablelayout($args...) {
+	@include full_screen();
+	.container-table {
+		@include display_table();
+		#main {
+			width: 100%;
+		}
+		#content {
+			height: 100%;
+		}
+		#workbench {
+			width: 100%;
+		}
+	}
+}

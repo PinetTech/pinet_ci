@@ -5,30 +5,78 @@
 			if(!isset($compiler->resolutions))
 				return;
 
+			$this->addBeforeResponsive($compiler);
 			foreach($compiler->resolutions as $k => $r) {
-				$compiler->suffix .= 'h3 { eco: $screen_max_width}';
-				$compiler->suffix .= '
-';
-				$compiler->suffix .= '@media screen and (min-width: '.$r.'px){'."\n";
-				$compiler->suffix .= '$screen_width:'. $r.';';
-				$compiler->suffix .= '$alias_width:'.$k.';';
+				 if (is_numeric($k) && is_string($r) && !is_numeric($r) ) {
+				 	$screen_width = $k;
+				 	$alias_width =$r;
+				 }
+				 else if (is_numeric($k) && is_numeric($r)) {
+				 	$screen_width = $r;
+				 	$alias_width = 0;
+				 }
+				 else if (is_string($k) && !is_numeric($k)) {
+				 	$screen_width = $r;
+				 	$alias_width =$k;
+				 }
+				 else {
+				 	$screen_width = $k;
+				 	$alias_width =0;
+				 }	
+
+				$this->addBeforeResolution($compiler, $screen_width);
+				$compiler->suffix .= '@media screen and (min-width: '.$screen_width.'px){'."\n";
+				$compiler->suffix .= '$screen-width:'. $screen_width.';';
+			 	$compiler->suffix .= '$alias-width:'.$alias_width.';';
 				foreach($compiler->sasses as $s) {
 					$s = str_replace('.scss', '', $s);
 					$basename = basename($s);
 					$name = str_replace('/', '_', $s);
-					if($basename != $name) {
-						$this->addConstruct($basename, $compiler, $k.','.$r);
+					if($basename == $name) {
+						$this->addConstruct($basename, $compiler, $screen_width.','.$alias_width);
+					}else {
+						$this->addConstruct($name, $compiler, $screen_width.','.$alias_width);
 					}
-					$this->addConstruct($name, $compiler, $k.','.$r);
 				}
 				$compiler->suffix .= '}'."\n";
+				$this->addAfterResolution($compiler, $screen_width);
+			}
+			$this->addAfterResponsive($compiler);
+		}
+
+		protected function addConstruct($name, $compiler, $args) {
+			$the_name = 'responsive_'.$name;
+			if(strpos($compiler->content, $the_name) !== FALSE) {
+					$compiler->suffix .= "\t".'@include '.$the_name.'('.$args.');'."\n";
 			}
 		}
 
-		protected function addConstruct($name, $compiler, $r) {
-			$the_name = 'responsive_'.$name;
+		protected function addBeforeResolution($compiler, $res) {
+			$the_name = 'before_responsive_'.$res;
 			if(strpos($compiler->content, $the_name) !== FALSE) {
-					$compiler->suffix .= "\t".'@include '.$the_name.'('.$r.'px);'."\n";
+				$compiler->suffix .= "\t".'@include '.$the_name.'();'."\n";
 			}
 		}
+
+		protected function addAfterResolution($compiler, $res) {
+			$the_name = 'after_responsive_'.$res;
+			if(strpos($compiler->content, $the_name) !== FALSE) {
+				$compiler->suffix .= "\t".'@include '.$the_name.'();'."\n";
+			}
+		}
+
+		protected function addBeforeResponsive($compiler) {
+			$the_name = 'before_responsive';
+			if(strpos($compiler->content, $the_name) !== FALSE) {
+				$compiler->suffix .= "\t".'@include '.$the_name.'();'."\n";
+			}
+		}
+
+		protected function addAfterResponsive($compiler) {
+			$the_name = 'after_responsive';
+			if(strpos($compiler->content, $the_name) !== FALSE) {
+				$compiler->suffix .= "\t".'@include '.$the_name.'();'."\n";
+			}
+		}
+
 	}
