@@ -16,8 +16,8 @@
 ################################################################################
 
 SERVER := 218.244.128.8
-TEST_DB := pinet_usercenter_test
-DB := pinet_usercenter
+TEST_DB := $(shell php -r "define('BASEPATH', 1);include('application/config/database.php'); echo \$$db['testing']['database'];")
+DB := $(shell php -r "define('BASEPATH', 1);include('application/config/database.php'); echo \$$db['default']['database'];")
 
 ################################################################################
 #

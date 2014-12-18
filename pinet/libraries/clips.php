@@ -261,7 +261,7 @@ class Clips {
 	public function defineFact($data) {
 		$ret = array();
 		if(is_array($data))  {
-			if(!isset($data['template'])) { // This is a static fact
+			if(!isset($data['__template__'])) { // This is a static fact
 				$name = array_shift($data);
 				$ret []= '('.$name;
 				foreach($data as $d) {
@@ -275,14 +275,12 @@ class Clips {
 		else {
 			$obj = $data;
 			$name = get_class($obj);
-			if(isset($obj->template)) {
-				$name = $obj->template;
+			if(isset($obj->__template__)) {
+				$name = $obj->__template__;
 			}
 
 			$ret []= '('.$name;
 			foreach($obj as $key => $value) {
-				if($key == 'template') // Skip template
-					continue;
 				if(strpos($key, '_') === 0) // Skip _ variables
 					continue;
 				$ret []= '('.$key;
