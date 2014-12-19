@@ -6,6 +6,10 @@ var Settings = {
 	}
 };
 
+if ($.isFunction($.fn.emit)) {
+	$('#datatable tbody td').emit();
+}
+
 function getIframeState() {
 	var key = 'datatable_iframe_states_';
 	key += window.location.pathname;
