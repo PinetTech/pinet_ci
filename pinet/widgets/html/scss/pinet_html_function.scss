@@ -1,22 +1,21 @@
 @function to-array-map($value) {
-    @if type-of($value) == list {
-        $map: ();
-        @if length($value) > 1 {
-            @for $i from 1 through length($value) {
-                $map: map-merge($map, (nth($value, $i)));
-            }
-        }
-        @else {
-        	@return $value;
-        }
-        @return $map;
-    }
+	@if type-of($value) == list {
+	$map: ();
+	@if length($value) > 1 {
+		@for $i from 1 through length($value) {
+			$map: map-merge($map, (nth($value, $i)));
+		}
+	}
+	@else {
+		@return $value;
+	}
+		@return $map;
+	}
 
-    @return if(type-of($value) != map, (1: $value), $value);
+	@return if(type-of($value) != map, (1: $value), $value);
 }
 
 @function is_like_string($value) {
-	$result: null;
 	$allowed: '0' '1' '2' '3' '4' '5' '6' '7' '8' '9'; // Allowed characted to start with
 	@if type-of($value) == map or type-of($value) == list or type-of($value) == bool {
 		@return false;
@@ -38,178 +37,178 @@
 }
 
 @function _sc-to-list($value, $keep: 'both') {
-  $keep: if(index('keys' 'values' 'both', $keep), $keep, 'both');
+	$keep: if(index('keys' 'values' 'both', $keep), $keep, 'both');
 
-  @if type-of($value) == map {
-    $keys: ();
-    $values: ();
-    @each $key, $val in $value {
-      $keys: append($keys, $key);
-      $values: append($values, $val);
-    }
+	@if type-of($value) == map {
+		$keys: ();
+		$values: ();
+		@each $key, $val in $value {
+			$keys: append($keys, $key);
+			$values: append($values, $val);
+		}
 
-    @if $keep == 'keys' {
-      @return $keys;
-    }
-    @else if $keep == 'values' {
-      @return $values;
-    }
-    @else {
-      @return zip($keys, $values);
-    }
-  }
+		@if $keep == 'keys' {
+			@return $keys;
+		}
+		@else if $keep == 'values' {
+			@return $values;
+		}
+		@else {
+			@return zip($keys, $values);
+		}
+	}
 
-  @return if(type-of($value) != list, ($value,), $value);
+	@return if(type-of($value) != list, ($value,), $value);
 }
 
 @function _sc-find-digits($source, $pointer) {
-  $source: to-lower-case($source);
-  $length: str-length($source);
-  $numbers: '0' '1' '2' '3' '4' '5' '6' '7' '8' '9';
-  $result: 0;
-  $runs: 1;
+	$source: to-lower-case($source);
+	$length: str-length($source);
+	$numbers: '0' '1' '2' '3' '4' '5' '6' '7' '8' '9';
+	$result: 0;
+	$runs: 1;
 
-  @while $pointer <= $length {
-    $token: str-slice($source, $pointer, $pointer);
-    $index: index($numbers, $token);
+	@while $pointer <= $length {
+		$token: str-slice($source, $pointer, $pointer);
+		$index: index($numbers, $token);
 
-    @if $token == '.' {
-      // @continue;
-    }
-    @else if $index and $index > 0 {
-      $runs: $runs * 10;
-      $result: $result * 10 + ($index - 1);
-    }
-    @else {
-      @return $pointer, $result / $runs;
-    }
+		@if $token == '.' {
+			// @continue;
+		}
+		@else if $index and $index > 0 {
+			$runs: $runs * 10;
+			$result: $result * 10 + ($index - 1);
+		}
+		@else {
+			@return $pointer, $result / $runs;
+		}
 
-    $pointer: $pointer + 1;
-  }
+		$pointer: $pointer + 1;
+	}
 
-  @return $pointer, $result / $runs;
+	@return $pointer, $result / $runs;
 }
 
 @function _sc-find-integer($source, $pointer) {
-  $source: to-lower-case($source);
-  $length: str-length($source);
-  $numbers: '0' '1' '2' '3' '4' '5' '6' '7' '8' '9';
-  $result: 0;
+	$source: to-lower-case($source);
+	$length: str-length($source);
+	$numbers: '0' '1' '2' '3' '4' '5' '6' '7' '8' '9';
+	$result: 0;
 
-  @while $pointer <= $length {
-    $token: str-slice($source, $pointer, $pointer);
-    $index: index($numbers, $token);
+	@while $pointer <= $length {
+		$token: str-slice($source, $pointer, $pointer);
+		$index: index($numbers, $token);
 
-    @if $token == '-' {
-      // @continue;
-    }
-    @else if $index {
-      $result: $result * 10 + ($index - 1);
-    }
-    @else {
-      @return $pointer, $result;
-    }
+		@if $token == '-' {
+			// @continue;
+		}
+		@else if $index {
+			$result: $result * 10 + ($index - 1);
+		}
+		@else {
+			@return $pointer, $result;
+		}
 
-    $pointer: $pointer + 1;
-  }
+		$pointer: $pointer + 1;
+	}
 
-  @return $pointer, $result;
+	@return $pointer, $result;
 }
 
 @function _sc-length($number, $unit) {
-  $strings: 'px' 'cm' 'mm' '%' 'ch' 'pica' 'in' 'em' 'rem' 'pt' 'pc' 'ex' 'vw' 'vh' 'vmin' 'vmax';
-  $units:   1px  1cm  1mm  1%  1ch  1pica  1in  1em  1rem  1pt  1pc  1ex  1vw  1vh  1vmin  1vmax;
-  $index: index($strings, $unit);
-  
-  @if $index == null {
-    @warn "Unknown unit `#{inspect($unit)}`.";
-    @return 0;
-  }
-  
-  @return $number * nth($units, $index);
+	$strings: 'px' 'cm' 'mm' '%' 'ch' 'pica' 'in' 'em' 'rem' 'pt' 'pc' 'ex' 'vw' 'vh' 'vmin' 'vmax';
+	$units:   1px  1cm  1mm  1%  1ch  1pica  1in  1em  1rem  1pt  1pc  1ex  1vw  1vh  1vmin  1vmax;
+	$index: index($strings, $unit);
+
+	@if $index == null {
+		@warn "Unknown unit `#{inspect($unit)}`.";
+		@return 0;
+	}
+
+	@return $number * nth($units, $index);
 }
 
 @function _sc-pow($x, $n) {
-  $ret: 1;
+	$ret: 1;
 
-  @if $n >= 0 {
-    @for $i from 1 through $n {
-      $ret: $ret * $x;
-    }
-  } @else {
-    @for $i from $n to 0 {
-      $ret: $ret / $x;
-    }
-  }
+	@if $n >= 0 {
+		@for $i from 1 through $n {
+			$ret: $ret * $x;
+		}
+	} @else {
+		@for $i from $n to 0 {
+			$ret: $ret / $x;
+		}
+	}
 
-  @return $ret;
+	@return $ret;
 }
 
 @function _sc-to-number($value) {
-  // In case everything's good
-  @if type-of($value) == number {
-    @return $value;
-  }
+	// In case everything's good
+	@if type-of($value) == number {
+		@return $value;
+	}
 
-  // Boolean to number
-  @if $value == true  {
-    @return 1;
-  }
+	// Boolean to number
+	@if $value == true  {
+		@return 1;
+	}
 
-  // Fail
-  @if type-of($value) != string {
-    @return 0;
-  }
+	// Fail
+	@if type-of($value) != string {
+		@return 0;
+	}
 
-  // Trying to cast
-  $pointer: 1;
-  $result: 0;
-  $allowed: '-' '0' '1' '2' '3' '4' '5' '6' '7' '8' '9'; // Allowed characted to start with
-  $first: str-slice($value, $pointer, $pointer); // First character of the number
-  $minus: $first == '-'; // Is it negative?
+	// Trying to cast
+	$pointer: 1;
+	$result: 0;
+	$allowed: '-' '0' '1' '2' '3' '4' '5' '6' '7' '8' '9'; // Allowed characted to start with
+	$first: str-slice($value, $pointer, $pointer); // First character of the number
+	$minus: $first == '-'; // Is it negative?
 
-  // Early check for errors
-  @if index($allowed, $first) == null {
-    @warn "Could not cast `#{inspect($value)} into number.";
-    @return 0;
-  }
+	// Early check for errors
+	@if index($allowed, $first) == null {
+		@warn "Could not cast `#{inspect($value)} into number.";
+		@return 0;
+	}
 
-  // Find the integer part
-  $find-integer: _sc-find-integer($value, $pointer);
-  $pointer: nth($find-integer, 1);
-  $result:  nth($find-integer, 2);
+	// Find the integer part
+	$find-integer: _sc-find-integer($value, $pointer);
+	$pointer: nth($find-integer, 1);
+	$result:  nth($find-integer, 2);
 
-  // Find digits
-  @if str-slice($value, $pointer, $pointer) == '.' {
-    $find-digits: _sc-find-digits($value, $pointer);
-    $pointer: nth($find-digits, 1);
-    $digits:  nth($find-digits, 2);
-    $result: $result + $digits;
-  }
+	// Find digits
+	@if str-slice($value, $pointer, $pointer) == '.' {
+		$find-digits: _sc-find-digits($value, $pointer);
+		$pointer: nth($find-digits, 1);
+		$digits:  nth($find-digits, 2);
+		$result: $result + $digits;
+	}
 
-  // In case of negative
-  @if $minus {
-    $result: $result * -1;
-  }
+	// In case of negative
+	@if $minus {
+		$result: $result * -1;
+	}
 
-  // In case of possible CSS unit
-  @if $pointer < str-length($value) {
-    $result: _sc-length($result, str-slice($value, $pointer));
-  }
+	// In case of possible CSS unit
+	@if $pointer < str-length($value) {
+		$result: _sc-length($result, str-slice($value, $pointer));
+	}
 
-  @return $result;
+	@return $result;
 }
 
 @function to-number($value) {
-    @return _sc-to-number($value);
+	@return _sc-to-number($value);
 }
 
 @function to-list($value, $keep: 'both') {
-    @return _sc-to-list($value,$keep);
+	@return _sc-to-list($value,$keep);
 }
 
 @function last($list) {
-  @return nth($list, length($list));
+	@return nth($list, length($list));
 }
 
 @function replace-space($string) {
@@ -271,7 +270,6 @@
 	$second: '';
 	$strlen: str-length($string);
 	$splitindex: str-index($string, ':');
-	// @return $string;
 	@for $i from 1 to $splitindex {
 		$first: unquote($first + str-get($string, $i));
 	}
@@ -351,13 +349,14 @@
 		}
 	}
 	@else {
-		@return false;
+		@return $value;
 	}
 }
 
 
 @function autocheck($value...) {
 	$params: $value;
+	$result: null;
 	@if length($params) == 2 {
 		@if type-of(nth($params, 2))== map {
 			$resolutions: nth($params, 2);
@@ -367,12 +366,21 @@
 				$second: nth($listres, 1);
 				$res: trans-to-width(nth($second,1));
 
-				@if strip-units($screen-width) > ($res - 1) and strip-units($screen-width) < 2881 {
-					@return true, nth($second, 2);
+				@if $res != false {
+					@if strip-units($screen-width) > ($res - 1) and strip-units($screen-width) < 2881 {
+						$result: true, nth($second, 2);
+						@return $result;
+					}
+					@else {
+						$result: false, nth($params, 1);
+						@return $result;
+					}
 				}
 				@else {
-					@return false, nth($params, 1);
+					$result: false, nth($params, 1);
+					@return $result;
 				}
+
 			}
 			@else if $reslen == 2 {
 				$second: nth($listres, 1);
@@ -382,72 +390,82 @@
 
 
 				@if $sres == false and  $tres == false {
-					@return false, nth($params, 1);
+					$result: false, nth($params, 1);
+					@return $result;
 				}
 				@else if $sres != false and $tres == false {
 					$sres: to-number($sres);
 					@if strip-units($screen-width) > ($sres - 1) and strip-units($screen-width) < 2881 {
-						@return true, nth($second, 2);
+						$result: true, nth($second, 2);
+						@return $result;
 					}
 					@else {
-						@return false, nth($params, 1);
+						$result: false, nth($params, 1);
+						@return $result;
 					}					
 				}				
 				@else if $sres == false and $tres != false {
 					$tres: to-number($tres);
 					@if strip-units($screen-width) > ($tres - 1) and strip-units($screen-width) < 2881 {
-						@return true, nth($thids, 2);
+						$result: true, nth($thids, 2);
+						@return $result;
 					}
 					@else {
-						@return false, nth($params, 1);
+						$result: false, nth($params, 1);
+						@return $result;
 					}
 				}
 
 				@if strip-units($screen-width) > ($sres - 1) and strip-units($screen-width) < $tres {
-					@return true, nth($second, 2);
+					$result: true, nth($second, 2);
+					@return $result;
 				}
 				@if strip-units($screen-width) > ($tres - 1) and strip-units($screen-width) < 2881 {
-					@return true, nth($thids, 2);
+					$result: true, nth($thids, 2);
+					@return $result;
 				}
 				@else {
-					@return false, nth($params, 1);
+					$result: false, nth($params, 1);
+					@return $result;
 				}
 			}
 		}
 		@else {
-			@return false, nth($params, 1);
+			$result: false, nth($params, 1);
+			@return $result;
 		}
 	}
-	@return false, $params;
+	$result: false, $params;
+	@return $result;
 }
 
 @function remove-nth($list, $index) {
-  $result: null;
+	$result: null;
 
-  @if type-of($index) != number {
-    @warn "$index: #{quote($index)} is not a number for `remove-nth`.";
-  }
+	@if type-of($index) != number {
+		@warn "$index: #{quote($index)} is not a number for `remove-nth`.";
+	}
 
-  @else if $index == 0 {
-    @warn "List index 0 must be a non-zero integer for `remove-nth`.";
-  }
+	@else if $index == 0 {
+		@warn "List index 0 must be a non-zero integer for `remove-nth`.";
+	}
 
-  @else if abs($index) > length($list) {
-    @warn "List index is #{$index} but list is only #{length($list)} item long for `remove-nth`.";
-  }
+	@else if abs($index) > length($list) {
+		@warn "List index is #{$index} but list is only #{length($list)} item long for `remove-nth`.";
+	}
 
-  @else {
-    $result: ();
-    $index: if($index < 0, length($list) + $index + 1, $index);
+	@else {
+		$result: ();
+		$index: if($index < 0, length($list) + $index + 1, $index);
 
-    @for $i from 1 through length($list) {
-      @if $i != $index {
-        $result: join($result, nth($list, $i), comma);
-      }
-    }
-  }
+		@for $i from 1 through length($list) {
+			@if $i != $index {
+				$result: join($result, nth($list, $i), comma);
+			}
+		}
+	}
 
-  @return $result;
+	@return $result;
 }
 
 @function remove-last($args) {
@@ -456,37 +474,64 @@
 
 @function autos($args...)  {
 	$params: $args;
-	@if length($params) == 2 {
-		@if type-of(last($args)) == string {
-			$callback: last($args);
-			$result: autocheck(nth($params, 1));
+	@if length($params) == 1 {
+		$result: $params;
+		@return $result;
+	}
+	@else if length($params) > 1 {
+		@if length($params) == 2 {
+			@if type-of(last($args)) == string {
+				$callback: last($args);
+				$result: autocheck(nth($params, 1));
+			}
+			@else {
+				$callback: -1;
+				$result: autocheck($args...);
+			}
+		}
+		@else if  length($params) == 3 {
+			@return map-keys(nth($args, 2));
+			$result: autocheck($params...);
+			@return the result is $result;
+		}
+		@if nth($result, 1) == false {
+			$result: nth(nth($result, 2), 1);
+			@if $callback != -1 {
+				$result: call($callback, $result);
+			}
 		}
 		@else {
-			$callback: -1;
-			$result: autocheck(nth($params, 1), nth($params, 2));
+			$result: nth(nth($result, 2), 1);
 		}
+		@return $result;
 	}
-	@else if  length($params) == 3 {
-		$callback: last($args);
-		$result: autocheck(nth($params, 1), nth($params, 2));
+}
+
+@function func_get_args($params...) {
+	$length: length($params);
+	$result: ();
+	@for $i from 1 through $length {
+		$result: join($result, nth($params, $i) ,comma);
 	}
-	@if nth($result, 1) == false {
-		$result: nth(nth($result, 2), 1);
-		@if $callback != -1 {
-			$result: call($callback, $result);
-		}
-	}
-	@else {
-		$result: nth(nth($result, 2), 1);
-	}
+	@return $result;	
+}
+
+@function func_num_args($params...) {
+	$result: length($params);
 	@return $result;
 }
 
+@function func_get_arg($index, $params...) {
+	$result: ();
+	@for $i from $index through $index {
+		$result: ($result, nth($params, $i));	
+	}
+	@return $result;	
+}
+
+
 @function res($args...) {
-	@if length($args) == 1 {
-		@return autos(nth($args, 1), cal);
-	}
-	@else {
-		@return autos(nth($args, 1), nth($args, 2), cal);
-	}
+	$params: func_get_args($args...);
+	$result: autos($params...);
+	@return $result;
 }
