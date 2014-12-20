@@ -56,12 +56,12 @@
 			"module": "bootstrap",
 			"file": "bootstrap/_close",
 			"version": "3.3.1"
-		},		
+		},
 		{
 			"module": "bootstrap",
 			"file": "bootstrap/_button-groups",
 			"version": "3.3.1"
-		}		
+		}
 		],
 		"files": ["pinet_button_mixin", "pinet_button"]
 	}

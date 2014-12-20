@@ -357,12 +357,19 @@
 @function autocheck($value...) {
 	$params: $value;
 	$result: null;
+	// @return  go in;
+	// @return func_num_args($value...);
+	// @return length($params);
+	// @return type-of(nth($params, 2));
 	@if length($params) == 2 {
-		@if type-of(nth($params, 2))== map {
+		// @return  go in;
+		@if type-of(nth($params, 2)) == map {
 			$resolutions: nth($params, 2);
 			$reslen: length($resolutions);
 			$listres: to-list($resolutions);
+			// @return  go in;
 			@if $reslen == 1{
+				// @return  go in;
 				$second: nth($listres, 1);
 				$res: trans-to-width(nth($second,1));
 
@@ -402,8 +409,8 @@
 					@else {
 						$result: false, nth($params, 1);
 						@return $result;
-					}					
-				}				
+					}
+				}
 				@else if $sres == false and $tres != false {
 					$tres: to-number($tres);
 					@if strip-units($screen-width) > ($tres - 1) and strip-units($screen-width) < 2881 {
@@ -490,9 +497,22 @@
 			}
 		}
 		@else if  length($params) == 3 {
-			@return map-keys(nth($args, 2));
-			$result: autocheck($params...);
-			@return the result is $result;
+			// @return  go in;
+			// @return map-keys(nth($args, 2));
+			@if type-of(last($args)) == string {
+				$callback: last($args);
+				$thparams: func_remove_arg(3, $args...);
+			}
+			@else {
+				$callback: -1;
+				$thparams: $args;
+			}
+			// $thparams: func_get_args($args...);
+			// @return length($thparams);
+			// @return $thparams;
+			// @return type-of($thparams);
+			$result: autocheck($thparams...);
+			// @return the result is $result;
 		}
 		@if nth($result, 1) == false {
 			$result: nth(nth($result, 2), 1);
@@ -513,7 +533,7 @@
 	@for $i from 1 through $length {
 		$result: join($result, nth($params, $i) ,comma);
 	}
-	@return $result;	
+	@return $result;
 }
 
 @function func_num_args($params...) {
@@ -522,16 +542,103 @@
 }
 
 @function func_get_arg($index, $params...) {
-	$result: ();
-	@for $i from $index through $index {
-		$result: ($result, nth($params, $i));	
-	}
-	@return $result;	
+	$result: nth($params, $index);
+	@return $result;
 }
 
+@function func_set_arg($param, $params...) {
+	$length: length($params);
+	$result: ();
+	@for $i from 1 through $length {
+		$result: join($result, nth($params, $i) ,comma);
+	}
+	$result: join($result, $param ,comma);
+	@return $result;
+}
+
+@function func_remove_arg($index, $params...) {
+	$length: length($params);
+	$result: ();
+	@for $i from 1 through $length {
+		@if $i != $index {
+			$result: join($result, nth($params, $i) ,comma);
+		}
+	}
+	@return $result;
+}
+
+@function func_replace_arg($index, $param, $params...) {
+	$length: length($params);
+	$result: ();
+	@for $i from 1 through $length {
+		@if $i != $index {
+			$result: join($result, nth($params, $i) ,comma);
+		}
+		@else {
+			$result: join($result, $param ,comma);
+		}
+	}
+	@return $result;
+}
 
 @function res($args...) {
-	$params: func_get_args($args...);
+	// Todo check args
+	// $params: func_get_args($args...);
+	// $params: func_set_arg(cal, $args...);
+	$min: false;
+	@if length($args) == 1 {
+		$params: func_set_arg(cal, $args...);
+	}
+	@else if length($args) > 1 {
+		$second-arg: func_get_arg(2, $args...);
+		// @return length($second-arg);
+		// @return $second-arg;
+		// @return type-of($second-arg);
+		// @return length($params);
+		// @return $params;
+		// @return type-of($params);
+		// @return nth($params, 1);
+		// @return type-of(nth($params, 1));
+		// @return nth($params, 2);
+		// @return type-of(nth($params, 2));
+		// @return go in;
+		@if type-of($second-arg) == number {
+			// @return go in;
+			// $params: func_remove_arg(2, $args...);
+			$min: true;
+			$params: func_replace_arg(2, cal, $args...);
+			// @return length($params);
+			// @return $params;
+			// @return type-of($params);
+			// @return length(nth($params, 1));
+			// @return nth($params, 1);
+			// @return type-of(nth($params, 1));
+			// @return length(nth($params, 2));
+			// @return nth($params, 2);
+			// @return type-of(nth($params, 2));
+		}
+		@else {
+			$params: func_set_arg(cal, $args...);
+			// @return length($params);
+			// @return $params;
+			// @return type-of($params);
+			// @return length(nth($params, 1));
+			// @return nth($params, 1);
+			// @return type-of(nth($params, 1));
+			// @return length(nth($params, 2));
+			// @return nth($params, 2);
+			// @return type-of(nth($params, 2));
+		}
+	}
+
 	$result: autos($params...);
+	// @return $result;
+
+	@if $min == true {
+		@if $result <= $second-arg {
+			$result: $second-arg;
+		}
+	}
+
 	@return $result;
 }

@@ -158,3 +158,54 @@ input[type="button"] {
     width: 100%;
   }
 }
+
+.btn-circle {
+	border-radius: 50%;
+}
+
+$btn-box-shadow-grey: 0 2px 0 #aeb6bb;
+$btn-box-shadow-green: 0 2px 0 #40a866;
+$btn-box-shadow-blue: 0 2px 0 #2e84b5;
+$btn-box-shadow-orange: 0 2px 0 #d09038;
+$btn-box-shadow-cyan: 0 2px 0 #36b79f;
+
+
+@mixin responsive_pinet_button($args...) {
+	@debug 1;
+	.btn-blue {
+		@include pinet-btn-variant();
+	    @include button-color($pinet-blue, $pinet-blue-hover, $pinet-blue-active, $btn-box-shadow-blue);
+	}
+
+	// .btn-green {
+	// 	@include pinet-btn-variant();
+	//   	@include button-color($pinet-green, $pinet-green-hover, $pinet-green-active, $btn-box-shadow-green);
+	// }
+
+	// .btn-grey {
+	// 	@include pinet-btn-variant();
+	//   	@include button-color($pinet-grey, $pinet-grey-hover, $pinet-grey-active, $btn-box-shadow-grey);
+	// }
+
+	// .btn-orange {
+	// 	@include pinet-btn-variant();
+	// 	@include button-color($pinet-orange, $pinet-orange-hover, $pinet-orange-active, $btn-box-shadow-orange);
+	// }
+
+	// .btn-cyan {
+	// 	@include pinet-btn-variant();
+	// 	@include button-color($pinet-cyan, $pinet-cyan-hover, $pinet-cyan-active, $btn-box-shadow-cyan);
+	// }
+
+	// .btn-white {
+	// 	@include pinet-btn-variant();
+	// 	@include button-color($pinet-white, $pinet-white-hover, $pinet-white-active);
+	// }
+
+	// .btn-delete {
+	// 	@include pinet-btn-variant();
+	// 	@include button-color($pinet-delete, $pinet-delete-hover, $pinet-delete-active);
+	// }
+}
+
+
