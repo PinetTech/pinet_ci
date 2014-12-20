@@ -19,7 +19,7 @@ function smarty_block_button($params, $content = '', $template, &$repeat) {
 	if($tag == 'input' && !isset($params['type']))
 		$params['type'] = 'button';
 
-	$params['class'] = make_classes('btn', 'btn-'.$show, get_default($params, 'class', null));
+	$params['class'] = make_classes('btn', 'pinet-btn', 'btn-'.$show, get_default($params, 'class', null));
 
 	if($tag == 'input' && !isset($params['value'])) {
 		$params['value'] = $content;

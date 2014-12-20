@@ -1,57 +1,3 @@
-// Button variants
-//
-// Easily pump out default styles, as well as :hover, :focus, :active,
-// and disabled options for all buttons
-
-@mixin button-variant($color, $background, $border) {
-	color: $color;
-	background-color: $background;
-	border-color: $border;
-
-	&:hover,
-	&:focus,
-	&.focus,
-	&:active,
-	&.active,
-	.open > &.dropdown-toggle {
-		color: $color;
-		background-color: darken($background, 10%);
-			border-color: darken($border, 12%);
-	}
-	&:active,
-	&.active,
-	.open > &.dropdown-toggle {
-		background-image: none;
-	}
-	&.disabled,
-	&[disabled],
-	fieldset[disabled] & {
-		&,
-		&:hover,
-		&:focus,
-		&.focus,
-		&:active,
-		&.active {
-			background-color: $background;
-				border-color: $border;
-		}
-	}
-
-	.badge {
-		color: $background;
-		background-color: $color;
-	}
-}
-
-// Button sizes
-@mixin button-size($padding-vertical, $padding-horizontal, $font-size, $line-height, $border-radius) {
-	padding: $padding-vertical $padding-horizontal;
-	font-size: $font-size;
-	line-height: $line-height;
-	border-radius: $border-radius;
-}
-
-
 @mixin mixin-border-color($border, $border-hover, $border-active) {
 	border-color: $border;
 	&:hover {
@@ -73,14 +19,17 @@
 }
 
 @mixin pinet-btn-variant($text-shadow: 0 2px rgba(0,0,0,0.25)) {
-	font-size: res(26px, 14px);
+	echo-#{$screen-width}: 1;
+	font-size: res(26px, (320: 14px, 1280: 16px));
 	width: res(155px);
-	height: res(80px, 30px);
+	height: res(80px);
 	border-radius: 4px;
 	min-width: 71px;
-	min-height: 32px;
+	min-height: 30px;
+	letter-spacing: 1px;
 	padding: 0;
 	text-shadow: $text-shadow;
+	vertical-align: top;
 	& > picture {
 		height: 100%;
 	}
