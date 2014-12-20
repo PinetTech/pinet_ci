@@ -756,10 +756,20 @@ function display_error($img) {
 }
 
 function clips_load_rule($rule) {
+	if(is_array($rule)) {
+		foreach($rule as $r) {
+			clips_load_rule($r);
+		}
+		return true;
+	}
 	$CI = &get_instance();
 	if(isset($CI) && isset($CI->clips)) {
-		$CI->clips->ci_load($rule);
-		return true;
+		foreach(array(APPPATH, 'pinet/') as $p) {
+			$path = $p.'config/rules/'.$rule;
+			if(file_exists($path)) {
+				return $CI->clips->load($path);
+			}
+		}
 	}
 	return false;
 }
