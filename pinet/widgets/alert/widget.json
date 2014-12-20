@@ -6,7 +6,7 @@
 	"doc":"[doc]",
 	"js": {
 		"depends": [],
-		"files" : ["pinet_alert"]
+		"files" : ["pinet_alert","pinet_alert_init"]
 	},
 	"depends": ["jquery", "button"],
 	"scss": {
@@ -15,12 +15,12 @@
 				"module": "bootstrap",
 				"file": "bootstrap/mixins/_alerts",
 				"version": "3.3.1"
-			},		
+			},
 			{
 				"module": "bootstrap",
 				"file": "bootstrap/_alerts",
 				"version": "3.3.1"
 			}
-		]	
+		]
 	}
 }
