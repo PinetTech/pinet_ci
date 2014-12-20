@@ -40,6 +40,14 @@ class Interceptor {
 			$this->pattern, $this->type, $this->field, $this->method);
 	}
 
+	/**
+	 * Call the intercepted method, using for around mostly
+	 */
+	public function process() {
+		$CI = &get_instance();
+		return call_user_func_array(array($CI, '_process'), array($this->call_method, $this->args));
+	}
+
 	public function intercept($method, $args, $ret = null) {
 		$CI = &get_instance();
 		$field = $this->field;
@@ -49,6 +57,8 @@ class Interceptor {
 		if(isset($CI->$field)) {
 			return call_user_func_array(array($CI->$field, $this->method), array($this));
 		}
+		else
+			$this->process();
 	}
 }
 

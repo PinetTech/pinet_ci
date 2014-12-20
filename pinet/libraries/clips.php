@@ -144,6 +144,7 @@ class Clips {
 		else {
 			$obj = $data;
 			$name = get_class($obj);
+
 			$reflection = new ReflectionAnnotatedClass($name);
 			
 			if(isset($obj->__template__)) {
@@ -195,7 +196,8 @@ class Clips {
 				}
 				else
 					$ret []= '(slot '.$slot.')';
-			} return implode(' ', $ret).')';
+			} 
+			return implode(' ', $ret).')';
 		}
 		return false;
 	}
