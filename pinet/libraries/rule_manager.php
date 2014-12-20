@@ -50,12 +50,9 @@ class Rule_Manager {
 				}
 			}
 
-			ci_log('The facts is ', $this->clips->queryFacts());
-
 			// Run the clips context
 			$this->clips->run();
 
-			ci_log('The facts is ', $this->clips->queryFacts());
 			// Return the original return
 			return $ret;
 		}

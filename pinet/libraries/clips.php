@@ -66,7 +66,7 @@ class Clips {
 
 	private function defineMethods() {
 		if(function_exists('clips_load_rule')) { // If in CI, let's add ci_load function.
-			$this->command('(deffunction ci_load (?file) (php_call "clips_load_rule" ?file))'); // Define the ci_load function
+			$this->command('(deffunction ci_load ($?file) (php_call "clips_load_rule" $?file))'); // Define the ci_load function
 		}
 	}
 

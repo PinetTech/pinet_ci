@@ -12,6 +12,9 @@ function smarty_block_button($params, $content = '', $template, &$repeat) {
 	}
 
 	$show = get_default($params, 'show', 'default');
+	if(isset($params['show'])) {
+		unset($params['show']);
+	}
 
 	if($tag == 'input' && !isset($params['type']))
 		$params['type'] = 'button';
