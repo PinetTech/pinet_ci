@@ -40,10 +40,11 @@ class Interceptor {
 			$this->pattern, $this->type, $this->field, $this->method);
 	}
 
-	public function intercept($method, $args) {
+	public function intercept($method, $args, $ret = null) {
 		$CI = &get_instance();
 		$field = $this->field;
 		$this->args = $args;
+		$this->ret = $ret;
 		$this->call_method = $method;
 		if(isset($CI->$field)) {
 			return call_user_func_array(array($CI->$field, $this->method), array($this));
