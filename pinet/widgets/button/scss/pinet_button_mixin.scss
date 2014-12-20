@@ -75,10 +75,10 @@
 @mixin pinet-btn-variant($text-shadow: 0 2px rgba(0,0,0,0.25)) {
 	font-size: res(26px, 14px);
 	width: res(155px);
-	height: res(80px);
+	height: res(80px, 30px);
 	border-radius: 4px;
 	min-width: 71px;
-	min-height: 34px;
+	min-height: 32px;
 	padding: 0;
 	text-shadow: $text-shadow;
 	& > picture {
@@ -99,7 +99,7 @@
 @mixin button-color($color, $hover-color, $active-color, $box-shadow:none) {
 	@include mixin-border-color($color, $hover-color, $active-color);
 	@include mixin-background-color($color, $hover-color, $active-color);
-	// @include box-shadow($box-shadow);
+	@include box-shadow($box-shadow);
 	color: #ffffff;
 	&:hover,
 	&:focus,
@@ -116,7 +116,7 @@
 		background-image: none;
 		background-color: $active-color;
 		border-color: $active-color;
-		// @include box-shadow($box-shadow);
+		@include box-shadow($box-shadow);
 	}
 	&.disabled,
 	&[disabled],
