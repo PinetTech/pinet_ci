@@ -4,6 +4,13 @@ function smarty_block_link($params, $content = '', $template, &$repeat) {
 	if($repeat)
 		return;
 	$href = get_default($params, 'href', null);
+
+	$toggle = get_default($params, 'toggle', '');
+	if ($toggle == 'tooltip') {
+		$params['data-toggle'] = 'tooltip';
+		$params['data-placement'] = get_default($params, 'placement', 'bottom');
+	}
+
 	if(isset($href)) {
 		return anchor($href, $content, $params);
 	}

@@ -12,18 +12,18 @@
 				"version": "1.10.1"
 			}
 		],
-		"files" : []
+		"files" : ["pinet_datatable_init"]
 	},
-	"depends": ["jquery","jquery_ui_common"],
+	"depends": ["jquery","jquery_ui_common","button","icon"],
 	"css": [
 		{
 			"module": "jquery.dataTables",
 			"file": "jquery.dataTables",
 			"version": "1.10.1"
-		}		
+		}
 	],
 	"scss": {
 		"depends": [],
-		"files": []
+		"files": ["pinet_datatable_mixin","pinet_datatable"]
 	}
 }

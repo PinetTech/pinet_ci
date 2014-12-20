@@ -1,0 +1,75 @@
+ @mixin responsive_pinet_navigation($args...) {
+	#nav {
+		position: relative;
+		width: res(160px);
+		height: 100%;
+		background: #24292e;
+		padding: 0;
+		margin: 0;
+		padding-top: res(30px);
+		nav {
+			display: block;
+			a {
+				position: relative;
+				width: 100%;
+				color: #505458;
+				display: block;
+				padding-left: 18.75%;
+				padding-right: 18.75%;
+				margin-bottom: 18.75%;
+				// width:  62.5%;
+				height:  res(100px);
+				// .res(height, @navigations-a-width);
+				text-align: center;
+				line-height:  res(100px);
+				picture {
+					display: block;
+					width: 100%;
+					padding-left: res(24px);
+					padding-right: res(24px);
+				}
+            	&:hover {
+					text-decoration: none;
+					picture {
+						border-radius: 7px;
+						background-color: #1a1f22;
+					}
+	            }
+	            &.active {
+	            	text-decoration: none;
+					picture {
+						border-radius: 7px;
+						background-color: #1a1f22;
+					}
+	            }
+			}
+			a.divide {
+				height: res(30px);
+				line-height: res(30px);
+				position: absolute;
+				bottom: res(270px);
+				&:hover {
+					background: none;
+				}
+			}
+			a.language{
+				position: absolute;
+				bottom: res(160px);
+			}
+			a.logoout{
+				position: absolute;
+				bottom: res(60px);
+			}
+		}
+		.tooltip {
+			width: 500px;
+			&.in {
+				background-color: transparent;
+			}
+			.tooltip-inner {
+				display: inline-block;
+				max-width: 350px;
+			}
+		}
+	}
+ }

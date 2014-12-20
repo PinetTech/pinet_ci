@@ -1,15 +1,16 @@
 {
-	"author": "Lbc",
-	"date": "Sat Dec 06 18:32:36 2014",
+	"author": "Andy",
+	"date": "Thu Dec 18 12:59:09 2014",
 	"version": "1.0",
 	"name": "pinet.toolbar",
 	"doc":"[doc]",
 	"js": {
 		"depends": [],
-		"files" : []
+		"files" : ["pinet_toolbar_init"]
 	},
+	"depends": ["button", "tooltip"],
 	"scss": {
 		"depends": [],
-		"files": []
+		"files": ["pinet_toolbar"]
 	}
 }

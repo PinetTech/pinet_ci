@@ -8,6 +8,7 @@
 		"depends": [],
 		"files" : []
 	},
+	"depends": ["tooltip"],
 	"scss": {
 		"depends": [],
 		"files": []
