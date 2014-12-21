@@ -8,7 +8,7 @@
 		"depends": [],
 		"files" : ["pinet_toolbar_init"]
 	},
-	"depends": ["button", "tooltip"],
+	"depends": ["button", "tooltip", "form"],
 	"scss": {
 		"depends": [],
 		"files": ["pinet_toolbar"]
