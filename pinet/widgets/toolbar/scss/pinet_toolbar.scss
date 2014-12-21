@@ -18,6 +18,9 @@
 			margin: 0;
 			display: inline-block;
 		}
+		.control-group {
+			vertical-align: top;
+		}
 		input.search {
 			width: res(518px);
 			height: res(84px);
