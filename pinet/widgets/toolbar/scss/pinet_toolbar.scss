@@ -1,7 +1,7 @@
 @mixin responsive_pinet_toolbar($args...) {
 	.pinet-toolbar {
 		position: relative;
-		margin-bottom: res(34px);
+		margin: 0;
 		.btn{
 			width: res(200px);
 			height: res(80px);
@@ -14,18 +14,19 @@
 		.cancel {
 			margin-left: res(20px);
 		}
+		.form-group {
+			margin: 0;
+			display: inline-block;
+		}
 		input.search {
 			width: res(518px);
 			height: res(84px);
 			float: left;
 		}
-		picture {
-			width: 48px;
-		}
 		input[type=text] {
 			float: left;
 			width: res(580px);
-			height: res(85px);
+			height: res(85px, 32px);
 			margin-right: res(20px);
 		}
 		.btn {
@@ -50,13 +51,13 @@
 			position: absolute;
 			top: 0;
 			right: 0;
-			width: res(85px);
-			height: res(85px);
+			width: res(85px, 32px);
+			height: res(85px, 32px);
 			background-color: #8d9aa5;
 			border-radius: 50%;
 			text-align: center;
-			font-size: res(48px);
-			line-height: res(85px);
+			font-size: res(48px, 14px);
+			line-height: res(85px, 32px);
 			color: #fff;
 		}
 		.tooltip {

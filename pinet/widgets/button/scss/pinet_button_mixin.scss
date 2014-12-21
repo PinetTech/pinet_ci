@@ -19,7 +19,6 @@
 }
 
 @mixin pinet-btn-variant($text-shadow: 0 2px rgba(0,0,0,0.25)) {
-	echo-#{$screen-width}: 1;
 	font-size: res(26px, (320: 14px, 1280: 16px));
 	width: res(155px);
 	height: res(80px);
@@ -31,7 +30,8 @@
 	text-shadow: $text-shadow;
 	vertical-align: top;
 	& > picture {
-		height: 100%;
+		display: block;
+		width: 100%;
 	}
 	& > img, & > picture >img {
 		height: res(34px);

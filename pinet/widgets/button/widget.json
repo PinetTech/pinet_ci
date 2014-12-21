@@ -10,7 +10,7 @@
 			"button", "dropdown"
 		]
 	},
-	"depends": ["jquery"],
+	"depends": ["jquery","image"],
 	"scss": {
 		"depends": [{
 			"module": "bootstrap",
