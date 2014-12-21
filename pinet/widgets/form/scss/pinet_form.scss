@@ -28,3 +28,8 @@
     clip: auto;
   }
 }
+
+@mixin responsive_pinet_form($args...) {
+	@include mixin-pinet-form-select();
+}
+

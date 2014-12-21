@@ -31,9 +31,27 @@
 				"file": "jquery.selectBoxIt",
 				"version": "3.6.0",
 				"position": "foot"
+			},
+			{
+				"module": "jquery.inputmask",
+				"file": "jquery.inputmask",
+				"version": "3.1.25",
+				"position": "foot"				
+			},
+			{
+				"module": "jquery.inputmask",
+				"file": "jquery.inputmask.extensions",
+				"version": "3.1.25",
+				"position": "foot"				
+			},
+			{
+				"module": "jquery.inputmask",
+				"file": "jquery.inputmask.date.extensions",
+				"version": "3.1.25",
+				"position": "foot"				
 			}
 		],
-		"files" : ["form_init"]
+		"files" : ["pinet_form_init"]
 	},
 	"css": {
 		"depends": [
@@ -107,6 +125,6 @@
 				"version": "3.3.1"
 			}
 		],
-		"files": ["pinet_form"]
+		"files": ["pinet_form_select","pinet_form"]
 	}
 }
