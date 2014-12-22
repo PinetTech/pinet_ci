@@ -25,8 +25,8 @@ $alias_width: 0;
 
                if (isset($compiler->resolutions) && is_array($compiler->resolutions)) {
                     reset($compiler->resolutions);
-                    $fisrtkey = key($compiler->resolutions);
-                    $firstres = $compiler->resolutions[$fisrtkey];
+                    $firstkey = key($compiler->resolutions);
+                    $firstres = $compiler->resolutions[$firstkey];
                     if (is_numeric($firstkey) && is_string($firstres) && !is_numeric($firstres) ) {
                          $compiler->prefix .= "\n".'$min-screen-width: '.$firstkey.';';
                     }

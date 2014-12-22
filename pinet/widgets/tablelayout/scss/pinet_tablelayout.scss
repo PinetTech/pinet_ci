@@ -18,8 +18,12 @@
 		}
 	}
 	@-moz-document url-prefix() {
-    	.container-table .col {
-    		height: 100%;
+    	.container-table {
+    		>.row {
+    			>.col {
+    				height: 100%;
+    			}
+    		}
     	}
 	}
 }
