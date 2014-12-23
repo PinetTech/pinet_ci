@@ -716,7 +716,7 @@ function merge_objects() {
 		if(!is_array($o) && !is_object($o))
 			continue;
 		foreach($o as $k => $v) {
-			if(!isset($obj->$k)) {
+			if(!isset($obj->$k) && isset($v)) {
 				$obj->$k = $v;
 			}
 		}
