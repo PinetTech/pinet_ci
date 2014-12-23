@@ -940,7 +940,7 @@ function widget_select_get_options($options, $form_data, $field, $model = null) 
 			foreach($field->filters as $k => $v) {
 				if(is_object($v)) { // This is dynamic filter
 					$f = $v->field;
-					ci_log('The dynamic field is %s, and value is %s and key is %s', $f, $form_data->$f, $k);
+//					ci_log('The dynamic field is %s, and value is %s and key is %s', $f, $form_data->$f, $k);
 					if(isset($form_data) && isset($form_data->$f)) {
 						$model->where($k, $form_data->$f);
 					}
