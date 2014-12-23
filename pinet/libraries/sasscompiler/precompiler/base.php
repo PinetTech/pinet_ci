@@ -25,13 +25,27 @@ $alias_width: 0;
 
                if (isset($compiler->resolutions) && is_array($compiler->resolutions)) {
                     reset($compiler->resolutions);
-                    $fisrtkey = key($compiler->resolutions);
-                    $firstres = $compiler->resolutions[$fisrtkey];
+
+                    $firstkey = key($compiler->resolutions);
+                    $firstres = $compiler->resolutions[$firstkey];
                     if (is_numeric($firstkey) && is_string($firstres) && !is_numeric($firstres) ) {
+                         $compiler->prefix .= "\n".'$init-min-screen-width: '.$firstkey.';';
                          $compiler->prefix .= "\n".'$min-screen-width: '.$firstkey.';';
                     }
                     else {
+                         $compiler->prefix .= "\n".'$init-min-screen-width: '.$firstres.';';
                          $compiler->prefix .= "\n".'$min-screen-width: '.$firstres.';';
+                    }
+
+                    $lastkey = array_pop(array_keys($compiler->resolutions));;
+                    $lastres = $compiler->resolutions[$lastkey];
+                    if (is_numeric($lastkey) && is_string($lastres) && !is_numeric($lastres) ) {
+                         $compiler->prefix .= "\n".'$init-max-screen-width: '.$lastkey.';';
+                         $compiler->prefix .= "\n".'$max-screen-width: '.$lastkey.';';
+                    }
+                    else {
+                         $compiler->prefix .= "\n".'$init-max-screen-width: '.$lastres.';';
+                         $compiler->prefix .= "\n".'$max-screen-width: '.$lastres.';';
                     }
 
                     $compiler->prefix .= "\n".'$pinet-resolutions: (';
