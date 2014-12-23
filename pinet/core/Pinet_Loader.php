@@ -75,15 +75,17 @@ class Pinet_Loader extends CI_Loader
 			return $this->_ci_mixins[$mixin];
 		}
 
-		$path = FCPATH.'pinet/mixins/'.$mixin.'.php';
-		if(file_exists($path)) {
-			require_once($path);
-			$cls = ucfirst($mixin).'_Mixin';
-			if(class_exists($cls)) {
-				$m = new $cls();
-				$m->init(); // Initialize the mixin
-				$this->_ci_mixins[$mixin] = $m;
-				return $m;
+		foreach(array(APPPATH, 'pinet/') as $p) {
+			$path = FCPATH.$p.'mixins/'.$mixin.'.php';
+			if(file_exists($path)) {
+				require_once($path);
+				$cls = ucfirst($mixin).'_Mixin';
+				if(class_exists($cls)) {
+					$m = new $cls();
+					$m->init(); // Initialize the mixin
+					$this->_ci_mixins[$mixin] = $m;
+					return $m;
+				}
 			}
 		}
 		return null;
