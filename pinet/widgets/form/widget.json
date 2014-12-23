@@ -51,7 +51,7 @@
 				"position": "foot"				
 			}
 		],
-		"files" : ["pinet_form_init"]
+		"files" : ["pinet_form_select","pinet_form_init"]
 	},
 	"css": {
 		"depends": [
