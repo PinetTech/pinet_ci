@@ -1,5 +1,17 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+function get_form_data($parent_vars) {
+	$CI = &get_instance();
+	$form_data = null;
+	if(isset($CI->form_data)) {
+		$form_data = $CI->form_data;
+	}
+	else if(isset($parent_vars['form_data'])) {
+		$form_data = $parent_vars['form_data']->value;
+	}
+	return $form_data;
+}
+
 function get_field($params, $template) {
 	if(isset($template->block_data) && is_object($template->block_data) && get_class(
 		$template->block_data) === 'FormField') {
@@ -63,13 +75,7 @@ function get_attr($params, $template) {
 	}
 
 	// Now for form object rendering
-	$form_data = null;
-	if(isset($CI->form_data)) {
-		$form_data = $CI->form_data;
-	}
-	else if(isset($parent_vars['form_data'])) {
-		$form_data = $parent_vars['form_data']->value;
-	}
+	$form_data = get_form_data($parent_vars);
 
 	if(isset($f->mask)) {
 		$json = new stdclass();
