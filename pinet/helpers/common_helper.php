@@ -716,7 +716,7 @@ function merge_objects() {
 		if(!is_array($o) && !is_object($o))
 			continue;
 		foreach($o as $k => $v) {
-			if(!isset($obj->$k)) {
+			if(!isset($obj->$k) && isset($v)) {
 				$obj->$k = $v;
 			}
 		}
@@ -924,4 +924,39 @@ function filter_crlf($post){
     $post = preg_replace("/\n/","",$post);
     $post = preg_replace("/ /","",$post);
     return preg_replace("/'/","",$post);
+}
+
+function widget_select_get_options($options, $form_data, $field, $model = null) {
+	$ret = $options;
+	$ret[-1] =  '-- Please Select --';
+	if(isset($model)) {
+		$value_col = 'value';
+		if(isset($field->value_col)) {
+			$value_col = $field->value_col.' as value';
+		}
+		$model->select('id', $value_col);
+		$query = true;
+		if(isset($field->filters) && is_object($field->filters)) {
+			foreach($field->filters as $k => $v) {
+				if(is_object($v)) { // This is dynamic filter
+					$f = $v->field;
+					ci_log('The dynamic field is %s, and value is %s and key is %s', $f, $form_data->$f, $k);
+					if(isset($form_data) && isset($form_data->$f)) {
+						$model->where($k, $form_data->$f);
+					}
+					else {
+						$query = false;
+					}
+				}
+				else {
+					$model->where($k, $v);
+				}
+			}
+		}
+
+		if($query)
+			$ret = array_reduce($model->get_all(), function($carry, $item) {$carry[$item['id']] = $item['value'];
+				return $carry;}, $ret);
+	}
+	return $ret;
 }
