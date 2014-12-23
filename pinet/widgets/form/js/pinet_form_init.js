@@ -11,10 +11,6 @@ $(function(){
 		$("input[data-inputmask]").not("[type=image],[type=submit],[type=file]").inputmask().addClass('pinet-input-mask');
 	}
 	if($.isFunction($.fn.pinet_cascadeSelect)) {
-		$("select").each(function() {
-			$(this).data("dotrans", false);
-		});
-
 		$("[data-rel]").each(function(i){
 			var self = $(this);
 			var relName = self.attr("data-rel");
@@ -37,7 +33,7 @@ $(function(){
 		$.fn.changeValue = function(detail) {
 			var self = $(this);
 			var selectBox = self.data("selectBox-selectBoxIt");
-			// self.find('option').remove();
+			self.find('option').remove();
 
 			if (selectBox) {
 				var selectRelData 	= {
