@@ -923,7 +923,7 @@ class Pinet_Controller extends CI_Controller {
 
 		// Run the after method
 		foreach($interceptors['after'] as $after) {
-			return $after->intercept($method, $args);
+			$after->intercept($method, $args);
 		}
 		return $ret;
 	}
