@@ -67,6 +67,6 @@
 				"version": "3.3.1"
 			}
 		],
-		"files": ["pinet_html_function","pinet_html"]
+		"files": ["pinet_html_function","pinet_html_advance_function","pinet_html"]
 	}
 }

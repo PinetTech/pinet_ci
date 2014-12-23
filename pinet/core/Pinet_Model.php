@@ -359,6 +359,17 @@ class Pinet_Model extends MY_Model {
 		return $ret;
 	}
 
+	public function select($columns) {
+		if(func_num_args()) {
+			$columns = func_get_args();
+		}
+		if(is_array($columns)) {
+			$columns = implode(',', $columns);
+		}
+		$this->db->select($columns);
+		return $this;
+	}
+
 	public function myinsert($table, $data, $skip_validation = FALSE) {
 		$tmp = $this->table;
 		$tmpfields = $this->fields; 
