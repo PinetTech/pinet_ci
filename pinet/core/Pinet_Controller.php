@@ -803,7 +803,7 @@ class Pinet_Controller extends CI_Controller {
 
 	function selectProcess() {
 		$field = $this->input->get('field');
-		$detail = json_decode($this->input->get('detail'));
+		$detail = ($this->input->get('detail'));
 
 		if($field && $detail) {
 			$field = $this->getField($field);
