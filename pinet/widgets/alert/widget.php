@@ -7,5 +7,6 @@ class Alert_Widget extends Pinet_Widget {
 
 	public function init() {
 		parent::init();
+		$this->CI->load->library(array('pinet_alert'));
 	}
 }
