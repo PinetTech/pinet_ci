@@ -25,6 +25,7 @@ $alias_width: 0;
 
                if (isset($compiler->resolutions) && is_array($compiler->resolutions)) {
                     reset($compiler->resolutions);
+
                     $firstkey = key($compiler->resolutions);
                     $firstres = $compiler->resolutions[$firstkey];
                     if (is_numeric($firstkey) && is_string($firstres) && !is_numeric($firstres) ) {
@@ -35,7 +36,6 @@ $alias_width: 0;
                          $compiler->prefix .= "\n".'$init-min-screen-width: '.$firstres.';';
                          $compiler->prefix .= "\n".'$min-screen-width: '.$firstres.';';
                     }
-
 
                     $lastkey = array_pop(array_keys($compiler->resolutions));;
                     $lastres = $compiler->resolutions[$lastkey];

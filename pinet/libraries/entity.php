@@ -80,8 +80,15 @@ class Entity {
 		return $this->__e_changes;
 	}
 
+	public function clearChanges() {
+		$this->__e_changes = array();
+	}
+
 	private function addChange($type, $obj, $property, $value) {
 		$this->getChanges();
+		var_dump($type);
+		var_dump($property);
+		var_dump($value);
 		array_push($this->__e_changes, new EntityChange($type, $obj, $property, $value));
 	}
 
@@ -163,6 +170,8 @@ class Entity {
 		}
 
 		// Let's try mixins
+		$propertyMap = $this->getPropertyMap();
+
 		if(isset($propertyMap[$property])) {
 			$mixin = $propertyMap[$property];
 			$mixin->$property = $value;
@@ -197,7 +206,7 @@ class Entity {
 				$main_changed = true;
 				break;
 			case ENTITY_CHANGE_MIXIN: // The mixin has been changed
-				$change->obj->apply(); // When the mixin has been changed, tell mixin to apply the changes
+				$change->obj->apply($change->property, $change->value); // When the mixin has been changed, tell mixin to apply the changes
 				break;
 			}
 		}
@@ -205,5 +214,6 @@ class Entity {
 			$obj = $this->getMainObject();
 			$this->getModel()->update($obj->id, (array) $obj);
 		}
+		$this->clearChanges();
 	}
 }
