@@ -91,7 +91,7 @@ function smarty_block_field_group($params, $content = '', $template, &$repeat) {
 	if(trim($content) == '') { // If we don't have any sub element, just add an input
 		$inputData = array();
 		// Check field type
-		if ($f->type) {
+		if (isset($f->type) && $f->type != '') {
 			$inputData['type'] = $f->type;
 		}
 		$content = smarty_function_input($inputData, $template);
