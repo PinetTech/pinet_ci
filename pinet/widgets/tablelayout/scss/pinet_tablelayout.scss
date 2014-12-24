@@ -2,6 +2,7 @@
 	@include full_screen();
 	.container-table {
 		@include display_table();
+		height: 100%;
 		#navigation {
 			.tooltip.in {
 				position: fixed;
@@ -9,12 +10,28 @@
 		}
 		#main {
 			width: 100%;
+			> .scroll {
+				> .table-container {
+					height: 100%;
+				}
+			}
 		}
 		#content {
 			height: 100%;
+			.table-col:first-child {
+				> .scroll {
+					height: 100%;
+				}
+			}
 		}
 		#workbench {
 			width: 100%;
+		}
+
+		#workbench .table-container {
+			.table-row:last-child {
+				height: 100%;
+			}
 		}
 	}
 	@-moz-document url-prefix() {

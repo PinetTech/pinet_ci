@@ -1,6 +1,5 @@
 @mixin responsive_pinet_toolbar($args...) {
 	.pinet-toolbar {
-		position: relative;
 		margin: 0;
 		.btn{
 			width: res(200px);
@@ -51,7 +50,7 @@
 		}
 		.faq {
 			float: right;
-			position: absolute;
+			position: relative;
 			top: 0;
 			right: 0;
 			width: res(85px, 32px);
