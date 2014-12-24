@@ -191,13 +191,15 @@ class MY_Migration extends CI_Migration {
 	}
 
 	public function varchar($constraint = 64, $uniq = FALSE, $null = TRUE, $default = null) {
-		return array(
+		$arr = array(
 			'type' => 'varchar',
 			'constraint' => $constraint,
 			'uniq'=>$uniq,
-			'null' => $null,
-			'default' => $default
+			'null' => $null
 		);
+		if($default)
+			$arr['default'] = $default;
+		return $arr;
 	}
 
 	public function int($default = 0, $constraint = 11, $unsigned = TRUE, $null = TRUE) {

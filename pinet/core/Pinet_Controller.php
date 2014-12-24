@@ -757,10 +757,7 @@ class Pinet_Controller extends CI_Controller {
 	}
 
 	function isAjax() {
- 		if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
- 			return true;
- 		}
- 		return false;
+		return $this->input->is_ajax_request();
  	}
 
 	function isDataTableRequest() {
@@ -804,6 +801,25 @@ class Pinet_Controller extends CI_Controller {
 		return strtolower($_SERVER['REQUEST_METHOD']) == 'post';
 	}
 
+	function selectProcess() {
+		$field = $this->input->get('field');
+		$detail = json_decode($this->input->get('detail'));
+
+		if($field && $detail) {
+			$field = $this->getField($field);
+			if($field && isset($field->model)) {
+				$this->load->model($field->model);
+				$this->jsonOut(widget_select_get_options(array(), (object) $detail, $field, $this->{$field->model}));
+			}
+			else {
+				show_error("The field $field is not valid!");
+			}
+		}
+		else {
+			show_error('The select request is not valid!');
+		}
+	}
+
 	function _default_process($obj, $method, $args) {
         if(!$this->input->is_cli_request()) {
             $m = $method;
@@ -822,6 +838,15 @@ class Pinet_Controller extends CI_Controller {
 
             if ($this->isAjax()) { // If the request is ajax, try to find the method suffix with ajax
                 $m = $method.'_ajax';
+				if($this->input->get_request_header('Pinet', TRUE) == 'Select') {
+					$m = $method.'_select';
+
+					if(method_exists($obj, $m)) {
+						return $obj->$m($args);
+					}
+
+					return $this->selectProcess();
+				}
             }
             if ($this->isPost()) { // If the request is a form post, try to find the method suffix with form suffix
                 $m = $method.'_form';
