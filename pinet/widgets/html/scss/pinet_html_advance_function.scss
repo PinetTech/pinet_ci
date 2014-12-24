@@ -24,20 +24,12 @@
 						@return $result;
 					}
 					@else {
-<<<<<<< HEAD
-						$result: false, nth($params, 1), $res;
-=======
 						$result: false, nth($params, 1);
->>>>>>> 1700a27be56fc34ce810255b7f2fd08662d522a5
 						@return $result;
 					}
 				}
 				@else {
-<<<<<<< HEAD
-					$result: false, nth($params, 1), $res;
-=======
 					$result: false, nth($params, 1);
->>>>>>> 1700a27be56fc34ce810255b7f2fd08662d522a5
 					@return $result;
 				}
 
@@ -95,11 +87,7 @@
 						@return $result;
 					}
 					@else {
-<<<<<<< HEAD
-						$result: false, nth($params, 1), -1;
-=======
 						$result: false, nth($params, 1);
->>>>>>> 1700a27be56fc34ce810255b7f2fd08662d522a5
 						@return $result;
 					}
 				}
@@ -170,18 +158,31 @@
 			// @return length($minwidth);
 			// @return $minwidth;
 			// @return type-of($minwidth);
-<<<<<<< HEAD
-=======
 			// @return length($callback);
 			// @return $callback;
 			// @return type-of($callback);
->>>>>>> 1700a27be56fc34ce810255b7f2fd08662d522a5
 			@if $callback != -1 {
 				//Todo args num
 				$result: call($callback, $num, $minwidth);
 			}
 		}
 		@return $result;
+	}
+}
+
+@function is_like_percentage($number) {
+	$allowed: '%';
+	$strnumber: unquote($number+'');
+	@if type-of($number) == number {
+		@if str-index($strnumber, $allowed) != null {
+			@return true;
+		}
+		@else {
+			@return false;
+		}
+	}
+	@else {
+		@return false;
 	}
 }
 
@@ -193,14 +194,26 @@
 		// @return length($firstarg);
 		// @return $firstarg;
 		// @return type-of($firstarg);
-		$result: $firstarg * ($screen-width / strip-units($min-screen-width));
-		@return $result;
+		@if is_like_percentage($firstarg) {
+			$result: $firstarg;
+			@return $result;
+		}
+		@else {
+			$result: $firstarg * ($screen-width / strip-units($min-screen-width));
+			@return $result;
+		}
 	}
 	@else if $argslength == 2 {
 		$firstarg: func_get_arg(1, $args...);
 		$secondarg: func_get_arg(2, $args...);
-		$result: $firstarg * ($screen-width / strip-units($secondarg));
-		@return $result;
+		@if is_like_percentage($firstarg) {
+			$result: $firstarg;
+			@return $result;
+		}
+		@else {
+			$result: $firstarg * ($screen-width / strip-units($secondarg));
+			@return $result;
+		}
 	}
 	@else {
 		@return 0;
