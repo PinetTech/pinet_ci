@@ -103,21 +103,6 @@
 		> .table-col {
 			display: table-cell;
 			vertical-align: top;
-			> .scroll {
-				//Compatible bootstrap
-                > .row {
-                    margin: 0;
-                    > [class*=col] {
-                        padding: 0;
-                    }
-                }
-                //
-			}
-			&.full-height {
-				> .scroll {
-					height: 100%;
-				}
-			}
 		}
 	}
 }

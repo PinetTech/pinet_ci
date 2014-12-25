@@ -5,6 +5,8 @@ sparks
 .project
 .settings
 tags
+.tags
+.tags_sorted_by_file
 application/logs
 application/cache
 /application

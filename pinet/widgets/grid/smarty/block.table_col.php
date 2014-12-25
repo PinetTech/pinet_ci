@@ -6,6 +6,5 @@ function smarty_block_table_col($params, $content, $template, &$repeat) {
 
 	$params['class'] = make_classes('table-col', get_default($params, 'class', null));
 
-	$scroll = create_tag('div', array('class'=>'scroll'), array(), $content);
-	return create_tag('div', $params, array(), $scroll);
+	return create_tag('div', $params, array(), $content);
 }

@@ -2,6 +2,7 @@
 	@include full_screen();
 	.container-table {
 		@include display_table();
+		height: 100%;
 		#navigation {
 			.tooltip.in {
 				position: fixed;
@@ -15,15 +16,36 @@
 		}
 		#workbench {
 			width: 100%;
+			font-size: 0; // Fix inline bug
+		}
+		#messagebar {
+			font-size: 14px;
+		}
+		#toolbar {
+			font-size: 14px;
+		}
+		#scrollcontent {
+			font-size: 14px;
+			> .table-col {
+				position: relative;
+				// overflow: auto;
+				// height: 100%;
+			}
+			height: 100%;
+		}
+		.scroll-con {
+			width: 100%;
+			height: 100%;
+			overflow: auto;
+			position: absolute;
 		}
 	}
 	@-moz-document url-prefix() {
-    	.container-table {
-    		>.row {
-    			>.col {
-    				height: 100%;
-    			}
-    		}
-    	}
+		#navigation {
+			height: 100%;
+		}
+		#main .scroll {
+			height: 100%;
+		}
 	}
 }

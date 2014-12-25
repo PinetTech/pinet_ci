@@ -1,4 +1,4 @@
-jQuery(fuction(){
+jQuery(function(){
 	if(!$('.messagesbar').hasClass('no-hide')) {
 		setTimeout(function(){
 			$(".messagesbar").fadeOut(500);

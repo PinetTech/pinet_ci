@@ -7,7 +7,7 @@ if(!function_exists('smarty_function_input')) {
 
 /**
  * The field group has many states, list as below:
- * 
+ *
  * None: The field group won't show in the form
  * Hidden: The field group is hidden from user
  * Disabled: The field group is disabled
@@ -89,7 +89,12 @@ function smarty_block_field_group($params, $content = '', $template, &$repeat) {
 
 
 	if(trim($content) == '') { // If we don't have any sub element, just add an input
-		$content = smarty_function_input(array(), $template);
+		$inputData = array();
+		// Check field type
+		if (isset($f->type) && $f->type != '') {
+			$inputData['type'] = $f->type;
+		}
+		$content = smarty_function_input($inputData, $template);
 	}
 
 	if(is_string($glyphicon) && $glyphicon != '') {

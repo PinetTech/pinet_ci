@@ -5,18 +5,6 @@
 			if(!isset($compiler->resolutions))
 				return;
 
-			function get_array_next($array, $value) {
-				$find = false;
-				foreach ($array as $k => $v) {
-					if ($find) {
-						return array($k, $v);
-					}
-					if ($v == $value) {
-						$find = true;
-					}
-				}
-			}
-
 			$this->addBeforeResponsive($compiler);
 			foreach($compiler->resolutions as $k => $r) {
 				 if (is_numeric($k) && is_string($r) && !is_numeric($r) ) {
