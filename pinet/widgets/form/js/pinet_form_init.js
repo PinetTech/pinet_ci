@@ -1,6 +1,13 @@
 $(function(){
 	if($.isFunction($.fn.selectBoxIt)) {
-		$("select").each(function(){
+		$("select").each(function(i){
+			var self = $(this);
+			var relName = self.attr("data-rel");
+			if (relName && relName != '') {
+				$("[name=" + relName + "]").attr('data-no-selectBoxIt', 'true');
+			};
+		});
+		$("select:not([data-no-selectBoxIt])").each(function(){
 			$(this).selectBoxIt();
 		});
 	}
@@ -11,9 +18,15 @@ $(function(){
 		$("input[data-inputmask]").not("[type=image],[type=submit],[type=file]").inputmask().addClass('pinet-input-mask');
 	}
 	if($.isFunction($.fn.pinet_cascadeSelect)) {
-		$("[data-rel]").each(function(i){
+		$("select[data-rel]").each(function(i){
 			var self = $(this);
 			var relName = self.attr("data-rel");
+			$('[name=' + relName + ']').each(function(){
+				var rel = $(this);
+				rel.find("option").first()[0].selected = true;
+				rel.selectBoxIt();
+			});
+
 			$('[name=' + relName + ']').on("change", function(){
 				var rel = $(this);
 				var val = parseInt(rel.val());
@@ -50,9 +63,7 @@ $(function(){
 					dataType: "json",
 					data: selectRelData
 				}).done(function(data){
-					// var dataLength = Object.keys(data).length;
 					self.find('option').remove();
-					// self.data("dotrans", true);
 					// console.log(self.attr('name') );
 					// console.log(data);
 					// console.log(Object.keys(data).length);
@@ -64,34 +75,11 @@ $(function(){
 								self.append($('<option value=' + i +'>' + option + '</option>'));
 							}
 					});
+					self.find("option").first()[0].selected = true;
 					selectBox.refresh();
 				});
 			};
 		}
-
-
-		// $("[name=province]").on("change", function(e){
-		// 	var self = $(this);
-		// 	var val = parseInt(self.val());
-		// 	if (val > 0) {
-		// 		$("[name=city]").changeValue({
-		// 			province: self.val()
-		// 		});
-		// 		$("[name=city]").trigger("change");
-		// 	}
-		// });
-
-		// $("[name=city]").on("change", function(e){
-		// 	var self = $(this);
-		// 	var val = parseInt(self.val());
-
-		// 	if (val > 0) {
-		// 		console.log("city " + self.val());
-		// 		$("[name=area]").changeValue({
-		// 			city: self.val()
-		// 		});
-		// 	};
-		// });
 
 	}
 });
