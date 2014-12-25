@@ -4,6 +4,7 @@
 	padding-top: 0;
 	padding-bottom: 0;
  	height: res(116px);
+ 	font-size: res(36px);
  	.info {
 		float: left;
 		height: 100%;
@@ -15,6 +16,7 @@
 		padding-right: res(38px);
 		padding-top: res(5px);
 		& > .btn {
+			font-size: 14px;
 			margin-top: res(10px);
 			width: res(193px);
 			height: res(78px);

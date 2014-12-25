@@ -16,23 +16,32 @@
 		}
 		#workbench {
 			width: 100%;
+			font-size: 0; // Fix inline bug
+		}
+		#messagebar {
+			font-size: 14px;
 		}
 		#scrollcontent {
-			>.table-col {
+			> .table-col {
 				position: relative;
-				overflow: auto;
-				height: 100%;
+				// overflow: auto;
+				// height: 100%;
 			}
 			height: 100%;
 		}
+		.scroll-con {
+			width: 100%;
+			height: 100%;
+			overflow: auto;
+			position: absolute;
+		}
 	}
 	@-moz-document url-prefix() {
-    	.container-table {
-    		>.row {
-    			>.col {
-    				height: 100%;
-    			}
-    		}
-    	}
+		#navigation {
+			height: 100%;
+		}
+		#main .scroll {
+			height: 100%;
+		}
 	}
 }
