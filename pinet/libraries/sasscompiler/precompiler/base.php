@@ -11,6 +11,7 @@
 ';
                $compiler->prefix .= '$screen_width: 0;
 $alias_width: 0;
+$next-screen-width: 0;
 
 @function strip-units($val) {
      @return ($val / ($val * 0 + 1));
