@@ -23,13 +23,7 @@
 			{
 				"module": "jquery.selectBoxIt",
 				"file": "jquery.selectBoxIt",
-				"version": "3.6.0",
-				"position": "foot"
-			},
-			{
-				"module": "jquery.selectBoxIt",
-				"file": "jquery.selectBoxIt",
-				"version": "3.6.0",
+				"version": "3.8.0",
 				"position": "foot"
 			},
 			{
@@ -58,7 +52,7 @@
 			{
 				"module": "jquery.selectBoxIt",
 				"file": "jquery.selectBoxIt",
-				"version": "3.6.0"
+				"version": "3.8.0"
 			}
 		]
 	},
