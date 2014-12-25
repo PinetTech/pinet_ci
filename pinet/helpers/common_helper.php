@@ -960,3 +960,15 @@ function widget_select_get_options($options, $form_data, $field, $model = null) 
 	}
 	return $ret;
 }
+
+function get_array_next($array, $value) {
+	$find = false;
+	foreach ($array as $k => $v) {
+		if ($find) {
+			return array($k, $v);
+		}
+		if ($v == $value) {
+			$find = true;
+		}
+	}
+}
