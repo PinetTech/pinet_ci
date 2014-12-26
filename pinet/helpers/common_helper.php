@@ -940,7 +940,7 @@ function widget_select_get_options($options, $form_data, $field, $model = null) 
 			foreach($field->filters as $k => $v) {
 				if(is_object($v)) { // This is dynamic filter
 					$f = $v->field;
-					ci_log('The dynamic field is %s, and value is %s and key is %s', $f, $form_data->$f, $k);
+//					ci_log('The dynamic field is %s, and value is %s and key is %s', $f, $form_data->$f, $k);
 					if(isset($form_data) && isset($form_data->$f)) {
 						$model->where($k, $form_data->$f);
 					}
@@ -959,4 +959,26 @@ function widget_select_get_options($options, $form_data, $field, $model = null) 
 				return $carry;}, $ret);
 	}
 	return $ret;
+}
+
+function check_need_to_show($type=''){
+    $CI = &get_instance();
+    $CI->load->library('mobile_detect');
+    $show = $CI->mobile_detect->match('MicroMessenger') || $CI->mobile_detect->match('Yixin');
+    if($type && $show){
+        return $CI->mobile_detect->match($type) ? 2 : 0;
+    }
+    return $show ? 0 : 1;
+}
+
+function get_array_next($array, $value) {
+	$find = false;
+	foreach ($array as $k => $v) {
+		if ($find) {
+			return array($k, $v);
+		}
+		if ($v == $value) {
+			$find = true;
+		}
+	}
 }

@@ -170,6 +170,22 @@
 	}
 }
 
+@function is_like_percentage($number) {
+	$allowed: '%';
+	$strnumber: unquote($number+'');
+	@if type-of($number) == number {
+		@if str-index($strnumber, $allowed) != null {
+			@return true;
+		}
+		@else {
+			@return false;
+		}
+	}
+	@else {
+		@return false;
+	}
+}
+
 @function mincal($args...) {
 	$result: null;
 	$argslength: func_num_args($args...);
@@ -178,14 +194,26 @@
 		// @return length($firstarg);
 		// @return $firstarg;
 		// @return type-of($firstarg);
-		$result: $firstarg * ($screen-width / strip-units($min-screen-width));
-		@return $result;
+		@if is_like_percentage($firstarg) {
+			$result: $firstarg;
+			@return $result;
+		}
+		@else {
+			$result: $firstarg * ($screen-width / strip-units($min-screen-width));
+			@return $result;
+		}
 	}
 	@else if $argslength == 2 {
 		$firstarg: func_get_arg(1, $args...);
 		$secondarg: func_get_arg(2, $args...);
-		$result: $firstarg * ($screen-width / strip-units($secondarg));
-		@return $result;
+		@if is_like_percentage($firstarg) {
+			$result: $firstarg;
+			@return $result;
+		}
+		@else {
+			$result: $firstarg * ($screen-width / strip-units($secondarg));
+			@return $result;
+		}
 	}
 	@else {
 		@return 0;
@@ -262,101 +290,3 @@
 	@return false;
 }
 
-@function maxcal($args...) {
-	$result: null;
-	$argslength: func_num_args($args...);
-	@if $argslength < 2 {
-		$firstarg: func_get_arg(1, $args...);
-		// @return length($firstarg);
-		// @return $firstarg;
-		// @return type-of($firstarg);
-		$result: ($firstarg * $screen-width) / strip-units($max-screen-width);
-		@return $result;
-	}
-	@else if $argslength == 2 {
-		// @return  go in;
-		$firstarg: func_get_arg(1, $args...);
-		$secondarg: func_get_arg(2, $args...);
-		// @return length($secondarg);
-		@return $secondarg;
-		// @return type-of($secondarg);
-		$result: ($firstarg * $screen-width) / strip-units($secondarg);
-		@return $result;
-	}
-	@else {
-		@return 0;
-	}
-}
-
-@function maxvar($args...) {
-	$result: null;
-	$argslength: func_num_args($args...);
-
-	$min: false;
-	@if $argslength == 1 {
-		$result: call(maxcal, $args...);
-		@return $result;
-	}
-	@else {
-		$second-arg: func_get_arg(2, $args...);
-		// @return length($second-arg);
-		// @return $second-arg;
-		// @return type-of($second-arg);
-		// @return length($params);
-		// @return $params;
-		// @return type-of($params);
-		// @return nth($params, 1);
-		// @return type-of(nth($params, 1));
-		// @return nth($params, 2);
-		// @return type-of(nth($params, 2));
-		// @return go in;
-		@if type-of($second-arg) == number {
-			// @return go in;
-			// $params: func_remove_arg(2, $args...);
-			$min: true;
-			$params: func_replace_arg(2, maxcal, $args...);
-			// @return length($params);
-			// @return $params;
-			// @return type-of($params);
-			// @return length(nth($params, 1));
-			// @return nth($params, 1);
-			// @return type-of(nth($params, 1));
-			// @return length(nth($params, 2));
-			// @return nth($params, 2);
-			// @return type-of(nth($params, 2));
-		}
-		@else {
-			$params: func_set_arg(maxcal, $args...);
-			// @return length($params);
-			// @return $params;
-			// @return type-of($params);
-			// @return length(nth($params, 1));
-			// @return nth($params, 1);
-			// @return type-of(nth($params, 1));
-			// @return length(nth($params, 2));
-			// @return nth($params, 2);
-			// @return type-of(nth($params, 2));
-		}
-		// @return length($params);
-		// @return $params;
-		// @return type-of($params);
-		$result: _std-autos($params...);
-		// @return length($result);
-		// @return $result;
-		// @return type-of($result);
-
-		// Handle max value ?(is that right)
-		@if $min == true {
-			@if $result > $second-arg {
-				$result: $second-arg;
-			}
-		}
-
-		// @return length($params);
-		// @return $params;
-		// @return type-of($params);
-		@return $result;
-	}
-
-	@return false;
-}

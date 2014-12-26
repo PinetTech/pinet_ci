@@ -6,6 +6,61 @@ var Settings = {
 	}
 };
 
+var measure_string = function(str, font){
+	var canvas = document.createElement('canvas');
+	var ctx = canvas.getContext("2d");
+	ctx.font = font;
+	return ctx.measureText(str).width;
+}
+
+var calc_length = function(str, font, w, emitter) {
+	if(measure_string(str, font) > w) {
+		var ic = Math.floor(w / measure_string('i'));
+		var mc = Math.floor(w / measure_string('m'));
+		for(var i = ic; i > 0; i--) {
+			var s = str.substring(0, i) + emitter;
+			if(measure_string(s, font) < w) {
+				return i;
+			}
+		}
+	}
+	else {
+		return str.length;
+	}
+}
+
+var get_font = function(e) {
+    var fs = $(e).css('font-style');
+    var fv = $(e).css('font-variant');
+    var fz = $(e).css('font-size');
+    var ff = $(e).css('font-family');
+    return [fs, fv, fz, ff].join(' ');
+}
+
+$.fn.emit = function(){
+	$(this).each(function(){
+		var font = get_font(this);
+		var pl = $(this).css('padding-left').replace('px', '');
+		var pr = $(this).css('padding-right').replace('px', '');
+		var w = $(this).width();
+        if($(this).children("a").length) {
+            $(this).children("a").emit();
+        }
+        else {
+            if(measure_string($(this).text(), font) < w) {
+                return;
+            }
+            var emitter = ' ... ';
+            var c = calc_length($(this).text(), font, w - pl - pr, emitter);
+            var str = $(this).text();
+            if(str.length > 0) {
+                $(this).attr('title', str);
+                $(this).text(str.substring(0, c) + emitter);
+            }
+        }
+	});
+}
+
 if ($.isFunction($.fn.emit)) {
 	$('#datatable tbody td').emit();
 }

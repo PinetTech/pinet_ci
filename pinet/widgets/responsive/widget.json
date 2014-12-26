@@ -19,7 +19,7 @@
 		],
 		"files" : []
 	},
-	"depends": ["jquery"],
+	"depends": ["jquery","bootstrap"],
 	"scss": {
 		"depends": [
 			{

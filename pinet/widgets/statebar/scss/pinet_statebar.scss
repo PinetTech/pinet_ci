@@ -8,7 +8,6 @@
 		}
 		.title {
 			height: 100%;
-			margin-left: res(54px);
 			padding: 0;
 			font-size: res(36px);
 			color: #676e76;
@@ -17,7 +16,7 @@
 		.info {
 			height: 100%;
 			float: right;
-			margin-right: res(93px);
+			// margin-right: res(93px);
 			font-size: res(36px);
 			.logo {
 				float: right;

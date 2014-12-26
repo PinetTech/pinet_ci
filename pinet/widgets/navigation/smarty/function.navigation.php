@@ -2,7 +2,7 @@
 
 function smarty_function_navigation($params, $template) {
 	$nav = <<<TEXT
-    <div id="nav" class="pinet-navigation">
+    <div id="pinet-nav" class="pinet-navigation">
       	<nav class='navigations' role="navigation">
             {section name=i loop=\$navigations}
                 {action obj=\$navigations[i] type='main'}

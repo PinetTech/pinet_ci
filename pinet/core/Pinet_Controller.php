@@ -55,7 +55,7 @@ class FormFieldRule {
 			else { // The rules that have only 1 arg
 	    		switch ($this->rule) {
 				    case 'select':
-				    	return array('type' => '', 'data-validation-'.$this->rule.'-message' => $this->arg);				    		    			
+				    	return array('type' => '', 'data-validation-'.$this->rule.'-message' => $this->arg);
 	    			case 'required':
 	    				return array('required'=>'', 'data-validation-'.$this->rule.'-message' => $this->arg,'data-validation-'.$this->rule.'-message' => $this->arg);
 	     			case 'maxlength':
@@ -145,7 +145,7 @@ class JavaScriptSrc {
 	public $version;
 	public $module;
 	public $position;
-	public $jsFolder; 
+	public $jsFolder;
 
 	public function __construct($name, $version, $module, $position = 'foot') {
 		$this->name = $name;
@@ -261,7 +261,7 @@ class Pinet_Controller extends CI_Controller {
 	public $state = '';
 	public $containers;
 	public $_states = array();
-	
+
 	function __construct() {
 		parent::__construct();
 
@@ -298,7 +298,7 @@ class Pinet_Controller extends CI_Controller {
 		$this->jsFolder = $this->config->item('js_folder');
 		$this->cssFolder = $this->config->item('css_folder');
 		$this->bootstrapFolder = $this->config->item('bootstrap_folder');
-		$this->datatablesFloder = $this->config->item('datatables_folder');		
+		$this->datatablesFloder = $this->config->item('datatables_folder');
 		$this->use_less = $this->config->item('use_less');
 
 		// This is used for hacking smarty view
@@ -551,7 +551,7 @@ class Pinet_Controller extends CI_Controller {
 					break;
 				}
 			}
-		}		
+		}
 		$css = new CssLink($file, $version, $module, $less);
 		if(isset($cssFolder)) {
 			$css->cssFolder = $cssFolder;
@@ -590,7 +590,7 @@ class Pinet_Controller extends CI_Controller {
 		$this->js('jquery-listview', $version, -1, 'jquery-listview'); // Add jquery at the first
 		$this->js('jquery-listview-layout', $version, -1, 'jquery-listview');
 		$this->js('string', '1.9.0', -1, 'string'); // Add jquery at the first
-		$this->js('store','1.0.0',-1,'store');  //Add localstorage support		
+		$this->js('store','1.0.0',-1,'store');  //Add localstorage support
 		$this->less('jquery-listview', $version, -1, 'jquery-listview');
 	}
 
@@ -630,7 +630,7 @@ class Pinet_Controller extends CI_Controller {
 		$this->css('bootstrap-datetimepicker', $version, -1, 'bootstrap-datetimepicker');
 	}
 
-	function jquery_selectBoxIt($version = '3.6.0') {
+	function jquery_selectBoxIt($version = '3.8.0') {
 		$this->js('jquery.selectBoxIt', $version, -1, 'jquery.selectBoxIt');
 		$this->css('jquery.selectBoxIt', $version, -1, 'jquery.selectBoxIt');
 	}
@@ -803,7 +803,7 @@ class Pinet_Controller extends CI_Controller {
 
 	function selectProcess() {
 		$field = $this->input->get('field');
-		$detail = json_decode($this->input->get('detail'));
+		$detail = ($this->input->get('detail'));
 
 		if($field && $detail) {
 			$field = $this->getField($field);
@@ -948,7 +948,7 @@ class Pinet_Controller extends CI_Controller {
 
 		// Run the after method
 		foreach($interceptors['after'] as $after) {
-			return $after->intercept($method, $args);
+			$after->intercept($method, $args);
 		}
 		return $ret;
 	}
@@ -978,7 +978,7 @@ class Pinet_Controller extends CI_Controller {
 		if(get_ci_config('less_js')) {
 			$args['use_less_js'] = true;
 		}
-		
+
 		if(is_array($t)) {
 			$args['title'] = lang_f($t[0], $t[1]);
 		}

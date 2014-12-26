@@ -4,7 +4,7 @@
 	"version": "1.0",
 	"name": "pinet.form",
 	"doc":"The form widgets",
-	"depends": ["jquery_ui_common"],
+	"depends": ["jquery_ui_common", "datepicker"],
 	"js": {
 		"depends": [
 			{
@@ -23,42 +23,36 @@
 			{
 				"module": "jquery.selectBoxIt",
 				"file": "jquery.selectBoxIt",
-				"version": "3.6.0",
-				"position": "foot"
-			},
-			{
-				"module": "jquery.selectBoxIt",
-				"file": "jquery.selectBoxIt",
-				"version": "3.6.0",
+				"version": "3.8.0",
 				"position": "foot"
 			},
 			{
 				"module": "jquery.inputmask",
 				"file": "jquery.inputmask",
 				"version": "3.1.25",
-				"position": "foot"				
+				"position": "foot"
 			},
 			{
 				"module": "jquery.inputmask",
 				"file": "jquery.inputmask.extensions",
 				"version": "3.1.25",
-				"position": "foot"				
+				"position": "foot"
 			},
 			{
 				"module": "jquery.inputmask",
 				"file": "jquery.inputmask.date.extensions",
 				"version": "3.1.25",
-				"position": "foot"				
+				"position": "foot"
 			}
 		],
-		"files" : ["pinet_form_init"]
+		"files" : ["pinet_form_select","pinet_form_init"]
 	},
 	"css": {
 		"depends": [
 			{
 				"module": "jquery.selectBoxIt",
 				"file": "jquery.selectBoxIt",
-				"version": "3.6.0"
+				"version": "3.8.0"
 			}
 		]
 	},

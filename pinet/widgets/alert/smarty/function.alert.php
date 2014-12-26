@@ -9,14 +9,14 @@ function smarty_function_alert($params, $template) {
 		$classes = make_classes($origin_class, 'alert');
 		$classes [] = 'pinet-alert-'.$alert->type;
 		$classes [] = 'alert-map-item';
-		$params['class'] = $classes;	
+		$params['class'] = $classes;
 
-		$yes_btn = create_tag('button', 
-			array('class'=>array('btn', 'pinet-alert-btn-default', 'yes')), 
+		$yes_btn = create_tag('button',
+			array('class'=>array('btn', 'pinet-alert-btn-default', 'yes')),
 			array(), 'YES');
 
-		$no_btn = create_tag('button', 
-			array('class'=>array('btn', 'pinet-alert-btn-default', 'no')), 
+		$no_btn = create_tag('button',
+			array('class'=>array('btn', 'pinet-alert-btn-default', 'no')),
 			array(), 'NO');
 
 		$content = $yes_btn;
