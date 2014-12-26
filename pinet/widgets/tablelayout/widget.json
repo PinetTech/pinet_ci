@@ -8,7 +8,7 @@
 		"depends": [],
 		"files" : []
 	},
-	"depends": ["grid"],
+	"depends": ["grid","navigation","statebar","toolbar","alert"],
 	"scss": {
 		"depends": [],
 		"files": ["pinet_tablelayout"]
