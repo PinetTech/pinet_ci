@@ -2,6 +2,7 @@
 	@include full_screen();
 	.container-table {
 		@include display_table();
+		background-color: #f2f3f5;
 		height: 100%;
 		#navigation {
 			.tooltip.in {
