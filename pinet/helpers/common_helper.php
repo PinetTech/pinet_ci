@@ -970,3 +970,15 @@ function check_need_to_show($type=''){
     }
     return $show ? 0 : 1;
 }
+
+function get_array_next($array, $value) {
+	$find = false;
+	foreach ($array as $k => $v) {
+		if ($find) {
+			return array($k, $v);
+		}
+		if ($v == $value) {
+			$find = true;
+		}
+	}
+}

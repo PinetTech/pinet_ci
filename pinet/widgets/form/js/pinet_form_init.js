@@ -6,6 +6,20 @@ $(function(){
 			if (relName && relName != '') {
 				$("[name=" + relName + "]").attr('data-no-selectBoxIt', 'true');
 			};
+			var isFF = 'MozAppearance' in document.documentElement.style;
+			if (isFF) {
+				if (self.children('option[selected]').length > 0) {
+					// console.log('has default value');
+					// console.log(self.attr('name'));
+					// self.val(self.children('option[selected]').val());
+					// self.children('option[selected]').selected = true;
+					$( 'option[selected]' ).prop( 'selected', 'selected' );
+				}
+				else {
+					// console.log('not has default value');
+					self.find("option").first()[0].selected = true;
+				}
+			};
 		});
 		$("select:not([data-no-selectBoxIt])").each(function(){
 			$(this).selectBoxIt();
@@ -23,7 +37,13 @@ $(function(){
 			var relName = self.attr("data-rel");
 			$('[name=' + relName + ']').each(function(){
 				var rel = $(this);
-				rel.find("option").first()[0].selected = true;
+				// if (rel.children('option[selected]').length < 1) {
+				// 	rel.find("option").first()[0].selected = true;
+				// }
+				// else {
+				// 	// ?Firefox bug
+				// 	rel.children('option[selected]')[0].selected = true;
+				// }
 				rel.selectBoxIt();
 			});
 
@@ -75,11 +95,12 @@ $(function(){
 								self.append($('<option value=' + i +'>' + option + '</option>'));
 							}
 					});
-					self.find("option").first()[0].selected = true;
+					if (self.children('option[selected]').length < 1) {
+						self.find("option").first()[0].selected = true;
+					}
 					selectBox.refresh();
 				});
 			};
 		}
-
 	}
 });
