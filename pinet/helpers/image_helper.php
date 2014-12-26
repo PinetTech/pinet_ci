@@ -86,6 +86,26 @@ function inner_create_image_thumbnail($orig, $width, $height = 0) {
 function render_image_thumbnail($orig, $width, $height = 0) {
 	$file = inner_create_image_thumbnail($orig, $width, $height);
 	if($file) {
+		$last_modified  = filemtime( $file );
+
+		$modified_since = ( isset( $_SERVER["HTTP_IF_MODIFIED_SINCE"] ) ? strtotime( $_SERVER["HTTP_IF_MODIFIED_SINCE"] ) : false );
+		$etagHeader     = ( isset( $_SERVER["HTTP_IF_NONE_MATCH"] ) ? trim( $_SERVER["HTTP_IF_NONE_MATCH"] ) : false );
+
+		// This is the actual output from this file (in your case the xml data)
+		$content  = $file;
+		// generate the etag from your output
+		$etag     = sprintf( '"%s-%s"', $last_modified, md5( $content ) );
+
+		//set last-modified header
+		header( "Last-Modified: ".gmdate( "D, d M Y H:i:s", $last_modified )." GMT" );
+		//set etag-header
+		header( "Etag: ".$etag );
+
+		// if last modified date is same as "HTTP_IF_MODIFIED_SINCE", send 304 then exit
+		if ( (int)$modified_since === (int)$last_modified && $etag === $etagHeader ) {
+			header( "HTTP/1.1 304 Not Modified" );
+			return;
+		}
 		$out = fopen('php://output', 'wb');
 		$in = fopen($file, 'r');
 		stream_copy_to_stream($in, $out);
