@@ -1,8 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-if(!function_exists('smarty_block_container')) {
-	require_once(dirname(__FILE__).'/block.container.php');
-}
+require_widget_smarty("state", "container");
 
 function smarty_block_toolbar($params, $content = '', $template, &$repeat) {
 	if($repeat) { // This is the start part

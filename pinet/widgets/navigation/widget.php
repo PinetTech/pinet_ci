@@ -7,6 +7,6 @@ class Navigation_Widget extends Pinet_Widget {
 
 	public function init() {
 		parent::init();
-		$this->CI->load->library(array('navigation'));		
+		$this->CI->load->library(array('navigation'));
 	}
 }

@@ -10,7 +10,23 @@
 	},
 	"depends": ["image","tooltip","action"],
 	"scss": {
-		"depends": [],
-		"files": ["pinet_navigation"]
+		"depends": [
+			{
+				"module": "bourbon",
+				"file": "settings/_prefixer",
+				"version": ""
+			},
+			{
+				"module": "bourbon",
+				"file": "addons/_prefixer",
+				"version": "3.2.3"
+			},
+			{
+				"module": "bourbon",
+				"file": "css3/_border-radius",
+				"version": "3.2.3"
+			}
+		],
+		"files": ["pinet_navigation","pinet_subnavi"]
 	}
 }

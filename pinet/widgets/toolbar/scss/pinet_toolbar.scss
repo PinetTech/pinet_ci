@@ -9,16 +9,14 @@
 		> .control-group {
 			vertical-align: top;
 		}
-		> input.search {
+		> .control-group.search {
 			width: res(518px);
-			height: res(84px);
+			height: res(84px, 35px);
 			float: left;
-		}
-		> input[type=text] {
-			float: left;
-			width: res(580px);
-			height: res(85px, 32px);
 			margin-right: res(20px);
+			> input {
+				height: 100%;
+			}
 		}
 		> .btn {
 			width: res(200px);
