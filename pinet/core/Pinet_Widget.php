@@ -32,6 +32,8 @@ class Pinet_Widget {
 	public function initSmarty() {
 		// Adding the smarty folder of this widget to the smarty scan directory
 		$this->CI->addSmartyPluginDir(dirname(get_class_script_path($this)).'/smarty');
+		// ?(smarty need layout tpl)
+		$this->CI->addTemplateDir(dirname(get_class_script_path($this)).'/smarty');
 	}
 
 	public function initSCSS() {
