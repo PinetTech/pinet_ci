@@ -962,6 +962,30 @@ function widget_select_get_options($options, $form_data, $field, $model = null) 
 	return $ret;
 }
 
+function cache_support($file) {
+	$last_modified  = filemtime( $file );
+
+	$modified_since = ( isset( $_SERVER["HTTP_IF_MODIFIED_SINCE"] ) ? strtotime( $_SERVER["HTTP_IF_MODIFIED_SINCE"] ) : false );
+	$etagHeader     = ( isset( $_SERVER["HTTP_IF_NONE_MATCH"] ) ? trim( $_SERVER["HTTP_IF_NONE_MATCH"] ) : false );
+
+	// This is the actual output from this file (in your case the xml data)
+	$content  = $file;
+	// generate the etag from your output
+	$etag     = sprintf( '"%s-%s"', $last_modified, md5( $content ) );
+
+	//set last-modified header
+	header( "Last-Modified: ".gmdate( "D, d M Y H:i:s", $last_modified )." GMT" );
+	//set etag-header
+	header( "Etag: ".$etag );
+
+	// if last modified date is same as "HTTP_IF_MODIFIED_SINCE", send 304 then exit
+	if ( (int)$modified_since === (int)$last_modified && $etag === $etagHeader ) {
+		header( "HTTP/1.1 304 Not Modified" );
+		return true;
+	}
+	return false;
+}
+
 function check_need_to_show($type=''){
     $CI = &get_instance();
     $CI->load->library('mobile_detect');
