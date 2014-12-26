@@ -27,10 +27,6 @@ class Navigation {
 	 * configuration file to retrieve all the first level navigations
 	 */
 	public function getNavigations() {
-		if($this->CI->input->get('clear_navi')) {
-			$this->clear();
-		}
-
 		if(isset($this->current_navigations))
 			return $this->current_navigations;
 
