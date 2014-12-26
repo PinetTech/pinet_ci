@@ -24,9 +24,37 @@
 	}
 
 	.pinet-alert-map {
-		.alert-map-item {
-			margin: 0;
+		display: table;
+		.pinet-alert-map-inner {
+			position: relative;
 		}
-		margin-bottom: res(35px);
+		.alert-map-item {
+			display: none;
+			margin: 0;
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+		margin-bottom: res(15px, 7px);
+		.indicator {
+			width: 100%;
+			bottom: 0;
+			text-align: center;
+			padding: 0;
+			margin: 0;
+			margin-top: res(15px,  7px);
+			.indicator-item {
+				display: inline-block;
+				width: res(24px, 12px);
+				height: res(24px, 12px);
+				border-radius: 50%;
+				background-color: #ddd;
+				margin-left: res(10px , 5px);
+				margin-right: res(10px, 5px);
+			}
+			.indicator-item.active {
+				background-color: #000;
+			}
+		}
 	}
 }
