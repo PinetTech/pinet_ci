@@ -11,12 +11,18 @@
 		}
 		#layout-main {
 			width: 100%;
+			padding-left: res(60px);
+			padding-right: res(60px);
 		}
 		#layout-content {
 			height: 100%;
 		}
 		#layout-workbench {
 			width: 100%;
+			padding-right: res(60px);
+		}
+		#layout-toolbar {
+			margin-bottom: res(35px);
 		}
 		#layout-scrollcontent {
 			> .table-col {
