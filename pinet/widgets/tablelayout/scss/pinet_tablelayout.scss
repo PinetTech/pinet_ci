@@ -4,21 +4,21 @@
 		@include display_table();
 		background-color: #f2f3f5;
 		height: 100%;
-		#navigation {
+		#layout-navigation {
 			.tooltip.in {
 				position: fixed;
 			}
 		}
-		#main {
+		#layout-main {
 			width: 100%;
 		}
-		#content {
+		#layout-content {
 			height: 100%;
 		}
-		#workbench {
+		#layout-workbench {
 			width: 100%;
 		}
-		#scrollcontent {
+		#layout-scrollcontent {
 			> .table-col {
 				position: relative;
 				// overflow: auto;
@@ -34,10 +34,10 @@
 		}
 	}
 	@-moz-document url-prefix() {
-		#navigation {
+		#layout-navigation {
 			height: 100%;
 		}
-		#main .scroll {
+		#layout-main .scroll {
 			height: 100%;
 		}
 	}
