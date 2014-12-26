@@ -6,18 +6,20 @@ $(function(){
 			if (relName && relName != '') {
 				$("[name=" + relName + "]").attr('data-no-selectBoxIt', 'true');
 			};
-			// Todo need check firefox hack
-			if (self.children('option[selected]').length > 0) {
-				// console.log('has default value');
-				// console.log(self.attr('name'));
-				// self.val(self.children('option[selected]').val());
-				// self.children('option[selected]').selected = true;
-				$( 'option[selected]' ).prop( 'selected', 'selected' );
-			}
-			else {
-				// console.log('not has default value');
-				self.find("option").first()[0].selected = true;
-			}
+			var isFF = 'MozAppearance' in document.documentElement.style;
+			if (isFF) {
+				if (self.children('option[selected]').length > 0) {
+					// console.log('has default value');
+					// console.log(self.attr('name'));
+					// self.val(self.children('option[selected]').val());
+					// self.children('option[selected]').selected = true;
+					$( 'option[selected]' ).prop( 'selected', 'selected' );
+				}
+				else {
+					// console.log('not has default value');
+					self.find("option").first()[0].selected = true;
+				}
+			};
 		});
 		$("select:not([data-no-selectBoxIt])").each(function(){
 			$(this).selectBoxIt();

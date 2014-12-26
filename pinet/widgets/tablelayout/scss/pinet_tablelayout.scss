@@ -16,16 +16,8 @@
 		}
 		#workbench {
 			width: 100%;
-			font-size: 0; // Fix inline bug
-		}
-		#messagebar {
-			font-size: 14px;
-		}
-		#toolbar {
-			font-size: 14px;
 		}
 		#scrollcontent {
-			font-size: 14px;
 			> .table-col {
 				position: relative;
 				// overflow: auto;
