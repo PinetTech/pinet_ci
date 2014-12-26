@@ -50,7 +50,7 @@
 				if(i == 0){
 					indicator_items[i].addClass('active');
 				}
-				self.find('.alert-map-item').attr('item-index', i);
+				self.find('.alert-map-item').eq(i).attr('item-index', i);
 				indicator_items[i].attr('item-index', i);
 				indicator.append(indicator_items[i]);
 			}
@@ -85,11 +85,14 @@
 				var curbtn = $(e.currentTarget);
 				var cur_alert_map_item = curbtn.parent().parent();
 				var index = cur_alert_map_item.attr('item-index');
-				last_index = self.find('.indicator-item').eq(index+1).attr('item-index');
+				last_index = self.find('.indicator-item').eq(index).attr('item-index');
+				index++;
+				if (index == self.find('.pinet-alert-map-inner').find(option.item_selector).length) {
+					index = 0;
+				};
 				changeAlert(index);
 				cur_alert_map_item.remove();
 				self.find('.indicator-item').eq(index).remove();
-				console.log(self.find('.pinet-alert-map-inner').find(option.item_selector).length);
 				if (self.find('.pinet-alert-map-inner').find(option.item_selector).length == 1) {
 					clearInterval(interval);
 					self.find('.indicator').remove();
