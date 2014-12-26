@@ -39,6 +39,10 @@ function smarty_block_select($params, $content, $template, &$repeat) {
 		}
 	}
 
+	if (isset($params['noselectboxit']) && $params['noselectboxit'] != '') {
+		$attr["data-no-selectBoxIt"] = true;
+	}
+
 	$parent_vars = $template->parent->tpl_vars;
 	$form_data = get_form_data($parent_vars);
 	$selected = get_default($params, 'selected', array());

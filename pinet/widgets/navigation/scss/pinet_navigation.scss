@@ -1,5 +1,5 @@
  @mixin responsive_pinet_navigation($args...) {
-	#nav {
+	#pinet-nav {
 		position: relative;
 		width: res(160px);
 		height: 100%;

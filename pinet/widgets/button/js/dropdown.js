@@ -8,11 +8,11 @@
 
 
 +function ($) {
-  'use strict';
 
   // DROPDOWN CLASS DEFINITION
   // =========================
 
+if (!$.isFunction($.fn.dropdown)) {
   var backdrop = '.dropdown-backdrop'
   var toggle   = '[data-toggle="dropdown"]'
   var Dropdown = function (element) {
@@ -157,5 +157,7 @@
     .on('keydown.bs.dropdown.data-api', toggle, Dropdown.prototype.keydown)
     .on('keydown.bs.dropdown.data-api', '[role="menu"]', Dropdown.prototype.keydown)
     .on('keydown.bs.dropdown.data-api', '[role="listbox"]', Dropdown.prototype.keydown)
+
+}
 
 }(jQuery);
