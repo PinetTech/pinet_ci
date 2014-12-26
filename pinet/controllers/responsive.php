@@ -3,7 +3,7 @@
 class Responsive extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
-		$this->load->helper('image');
+		$this->load->helper(array('common', 'image'));
 	}
 
 	public function size($size, $img) {
@@ -29,6 +29,6 @@ class Responsive extends CI_Controller {
 			header('Content-Type: image/ico');
 			break;
 		}
-		echo create_image_thumbnail($path, $size);
+		render_image_thumbnail($path, $size);
 	}
 }

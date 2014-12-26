@@ -178,7 +178,8 @@ function ci_trace($msg = '') {
 }
 function ci_log() {
 	$CI = &get_instance();
-	call_user_func_array(array($CI, 'log'), func_get_args());
+	if(method_exists($CI, 'log'))
+		call_user_func_array(array($CI, 'log'), func_get_args());
 }
 function ci_error() {
 	$CI = &get_instance();

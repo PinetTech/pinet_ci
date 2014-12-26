@@ -22,19 +22,19 @@ function find_file($file, $path, $basepath = FCPATH) {
 	return $f;
 }
 
-function create_image_thumbnail($orig, $width, $height = 0) {
+function inner_create_image_thumbnail($orig, $width, $height = 0) {
 	$output_dir = 'application/cache/img/'.$width.'x'.$height.'/'; // All the thumbnails is located in cache
 
 	$out_file = find_file($orig, $output_dir); // Try to find the file from output dir
 	if($out_file != null) { // If the cached file is exists, return it
-		return file_get_contents($out_file);
+		return $out_file;
 	}
 
 	$file = find_img($orig);
 	if($file == null) // We can't read the file {
 		return null;
 	if($width == 'normal')
-		return file_get_contents($file);
+		return $file;
 
 	if(!file_exists($output_dir)) { // If the output dir is not exists, then create it
 		mkdir($output_dir, 0777, true);
@@ -55,10 +55,9 @@ function create_image_thumbnail($orig, $width, $height = 0) {
 		$img = new Imagick($file);
 		$img->thumbnailImage($width, $height);
 		$img->writeImage($out_file);
-		return file_get_contents($out_file);
+		return $out_file;
 	}
 	if (extension_loaded('gd')) {
-		ci_log('Thumbnailing file %s using GD', $file);
 		if($ext == 'jpg' || $ext == 'jpeg')
 			$src_img=imagecreatefromjpeg($file);
 		else
@@ -79,7 +78,26 @@ function create_image_thumbnail($orig, $width, $height = 0) {
 			imagepng($dst_img,$out_file);
 		imagedestroy($dst_img);
 		imagedestroy($src_img);
-        return file_get_contents($out_file);
+        return $out_file;
 	}
+	return null;
+}
+
+function render_image_thumbnail($orig, $width, $height = 0) {
+	$file = inner_create_image_thumbnail($orig, $width, $height);
+	if($file) {
+		$out = fopen('php://output', 'wb');
+		$in = fopen($file, 'r');
+		stream_copy_to_stream($in, $out);
+		fclose($in);
+		return;
+	}
+	trigger_error('No image generated!!!!');
+}
+
+function create_image_thumbnail($orig, $width, $height = 0) {
+	$file = inner_create_image_thumbnail($orig, $width, $height);
+	if($file)
+		return file_get_contents($file);
 	return null;
 }
