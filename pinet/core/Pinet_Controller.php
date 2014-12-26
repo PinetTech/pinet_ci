@@ -268,7 +268,10 @@ class Pinet_Controller extends CI_Controller {
 		$this->hackFormValidation();
 
 		$this->load->helper(array('language', 'url', 'common', 'page','form'));
-		$this->load->library(array('form_validation', 'log', 'fb', 'interceptor_support'));
+		$this->load->library(array('form_validation', 'log', 'interceptor_support'));
+
+		if(ENVIRONMENT != 'production')
+			$this->load->library('fb');
 
 		if(get_ci_config('enable_audit')) {
 			$this->log('The audit manager is enabled for this application');
@@ -399,11 +402,13 @@ class Pinet_Controller extends CI_Controller {
 	}
 
 	function table($object, $label) {
-		$this->fb->table($label, $object);
+		if(isset($this->fb))
+			$this->fb->table($label, $object);
 	}
 
 	function dump($object, $label = null) {
-		$this->fb->dump($label, $object);
+		if(isset($this->fb))
+			$this->fb->dump($label, $object);
 	}
 
 	function _log_format($level, $format, $obj = null, $args = null) {
@@ -420,29 +425,29 @@ class Pinet_Controller extends CI_Controller {
 		switch(strtolower($level)) {
 		case 'debug':
 		case 'trace':
-			if(!$cli)
+			if(!$cli && isset($this->fb))
 				$this->fb->trace($str);
 			$this->log->write_log('debug', $str_with_dump);
 			break;
 		case 'log':
-			if(!$cli)
+			if(!$cli && isset($this->fb))
 				$this->fb->log($obj, $str);
 			$this->log->write_log('info', $str_with_dump);
 			break;
 		case 'info':
-			if(!$cli)
+			if(!$cli && isset($this->fb))
 				$this->fb->info($obj, $str);
 			$this->log->write_log('info', $str_with_dump);
 			break;
 		case 'warn':
-			if(!$cli)
+			if(!$cli && isset($this->fb))
 				$this->fb->warn($obj, $str);
 			$this->log->write_log('error', $str_with_dump);
 			if(ENVIRONMENT != 'production')
 				trigger_error($str_with_dump);
 			break;
 		case 'error':
-			if(!$cli)
+			if(!$cli && isset($this->fb))
 				$this->fb->error($obj, $str);
 			$this->log->write_log('error', $str_with_dump);
 			if(ENVIRONMENT != 'production')
