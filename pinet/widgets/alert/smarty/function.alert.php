@@ -35,8 +35,10 @@ function smarty_function_alert($params, $template) {
 	$CI->clearAlerts();
     $alerts = '';
     if($ret)
-        $alerts =  create_tag('div', array('class'=>'pinet-alert-map'), array(
+        $alertmap_inner =  create_tag('div', array('class'=>'pinet-alert-map-inner'), array(
         ), implode("\n", $ret));
+
+    	$alerts = create_tag('div', array('class'=>'pinet-alert-map'), array(), $alertmap_inner);
 
 	return $alerts;
 }
