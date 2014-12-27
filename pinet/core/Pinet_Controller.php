@@ -912,8 +912,6 @@ class Pinet_Controller extends CI_Controller {
 	 * Overload the CI's default method to support ajax, form and the interceptors
 	 */
 	function _remap($method, $args) {
-		if(get_ci_config('enable_cache') && cache_support(__FILE__))
-			return;
 		$this->processAutoload();
 		set_breadscrum(); // Setting the breadscrums
 		$method = $this->_get_method($method, $args);
@@ -949,6 +947,11 @@ class Pinet_Controller extends CI_Controller {
 			}
 			return $around->intercept($method, $args);
 		}
+
+		// Using git to test if the file has been changed, test this after the interceptors
+		// In order pass the security check.
+		if(get_ci_config('enable_cache') && cache_support(FCPATH.APPPATH.'.git/HEAD'))
+			return;
 
 		// Run the original method
 		$ret = $this->_process($method, $args);
