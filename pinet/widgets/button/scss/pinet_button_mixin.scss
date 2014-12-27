@@ -45,6 +45,11 @@
 	}
 }
 
+@mixin pinet-btn-size($width,$height) {
+	width: $width;
+	height: $height;	
+}
+
 @mixin button-color($color, $hover-color, $active-color, $box-shadow:none) {
 	@include mixin-border-color($color, $hover-color, $active-color);
 	@include mixin-background-color($color, $hover-color, $active-color);

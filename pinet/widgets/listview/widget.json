@@ -29,7 +29,7 @@
 		],
 		"files" : []
 	},
-	"depends": ["jquery"],
+	"depends": ["jquery","datatable"],
 	"scss": {
 		"depends": [],
 		"files": ["pinet_listview"]
