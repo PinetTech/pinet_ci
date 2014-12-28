@@ -45,6 +45,7 @@
 			.btn {
 				@include pinet-btn-variant(none);
 				@include pinet-btn-size(res(125px), res(70px));
+				border-radius: res(7px);
 				box-shadow: none;
 				> i.glyphicon {
 					font-size: res(30px);

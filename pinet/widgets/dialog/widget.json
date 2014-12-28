@@ -11,6 +11,6 @@
 	"depends": ["jquery","image","icon","button"],
 	"scss": {
 		"depends": [],
-		"files": ["pinet_dialog"]
+		"files": ["pinet_dialog","pinet_confirm_dialog","pinet_social_dialog"]
 	}
 }
