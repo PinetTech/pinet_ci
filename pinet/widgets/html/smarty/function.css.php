@@ -8,7 +8,9 @@ function smarty_function_css($params, $template) {
 
 	if(isset($CI->sasscompiler)) {
 		$meta = get_controller_meta();
-		$name = $meta->controller.'-'.$meta->method.'.css';
+		$CI = &get_instance();
+		$suffix = get_default($CI, 'sass_suffix', '');
+		$name = $meta->controller.'-'.$meta->method.$suffix.'.css';
 		$dir = 'cache/css/';
 
 		if(!file_exists(FCPATH.APPPATH.$dir)) {
