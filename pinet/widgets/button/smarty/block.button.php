@@ -1,10 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-function smarty_block_button($params, $content = '', $template, &$repeat) {
-	if($repeat) {
-		return;
-	}
-
+function pinet_smarty_create_button($params, $content = '') {
 	$tag = get_default($params, 'tag', 'button');
 
 	if(isset($params['tag'])) {
@@ -44,4 +40,11 @@ function smarty_block_button($params, $content = '', $template, &$repeat) {
 	if($tag == 'input')
 		return create_tag('input', $params, array());
 	return create_tag($tag, $params, array(), $content);
+}
+
+function smarty_block_button($params, $content = '', $template, &$repeat) {
+	if($repeat) {
+		return;
+	}
+	return pinet_smarty_create_button($params, $content);
 }

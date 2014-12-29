@@ -15,6 +15,7 @@
 @mixin switch-box-color($color, $hover-color, $border-color:$color, $text-color:#ffffff) {
 	border-color:$border-color;
 	.btn {
+		border: 0;
 		&:not(.active) {
 			&:hover {
 				background-color: $hover-color;			
@@ -27,14 +28,17 @@
 	}
 }
 
-.switch-box-green {
+.switch-box.btn-group-green {
+	@include switch-box-variant();
 	@include switch-box-color($pinet-green, #dbfbe6, $border-color:#55d684);
 }
 
-.switch-box-cyan {
+.switch-box.btn-group-cyan {
+	@include switch-box-variant();
 	@include switch-box-color($pinet-cyan, #dbfbe6, $border-color:#1dd2af);
 }
 
-.switch-box-blue {
+.switch-box.btn-group-blue {
+	@include switch-box-variant();
 	@include switch-box-color($pinet-blue, #bee7f9, $border-color:#1d99d2);
 }
