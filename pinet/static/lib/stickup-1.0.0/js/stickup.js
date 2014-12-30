@@ -1,6 +1,6 @@
 jQuery(
 function($) {
-	
+
 	$(document).ready(function(){
 		var contentButton = [];
 		var contentTop = [];
@@ -52,13 +52,13 @@ function($) {
 	  					} else {
 	  						console.log("incorrect argument, ignored.");
 	  						topMargin = 0;
-	  					}	
+	  					}
 	  				}
 	  			} else {
 	  				topMargin = 0;
 	  			}
 	  			menuSize = $('.'+itemClass).size();
-  			}			
+  			}
 			stickyHeight = parseInt($(this).height());
 			stickyMarginB = parseInt($(this).css('margin-bottom'));
 			currentMarginT = parseInt($(this).next().closest('div').css('margin-top'));
@@ -74,7 +74,7 @@ function($) {
 					function bottomView(i) {
 						contentView = $('#'+content[i]+'').height()*.4;
 						testView = contentTop[i] - contentView;
-						// console.log(varscroll);
+						//console.log(varscroll);
 						if(varscroll > testView){
 							$('.'+itemClass).removeClass(itemHover);
 							$('.'+itemClass+':eq('+i+')').addClass(itemHover);
@@ -118,5 +118,4 @@ function($) {
 
 		});
 	});
-
 });

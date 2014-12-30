@@ -950,7 +950,7 @@ class Pinet_Controller extends CI_Controller {
 
 		// Using git to test if the file has been changed, test this after the interceptors
 		// In order pass the security check.
-		if(get_ci_config('enable_cache') && cache_support(FCPATH.APPPATH.'.git/HEAD'))
+		if(get_ci_config('enable_cache') && !isset($this->disable_cache) && cache_support(FCPATH.APPPATH.'.git/HEAD'))
 			return;
 
 		// Run the original method

@@ -30,11 +30,13 @@ class Theme_Manager {
 				$CI->addTemplateDir(FCPATH.APPPATH.'/views/themes/'.$theme);
 			}
 		}
-		if(isset($CI->sasscompiler)) {
-			foreach(array(APPPATH, 'pinet/') as $d) {
-				$p = FCPATH.$d.'static/scss/themes/'.$theme.'/';
-				ci_log('Adding the include path for scss %s', $p);
-				$CI->sasscompiler->addIncludePath($p, 0);
+		if(isset($theme)) {
+			if(isset($CI->sasscompiler)) {
+				foreach(array(APPPATH, 'pinet/') as $d) {
+					$p = FCPATH.$d.'static/scss/themes/'.$theme.'/';
+					ci_log('Adding the include path for scss %s', $p);
+					$CI->sasscompiler->addIncludePath($p, 0);
+				}
 			}
 		}
 	}
