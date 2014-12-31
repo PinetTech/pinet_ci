@@ -22,14 +22,14 @@
 				 else {
 				 	$screen_width = $k;
 				 	$alias_width =0;
-				 }	
+				 }
 
-				$next_value = get_array_next($compiler->resolutions, $r); 
+				$next_value = get_array_next($compiler->resolutions, $r);
 				if (is_string($next_value[1])) {
 					$next_screen_width = $next_value[0];
 				}
 				else {
-					$next_screen_width = $next_value[1];	
+					$next_screen_width = $next_value[1];
 				}
 
 				if (!$next_screen_width) {
@@ -69,6 +69,20 @@
 					}
 				}
 				$compiler->suffix .= '}'."\n";
+				$compiler->suffix .= '@media screen and (min-width: '.$screen_width.'px) and (max-width: '.($next_screen_width - 1).'px)  {'."\n";
+				$compiler->suffix .= '$screen-width:'. $screen_width.';';
+			 	$compiler->suffix .= '$alias-width:'.$alias_width.';';
+			 	$compiler->suffix .= '$next-screen-width:'.$next_screen_width.';';
+		 		$lasts = end($compiler->sasses);
+				$lasts = str_replace('.scss', '', $lasts);
+				$basename = basename($lasts);
+				$name = str_replace('/', '_', $lasts);
+				if($basename == $name) {
+					$this->addModule($basename, $compiler, $screen_width.','.$alias_width.','.$next_screen_width);
+				}else {
+					$this->addModule($name, $compiler, $screen_width.','.$alias_width.','.$next_screen_width);
+				}
+				$compiler->suffix .= '}'."\n";
 				// $this->addAfterResolution($compiler, $screen_width);
 			}
 			$this->addAfterResponsive($compiler);
@@ -76,6 +90,13 @@
 
 		protected function addConstruct($name, $compiler, $args) {
 			$the_name = 'responsive_'.$name;
+			if(strpos($compiler->content, $the_name) !== FALSE) {
+					$compiler->suffix .= "\t".'@include '.$the_name.'('.$args.');'."\n";
+			}
+		}
+
+		protected function addModule($name, $compiler, $args) {
+			$the_name = 'module_'.$name;
 			if(strpos($compiler->content, $the_name) !== FALSE) {
 					$compiler->suffix .= "\t".'@include '.$the_name.'('.$args.');'."\n";
 			}
