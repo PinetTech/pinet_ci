@@ -1,5 +1,80 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+/**
+ * The stream wrapper for all the files in the CI environemnt
+ */
+class CIStream {
+
+	var $path;
+	var $realpath;
+	var $filehandle;
+
+	function stream_open($path, $mode, $options, &$opened_path) {
+		$this->path = substr($path, 5);
+		foreach(array(FCPATH.APPPATH, FCPATH.'pinet/') as $p) {
+			if(file_exists($p.$this->path)) {
+				$this->realpath = $p.$this->path;
+				$this->filehandle = fopen($this->realpath, $mode);
+				$opened_path = $this;
+				return $this;
+			}
+		}
+        return false;
+    }
+
+	function stream_stat() {
+		if(isset($this->filehandle))
+			return fstat($this->filehandle);
+		return null;
+	}
+
+	function url_stat($path, $flags) {
+		if(isset($this->filehandle))
+			return fstat($this->filehandle);
+		return null;
+	}
+
+    function stream_read($count) {
+		if(isset($this->filehandle))
+			return fread($this->filehandle, $count);
+		return null;
+    }
+
+    function stream_write($data) {
+		if(isset($this->filehandle))
+			return fwrite($this->filehandle, $data);
+		return -1;
+    }
+
+    function stream_tell() {
+		if(isset($this->filehandle))
+			return ftell($this->filehandle);
+		return -1;
+    }
+
+    function stream_eof() {
+		if(isset($this->filehandle))
+			return feof($this->filehandle);
+		return true;
+    }
+
+    function stream_seek($offset, $whence) {
+		if(isset($this->filehandle))
+			return fseek($this->filehandle, $offset, $whence);
+		return -1;
+    }
+
+    function stream_metadata($path, $option, $var) {
+		if(isset($this->realpath)) {
+			$var = pathinfo($this->realpath);
+			return true;
+		}
+        return false;
+    }
+}
+
+stream_wrapper_register("ci", "CIStream");
+
 class FormFieldRule {
 	private $rule;
 	private $arg;
