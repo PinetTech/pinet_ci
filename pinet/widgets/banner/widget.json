@@ -5,17 +5,12 @@
 	"name": "pinet.banner",
 	"doc":"The banner widget for ads",
 	"js": {
-		"depends": [{
-			"module": "jquery",
-			"file": "jquery",
-			"version": "2.1.1",
-			"index": 0,
-			"position": "foot"
-		}],
+		"depends": [],
 		"files" : [
 			"banner"
 		]
 	},
+	"depends": ["jquery"],
 	"scss": {
 		"depends": [],
 		"files": ["pinet_banner"]

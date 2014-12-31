@@ -4,13 +4,7 @@
 	"version": "1.0",
 	"name": "pinet.bootstrap",
 	"js": {
-		"depends": [{
-			"module": "jquery",
-			"file": "jquery",
-			"version": "2.1.1",
-			"index": 0,
-			"position": "foot"
-		},
+		"depends": [
 		{
 			"module": "bootstrap",
 			"file": "bootstrap",
@@ -19,6 +13,7 @@
 		"files" : [
 		]
 	},
+	"depends": ["jquery"],
 	"scss": {
 		"depends": [{
 			"module": "bootstrap",

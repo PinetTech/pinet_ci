@@ -599,7 +599,7 @@ class Pinet_Controller extends CI_Controller {
 		$this->less('jquery-listview', $version, -1, 'jquery-listview');
 	}
 
-	function jquery($version = '2.1.1') {
+	function jquery($version = '2.1.3') {
 		return $this->js('jquery', $version, 0, 'jquery'); // Add jquery at the first
 	}
 

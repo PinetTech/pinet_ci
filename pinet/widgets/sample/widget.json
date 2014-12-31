@@ -4,17 +4,12 @@
 	"version": "1.0",
 	"name": "pinet.sample",
 	"js": {
-		"depends": [{
-			"module": "jquery",
-			"file": "jquery",
-			"version": "2.1.1",
-			"index": 0,
-			"position": "foot"
-		}],
+		"depends": [],
 		"files" : [
 			"sample"
 		]
 	},
+	"depends": ["jquery"],
 	"css": {
 		"depends": [{
 			"module": "bootstrap",
