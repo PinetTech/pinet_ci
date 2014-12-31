@@ -64,6 +64,22 @@ $next-screen-width: 0;
                          }
                     }
                     $compiler->prefix .= ');';
+
+                    $compiler->prefix .= "\n".'$pinet-no-alias-resolutions: (';
+                    foreach ($compiler->resolutions as $k => $rs) {
+                         if (is_numeric($k) && is_string($rs) && !is_numeric($rs) ) {
+                              $compiler->prefix .=  $k;
+                         } else if (is_string($k) && !is_numeric($k)) {
+                              $compiler->prefix .=  $rs;
+                         }
+                         else {
+                              $compiler->prefix .= $rs;
+                         }
+                         if($rs != end($compiler->resolutions)) {
+                              $compiler->prefix .= ",";
+                         }
+                    }
+                    $compiler->prefix .= ');';
                }
           }
      }

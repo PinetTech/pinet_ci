@@ -996,6 +996,10 @@ function check_need_to_show($type=''){
     return $show ? 0 : 1;
 }
 
+function ci_paths($path) {
+	return array(FCPATH.APPPATH.$path, FCPATH.'pinet/'.$path);
+}
+
 function get_array_next($array, $value) {
 	$find = false;
 	foreach ($array as $k => $v) {
