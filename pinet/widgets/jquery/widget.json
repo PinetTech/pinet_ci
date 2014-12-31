@@ -8,7 +8,7 @@
 		"depends": [
 			{
 				"module": "jquery",
-				"file": "jquery",
+				"file": "jquery.min",
 				"version": "2.1.3",
 				"index": 0,
 				"position": "foot"
