@@ -82,7 +82,6 @@
   @return ($val / ($val * 0 + 1));
 }
 
-
 @mixin responsive_pinet_grid($args...) {
   	$grid-col-rs: $screen-width;
 	@if type-of($alias_width) == number {
@@ -96,30 +95,30 @@
 		$grid-col-width: percentage(($i / $grid-columns));
 
 		@each $sel in $grid_sel {
-		  .col-#{$sel}-#{$i} {
-		   	 	float: left;
-		      	min-height: 1px;
-		    	width: $grid-col-width;
-		    	padding-left: ($grid-gutter-width / 2);
-		      	padding-right: ($grid-gutter-width / 2);
-		      	position: relative;
-		  }
+			.col-#{$sel}-#{$i} {
+				float: left;
+			  	min-height: 1px;
+				width: $grid-col-width;
+				padding-left: ($grid-gutter-width / 2);
+			  	padding-right: ($grid-gutter-width / 2);
+			  	position: relative;
+			}
 
-		  .col-#{$sel}-offset-#{$i} {
-		    	margin-left: $grid-col-width;
-		  }
+			.col-#{$sel}-offset-#{$i} {
+				margin-left: $grid-col-width;
+			}
 
-		  .col-#{$sel}-push-#{$i} {
-		    	left: $grid-col-width;
-		  }
+			.col-#{$sel}-push-#{$i} {
+				left: $grid-col-width;
+			}
 
-		  .col-#{$sel}-pull-#{$i} {
-		    	right: $grid-col-width;
-		  }
+			.col-#{$sel}-pull-#{$i} {
+				right: $grid-col-width;
+			}
 
-		  .col-#{$sel}-#{$i}.col-center {
-		    	left: (100% - $grid-col-width) / 2;
-		  }
+			.col-#{$sel}-#{$i}.col-center {
+				left: (100% - $grid-col-width) / 2;
+			}
 		}
 	}
 }

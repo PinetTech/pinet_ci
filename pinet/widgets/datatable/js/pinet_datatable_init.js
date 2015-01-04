@@ -134,7 +134,8 @@ $('#datatable').on('click', '.datatable-toggle', function(e){
 			"display":"none"
 		}, Settings.iframe.animateUpTime, function(){
 			iframe_container.css({
-				"visibility": "collapse"
+				// "visibility": "collapse"
+				"display": "none"
 			});
 		});
 	}
@@ -169,7 +170,8 @@ $('#datatable').on('click', '.datatable-toggle', function(e){
 					"display":"block"
 				}, Settings.iframe.animateDownTime, function(){
 					iframe_container.css({
-						"visibility": "visible"
+						// "visibility": "visible"
+						"display": "table-row"
 					});
 				});
 			});
@@ -177,12 +179,18 @@ $('#datatable').on('click', '.datatable-toggle', function(e){
 			iframe_container.iframe = iframe;
 			iframe_containers[index] = iframe_container;
 		}else {
+			console.dir(Settings.iframe.animateUpTime);
+			iframe_container.css({
+				// "visibility": "visible"
+				"display": "table-row"
+			});
 			iframe.animate({
 				"height":Settings.iframe.height,
 				"display":"block"
 			},Settings.iframe.animateUpTime, function(){
 				iframe_container.css({
-					"visibility": "visible"
+					// "visibility": "visible"
+					// "display": "table-row"
 				});
 			});
 		}
