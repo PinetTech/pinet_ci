@@ -82,6 +82,9 @@ function smarty_block_field_group($params, $content = '', $template, &$repeat) {
 	}
 
 	// Creating the label div
+	if (!isset($f->label)) {
+		$f->label = '';
+	}
 	$label = create_tag('label', array(
 		'for' => $f->getId(),
 		'class' => array($label_layout_class, $labelClass, 'control-label', isset($f->required)?'form_field_required':'')
