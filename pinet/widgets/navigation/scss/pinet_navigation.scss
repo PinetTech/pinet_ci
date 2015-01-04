@@ -1,14 +1,16 @@
  @mixin responsive_pinet_navigation($args...) {
 	#pinet-nav {
-		position: relative;
 		width: res(160px);
 		height: 100%;
+		min-height: 600px;
 		background: #24292e;
 		padding: 0;
 		margin: 0;
 		padding-top: res(30px);
 		nav {
+			height: 100%;
 			display: block;
+			position: relative;
 			a {
 				position: relative;
 				width: 100%;
