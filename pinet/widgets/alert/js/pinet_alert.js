@@ -18,6 +18,12 @@
 			var interval = null;
 
 			if(self_items.length < 2) {
+				self.on('click','.menu .btn', function(e){
+					var curbtn = $(e.currentTarget);
+					var cur_alert_map_item = curbtn.parent().parent();
+					cur_alert_map_item.remove();
+					self.hide();
+				});
 				self_items.eq(0).show();
 				return this;
 			}
@@ -36,7 +42,7 @@
 			// 		index--;
 			// 		if(index < 0) {
 			// 			index = self_items.length - 1;
-			// 		}  
+			// 		}
 			// 	}
 			// 	changeAlert(index);
 			// 	return false;
@@ -78,7 +84,7 @@
 						index = 0;
 					}
 					changeAlert(index);
-				}, 6000);				
+				}, 6000);
 			}).trigger('mouseleave');
 
 			self.on('click','.menu .btn', function(e){
@@ -100,7 +106,7 @@
 				};
 				if (self.find('.pinet-alert-map-inner').find(option.item_selector).length == 0) {
 					self.hide();
-				} 
+				}
 			})
 
 			function changeAlert(index) {

@@ -10,18 +10,21 @@
 				"module": "jquery-ui",
 				"file": "core",
 				"version": "1.11.1",
+				"index": 1,
 				"position": "foot"
 			},
 			{
 				"module": "jquery-ui",
 				"file": "widget",
 				"version": "1.11.1",
+				"index": 2,
 				"position": "foot"
 			},
 			{
 				"module": "jquery-ui",
 				"file": "mouse",
 				"version": "1.11.1",
+				"index": 3,
 				"position": "foot"
 			},
 			{
