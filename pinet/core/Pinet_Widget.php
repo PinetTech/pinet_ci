@@ -23,6 +23,7 @@ class Pinet_Widget {
 
 	public function initDepends() {
 		if(isset($this->config->depends)) {
+			ci_log('The depends for widget %s is ', $this->config->depends, get_class($this));
 			foreach($this->config->depends as $d) {
 				$this->CI->load->widget($d);
 			}

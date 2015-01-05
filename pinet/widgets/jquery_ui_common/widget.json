@@ -4,6 +4,7 @@
 	"version": "1.0",
 	"name": "pinet.jquery_ui_common",
 	"doc":"The jquery ui common js dependencies.",
+	"depends": ["jquery"],
 	"js": {
 		"depends": [
 			{
