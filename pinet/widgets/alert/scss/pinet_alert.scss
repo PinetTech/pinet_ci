@@ -1,36 +1,36 @@
 @mixin responsive_pinet_alert($args...) {
 	.pinet-alert-success {
-		@include alert-variant($screen-width);
-	 	@include alert-color($pinet-alert-success-bg, $pinet-alert-success-border,
+		@include pinet-alert-variant($screen-width);
+	 	@include pinet-alert-color($pinet-alert-success-bg, $pinet-alert-success-border,
 	 		$pinet-alert-success-text, $pinet-alert-success-btn-bg, $pinet-alert-success-btn-bg-hover);
 	}
 
 	.pinet-alert-info {
-		@include alert-variant($screen-width);
-	 	@include alert-color($pinet-alert-info-bg, $pinet-alert-info-border, $pinet-alert-info-text,
+		@include pinet-alert-variant($screen-width);
+	 	@include pinet-alert-color($pinet-alert-info-bg, $pinet-alert-info-border, $pinet-alert-info-text,
 	 		$pinet-alert-info-btn-bg, $pinet-alert-info-btn-bg-hover);
 	}
 
 	.pinet-alert-warn {
-		@include alert-variant($screen-width);
-	 	@include alert-color($pinet-alert-warn-bg, $pinet-alert-warn-border, $pinet-alert-warn-text,
+		@include pinet-alert-variant($screen-width);
+	 	@include pinet-alert-color($pinet-alert-warn-bg, $pinet-alert-warn-border, $pinet-alert-warn-text,
 	 		$pinet-alert-warn-btn-bg, $pinet-alert-warn-btn-bg-hover);
 	}
 
 	.pinet-alert-error {
-		@include alert-variant($screen-width);
-	 	@include alert-color($pinet-alert-error-bg, $pinet-alert-error-border, $pinet-alert-error-text,
+		@include pinet-alert-variant($screen-width);
+	 	@include pinet-alert-color($pinet-alert-error-bg, $pinet-alert-error-border, $pinet-alert-error-text,
 	 		$pinet-alert-error-btn-bg, $pinet-alert-error-btn-bg-hover);
 	}
 
 	.pinet-alert-map {
-		@include alert-variant($screen-width);
+		@include pinet-alert-variant($screen-width);
 		&.pinet-hide {
 			display: none;
 		}
 		display: table;
 		.pinet-alert-map-inner {
-			@include alert-variant($screen-width);
+			@include pinet-alert-variant($screen-width);
 			position: relative;
 		}
 		.alert-map-item {

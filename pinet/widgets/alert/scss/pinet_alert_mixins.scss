@@ -1,4 +1,4 @@
-@mixin alert-variant($width) {
+@mixin pinet-alert-variant($width) {
 	display: inline-block;
 	width: 100%;
 	padding-top: 0;
@@ -31,7 +31,7 @@
  	}
 }
 
-@mixin alert-color($background, $border, $text-color, $btn-bg, $btn-bg-hover) {
+@mixin pinet-alert-color($background, $border, $text-color, $btn-bg, $btn-bg-hover) {
 	background-color: $background;
 	border-color: $border;
 	color: $text-color;
