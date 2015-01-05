@@ -13,6 +13,9 @@
 	class SassCompiler {
 		public function __construct() {
 			$this->sass = new Sass();
+			if(!get_ci_config('debug_sass', false)) {
+				$this->sass->setStyle(Sass::STYLE_COMPRESSED);
+			}
 			$this->sasses = array();
 			$this->includePathes = array();
 			$this->resolutions = get_ci_config('resolutions');
