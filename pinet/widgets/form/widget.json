@@ -49,7 +49,6 @@
 			}
 		]
 	},
-	"depends": ["jquery"],
 	"scss": {
 		"depends": [
 			{
