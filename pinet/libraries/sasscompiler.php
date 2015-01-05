@@ -104,7 +104,7 @@
 
 			$content = $this->precompile();
 			$this->sass->setIncludePath(implode(PATH_SEPARATOR, $this->includePathes));
-			$this->sass->setImagePath('/~andy/think_scss'); // TODO: Which directory is this?
+			$this->sass->setImagePath(site_url(APPPATH.'/static/img/'));
 			return $this->sass->compile($content);
 		}
 
