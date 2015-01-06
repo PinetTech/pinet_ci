@@ -11,7 +11,7 @@ jQuery(function(){
 	//For toolbar datatable search
 	var toolbar_search_init = function(options) {
 		var defaults = {
-			search_selector: "#search-input",
+			search_selector: "#field_search",
 			btn_selector: "#search-btn"
 		}
 
