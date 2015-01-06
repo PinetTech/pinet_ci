@@ -1,12 +1,12 @@
  @mixin responsive_pinet_navigation($args...) {
 	#pinet-nav {
-		width: res(160px);
+		width: res(160px, 80px);
 		height: 100%;
 		min-height: 600px;
 		background: #24292e;
 		padding: 0;
 		margin: 0;
-		padding-top: res(30px);
+		padding-top: res(30px, 20px);
 		nav {
 			height: 100%;
 			display: block;
@@ -16,9 +16,9 @@
 				width: 100%;
 				color: #505458;
 				display: block;
-				padding-left: 18.75%;
-				padding-right: 18.75%;
-				margin-bottom: 18.75%;
+				padding-left: autos(26.75%, (1280: 18.75%));
+				padding-right: autos(26.75%, (1280: 18.75%));
+				margin-bottom: autos(26.75%, (1280: 18.75%));
 				// width:  62.5%;
 				height:  res(100px);
 				// .res(height, @navigations-a-width);
@@ -49,14 +49,14 @@
 				height: res(30px);
 				line-height: res(30px);
 				position: absolute;
-				bottom: res(270px);
+				bottom: res(270px, 109px);
 				&:hover {
 					background: none;
 				}
 			}
 			a.language{
 				position: absolute;
-				bottom: res(160px);
+				bottom: res(160px, 60px);
 			}
 			a.logoout{
 				position: absolute;
