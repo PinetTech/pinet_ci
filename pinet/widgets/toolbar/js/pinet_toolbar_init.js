@@ -2,7 +2,7 @@ jQuery(function(){
 	if ($.isFunction($.fn.tooltip)) {
 		$('.pinet-toolbar .faq').tooltip({
 		    viewport: {
-		      selector: '#workbench',
+		      selector: '#layout-workbench',
 		      padding: 0
 		    }
 	  	});
