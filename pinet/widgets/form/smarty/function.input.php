@@ -109,8 +109,12 @@ function get_attr($params, $template) {
 		$attr[$k] = $v;
 	}
 
-	if($f->placeholder != '')
+	if(isset($f->placeholder) && $f->placeholder != '') {
 		$attr['placeholder'] = lang($f->placeholder);
+	}
+	else {
+		$attr['placeholder'] = get_default($params, 'placeholder', '');
+	}
 
 	if (isset($params['type']) && $params['type'] != '') {
 		$attr['data-type'] = $params['type'];
