@@ -12,7 +12,11 @@ class Action {
 	public $logo;
 	public $name;
 	public $label;
+
+	/** @ClipsMulti */
     public $args;
+
+	/** @ClipsMulti */
 	public $fields;
 
 	public function __construct($label = null, $controller = null, $method = null) {

@@ -170,12 +170,16 @@ class FormField {
 	public $name;
 	public $label;
 	public $defaultValue;
+
+	/** @ClipsMulti */
 	public $rules;
+
 	public $placeholder;
+
+	/** @ClipsMulti */
 	public $translateRules;
 	public $field = '';
 	public $state;
-
 
 	public function init() {
 		$this->name = $this->field;
