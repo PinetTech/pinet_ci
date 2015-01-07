@@ -1,5 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+require_once('Smarty/Smarty.class.php');
+
 /**
  * The stream wrapper for all the files in the CI environemnt
  */
@@ -380,11 +382,13 @@ class Pinet_Controller extends CI_Controller {
 		$this->use_less = $this->config->item('use_less');
 
 		// This is used for hacking smarty view
-		$this->load->spark('smartyview/0.0.1');
-		$arr = obj2array($this->smartyview);
-		$this->smarty = $arr['smarty'];
-		$this->smarty->template_dir = FCPATH.APPPATH.'views';
+		$this->smarty = new Smarty();
+		$this->smarty->template_dir = get_ci_config('smarty_template_dir', FCPATH.APPPATH.'views');
+		$this->smarty->compile_dir = get_ci_config('smarty_compile_dir', FCPATH.APPPATH.'cache/smarty/templates_c');
+		$this->smarty->config_dir = get_ci_config('smarty_config_dir', FCPATH.APPPATH.'views/_config');
+		$this->smarty->cache_dir = get_ci_config('smarty_cache_dir', FCPATH.APPPATH.'cache/smarty');
 		$this->smarty->addPluginsDir(FCPATH.'/pinet/smarty_plugins');
+		$this->smarty->addPluginsDir(FCPATH.APPPATH.'smarty_plugins');
 		$this->addTemplateDir(FCPATH.APPPATH.'views/layouts/'); // Adding support for layouts
 
 		$this->jsFiles = array();
@@ -401,7 +405,10 @@ class Pinet_Controller extends CI_Controller {
 		if(file_exists($path)) {
 			if(!is_array($this->smarty->template_dir))
 				$this->smarty->template_dir = array($this->smarty->template_dir);
-			array_unshift($this->smarty->template_dir, $path);
+
+			$dir = $this->smarty->template_dir;
+			array_unshift($dir, $path);
+			$this->smarty->setTemplateDir($dir);
 		}
 	}
 
@@ -1080,7 +1087,9 @@ class Pinet_Controller extends CI_Controller {
 				$i->intercept($template, $args);
 			}
 		}
-		$this->smartyview->render($template.'.tpl', $args);
+		$this->smarty->assign($args);
+		$this->smarty->assign('CI', $this);
+		$this->output->append_output($this->smarty->fetch($template.'.tpl'));
 	}
 
 	function setLang($lang) {
