@@ -1011,3 +1011,28 @@ function get_array_next($array, $value) {
 		}
 	}
 }
+
+function redirect_post($url, $values, $title='Redirecting...', $message='Redirecting to ', $customize=false){
+    $text = '<!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="utf-8">
+                <title>'.$title.'</title>
+            </head>
+            <body>';
+    if(!$customize)
+        $message .= $url;
+    $text .=$message .'<form action="'.$url.'" method="post">';
+    foreach($values as $k=>$v){
+        $text .= "<input type='hidden' name='$k' value='".$v."'>";
+    }
+    $text .=<<<TEXT
+            </form>
+            </body>
+            <script type="text/javascript">
+                window.onload = function(){ document.forms[0].submit(); };
+            </script>
+            </html>
+TEXT;
+    return $text;
+}
