@@ -12,7 +12,8 @@ jQuery(function(){
 	var toolbar_search_init = function(options) {
 		var defaults = {
 			search_selector: "#field_search",
-			btn_selector: "#search-btn"
+			btn_selector: "[control='datatable-search']",
+			refresh_btn_selector: "[control='datatable-refresh']"
 		}
 
 		var op = $.extend(true, defaults, options);
@@ -46,6 +47,10 @@ jQuery(function(){
 
 			$(op.btn_selector).on('click',function(){
 				datatable.search(search_input.val()).draw();
+			});
+
+			$(op.refresh_btn_selector).on('click', function(){
+				datatable.draw();
 			});
 		});
 	}

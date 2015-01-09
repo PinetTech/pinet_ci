@@ -32,6 +32,6 @@
 	},
 	"scss": {
 		"depends": [],
-		"files": []
+		"files": ["pinet_datepicker"]
 	}
 }

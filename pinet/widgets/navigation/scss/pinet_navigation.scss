@@ -1,6 +1,6 @@
  @mixin responsive_pinet_navigation($args...) {
 	#pinet-nav {
-		width: res(160px, 80px);
+		width: res(160px, 70px);
 		height: 100%;
 		min-height: 600px;
 		background: #24292e;
@@ -71,6 +71,8 @@
 			.tooltip-inner {
 				display: inline-block;
 				max-width: 350px;
+				padding-top:  res(15px, 5px);
+				padding-bottom: res(15px, 5px);
 			}
 		}
 	}
