@@ -22,7 +22,9 @@ $(function(){
 			};
 		});
 		$("select:not([data-no-selectBoxIt])").each(function(){
-			$(this).selectBoxIt();
+			$(this).selectBoxIt({
+				"autoWidth": false
+			});
 		});
 	}
 	if($.isFunction($.fn.jqBootstrapValidation)) {
@@ -44,7 +46,9 @@ $(function(){
 				// 	// ?Firefox bug
 				// 	rel.children('option[selected]')[0].selected = true;
 				// }
-				rel.selectBoxIt();
+				rel.selectBoxIt({
+					"autoWidth": false
+				});
 			});
 
 			$('[name=' + relName + ']').on("change", function(){
