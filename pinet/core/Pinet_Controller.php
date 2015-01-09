@@ -1,7 +1,5 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-require_once('Smarty/Smarty.class.php');
-
 /**
  * The stream wrapper for all the files in the CI environemnt
  */

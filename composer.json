@@ -1,5 +1,5 @@
 {
-	"name": "pinet/pinet_framework",
+	"name": "pinet/pinet-framework",
     "minimum-stability": "dev",
 	"repositories": [
 		{
@@ -8,6 +8,7 @@
 		}
     ],
 	"require": {
+		"php": ">=5.3.0",
         "smarty/smarty": "3.1.21",
         "guitarpoet/clips-tool": "*"
 	}
