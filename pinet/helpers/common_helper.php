@@ -405,12 +405,14 @@ function build_tag($tag, $params, $content) {
 	return implode("\n", $ret);
 }
 
-function get_default($arr, $key, $default = '') {
-	if(is_object($arr))
-		return isset($arr->$key)? $arr->$key: $default;
-	if(is_array($arr))
-		return isset($arr[$key])? $arr[$key]: $default;
-	return $default;
+if(!function_exists('get_default')) {
+	function get_default($arr, $key, $default = '') {
+		if(is_object($arr))
+			return isset($arr->$key)? $arr->$key: $default;
+		if(is_array($arr))
+			return isset($arr[$key])? $arr[$key]: $default;
+		return $default;
+	}
 }
 
 function copy_new($src, $class = null) {

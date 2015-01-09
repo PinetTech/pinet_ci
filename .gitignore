@@ -15,3 +15,5 @@ application/cache
 *~
 launcher*
 application/static/uploads/
+/vendor/
+composer.lock

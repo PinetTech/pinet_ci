@@ -64,7 +64,7 @@ endef
 ################################################################################
 
 test:
-	@PINET_WEB_ENV=testing phpunit .
+	@PINET_WEB_ENV=testing phpunit
 test_db:
 	@$(call recreate_db,${TEST_DB},"testing")
 db:

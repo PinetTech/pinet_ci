@@ -1,0 +1,14 @@
+{
+	"name": "pinet/pinet_framework",
+    "minimum-stability": "dev",
+	"repositories": [
+		{
+			"type": "git",
+			"url": "https://github.com/guitarpoet/clips-tool.git"
+		}
+    ],
+	"require": {
+        "smarty/smarty": "3.1.21",
+        "guitarpoet/clips-tool": "*"
+	}
+}
