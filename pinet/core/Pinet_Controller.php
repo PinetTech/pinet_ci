@@ -675,7 +675,7 @@ class Pinet_Controller extends CI_Controller {
 	}
 
 	function jquery($version = '2.1.3') {
-		return $this->js('jquery', $version, 0, 'jquery'); // Add jquery at the first
+		return $this->js('jquery.min', $version, 0, 'jquery'); // Add jquery at the first
 	}
 
 	function jqueryMobile($version = '1.0.0') {
