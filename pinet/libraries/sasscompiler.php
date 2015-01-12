@@ -1,4 +1,9 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
+	define("SASS_FORMAT_NESTED", 0);                                                                                                       
+	define("SASS_FORMAT_EXPANDED", 1);                                                                                                     
+	define("SASS_FORMAT_COMPACT", 2);                                                                                                      
+	define("SASS_FORMAT_COMPRESSED", 3);                                                                                                   
+	define("SASS_FORMAT_FORMATTED", 4);  
 
 	if(!extension_loaded('sass')) {
 		show_error('Cant\'t find any sass plugin installed!!');
@@ -12,9 +17,10 @@
 	 */
 	class SassCompiler {
 		public function __construct() {
-			$this->sass = new Sass();
+			$this->options = array();
+			$this->error = "";
 			if(!get_ci_config('debug_sass', false)) {
-				$this->sass->setStyle(Sass::STYLE_COMPRESSED);
+				$this->options['output_style'] = SASS_FORMAT_COMPRESSED;
 			}
 			$this->sasses = array();
 			$this->includePathes = array();
@@ -103,9 +109,9 @@
 			}
 
 			$content = $this->precompile();
-			$this->sass->setIncludePath(implode(PATH_SEPARATOR, $this->includePathes));
-			$this->sass->setImagePath(site_url(APPPATH.'/static/img/'));
-			return $this->sass->compile($content);
+			$this->options['include_path'] = (implode(PATH_SEPARATOR, $this->includePathes));
+			//$this->sass->setImagePath(site_url(APPPATH.'/static/img/'));
+			return sass_compile("data", $content, $this->options, $this->error);
 		}
 
 		public function addIncludePath($path, $index = -1) {
