@@ -1,0 +1,6 @@
+{
+	"sass_plugins": ["Sass\\AutoConstruct"],
+	"namespace": "Pinet\\",
+	"resource_handlers": {
+	}
+}
