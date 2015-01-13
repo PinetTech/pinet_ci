@@ -63,6 +63,8 @@ endef
 #
 ################################################################################
 
+p:
+	@cd pinet && PINET_WEB_ENV=testing phpunit
 test:
 	@PINET_WEB_ENV=testing phpunit
 test_db:
