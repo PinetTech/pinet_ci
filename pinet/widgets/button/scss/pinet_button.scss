@@ -29,8 +29,15 @@
 	}
 }
 
+@mixin init_pinet_button() {
+	echo: init;
+}
 
 @mixin responsive_pinet_button($args...) {
+	echo: $screen-width;
+	echo: $alias-width;
+	echo: php(ci_log, 'sdsdsds');
+	echo: php(ci_log, $screen-width);
 	$themes: (
 		blue: (
 			color: $pinet-blue,

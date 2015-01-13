@@ -1,6 +1,7 @@
 {
-	"sass_plugins": ["Sass\\AutoConstruct"],
+	"sass_plugins": ["Sass\\AutoConstruct", "Sass\\AutoResolution"],
 	"sass_preload": ["pinet://static/scss/variables"],
+	"resolutions": [480, 640, 720, 1280, 1440, 1280, 2880],
 	"namespace": "Pinet\\",
 	"resource_handlers": {
 	}
