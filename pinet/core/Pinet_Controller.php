@@ -372,6 +372,22 @@ class Pinet_Controller extends CI_Controller {
 			$this->load->library('theme_manager');
 		}
 
+		$this->tool = &get_clips_tool();
+
+		$this->tool->config->addConfig(array(
+			'datasources' => 
+			(object) array('db' => (object) array(
+				'hostname' => $this->db->hostname,
+				'port' => intval($this->db->port),
+				'database' => $this->db->database,
+				'type' => 'mysqli', // Only support for mysqli for now
+				'username' => $this->db->username,
+				'password' => $this->db->password,
+				'encoding' => $this->db->char_set,
+				'table_prefix' => $this->db->dbprefix)
+			)
+		));
+
 		// Load the default language files, if the lang is set
 		if($this->messages != '')
 			$this->loadLang();
@@ -383,7 +399,6 @@ class Pinet_Controller extends CI_Controller {
 		$this->datatablesFloder = $this->config->item('datatables_folder');
 		$this->use_less = $this->config->item('use_less');
 
-		// This is used for hacking smarty view
 		$this->smarty = new Smarty();
 		$this->smarty->template_dir = get_ci_config('smarty_template_dir', FCPATH.APPPATH.'views');
 		$this->smarty->compile_dir = get_ci_config('smarty_compile_dir', FCPATH.APPPATH.'cache/smarty/templates_c');

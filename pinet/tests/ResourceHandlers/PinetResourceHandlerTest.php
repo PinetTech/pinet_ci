@@ -5,4 +5,9 @@ class PinetResourceHandlerTest extends Pinet\TestCase {
 		$r = new Clips\Resource("pinet://ResourceHandlers/PinetResourceHandler.php");
 		$this->assertNotNull($r->contents());
 	}
+
+	public function testClipsTool() {
+		$tool = &get_clips_tool();
+		$this->assertNotNull($tool);
+	}
 }

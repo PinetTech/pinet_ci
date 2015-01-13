@@ -1,7 +1,10 @@
 {
 	"sass_plugins": ["Sass\\AutoConstruct"],
-	"sass_preload": ["pinet://static/scss/variables"],
+	"sass_folders": ["pinet://static/scss/"],
+	"sass_preload": ["variables"],
 	"namespace": "Pinet\\",
+	"models": {
+	},
 	"resource_handlers": {
 	}
 }
