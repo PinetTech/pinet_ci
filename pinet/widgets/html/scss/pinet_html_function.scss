@@ -1,3 +1,7 @@
+@function strip-units($val) {
+	@return ($val / ($val * 0 + 1));
+}
+
 @function to-array-map($value) {
 	@if type-of($value) == list {
 	$map: ();

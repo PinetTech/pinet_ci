@@ -1,89 +1,32 @@
 <?php namespace Pinet\Sass; in_array(__FILE__, get_included_files()) or exit("No direct sript access allowed");
 
+/**
+ *	Author: andy
+ *	Date: 三  1/14 11:22:25 2015
+ * 
+ * 	Three support resolutions type
+ *	$resolutions = array(320, 480, 640);
+ *	$resolutions = array(320=>'device1', 480, 640);
+ *	$resolutions = array('device1'=>320, 480, 640);
+ */
+
 class AutoResolution extends \Clips\Libraries\Sass\SassPlugin {
 
 	public function prefix($compiler) {
-	   $compiler->prefix .= ' @function site_url($url) {
-	@return "'.site_url('/').'" + $url;
-	}
-	';
-	   $compiler->prefix .= '@function base_path($path) {
+	   	$compiler->prefix .= ' @function site_url($url) {
+			@return "'.site_url('/').'" + $url;
+		}';
+	   
+	   	$compiler->prefix .= '@function base_path($path) {
 	        @return "'.FCPATH.' + $path";
-	}
-	';
+		}';
 	   $compiler->prefix .= '$screen_width: 0;
 	$alias_width: 0;
 	$next-screen-width: 0;
-
-	@function strip-units($val) {
-	@return ($val / ($val * 0 + 1));
-	}
 	';
 
-	$resolutions = $this->getResolutions($compiler);
-	// var_dump($resolutions); die;
-
-	// two support config
-	// $config['resolutions'] = array(320, 480, 640);
-	// $config['resolutions'] = array(320=>'device1', 480, 640);
-	// $config['resolutions'] = array('device1'=>320, 480, 640);
-
-	   if (is_array($resolutions)) {
-
-	        $firstkey = key($resolutions);
-	        $firstres = $resolutions[$firstkey];
-	        if (is_numeric($firstkey) && is_string($firstres) && !is_numeric($firstres) ) {
-	             $compiler->prefix .= "\n".'$init-min-screen-width: '.$firstkey.';';
-	             $compiler->prefix .= "\n".'$min-screen-width: '.$firstkey.';';
-	        }
-	        else {
-	             $compiler->prefix .= "\n".'$init-min-screen-width: '.$firstres.';';
-	             $compiler->prefix .= "\n".'$min-screen-width: '.$firstres.';';
-	        }
-
-	        $lastkey = array_pop(array_keys($resolutions));;
-	        $lastres = $resolutions[$lastkey];
-	        if (is_numeric($lastkey) && is_string($lastres) && !is_numeric($lastres) ) {
-	             $compiler->prefix .= "\n".'$init-max-screen-width: '.$lastkey.';';
-	             $compiler->prefix .= "\n".'$max-screen-width: '.$lastkey.';';
-	        }
-	        else {
-	             $compiler->prefix .= "\n".'$init-max-screen-width: '.$lastres.';';
-	             $compiler->prefix .= "\n".'$max-screen-width: '.$lastres.';';
-	        }
-
-	        $compiler->prefix .= "\n".'$pinet-resolutions: (';
-	        foreach ($resolutions as $k => $rs) {
-	             if (is_numeric($k) && is_string($rs) && !is_numeric($rs) ) {
-	                  $compiler->prefix .=  '('.$k.':'.$rs.')';
-	             } else if (is_string($k) && !is_numeric($k)) {
-	                  $compiler->prefix .=  '('.$rs.':'.$k.')';
-	             }
-	             else {
-	                  $compiler->prefix .= '('.$rs.')';
-	             }
-	             if($rs != end($resolutions)) {
-	                  $compiler->prefix .= ",";
-	             }
-	        }
-	        $compiler->prefix .= ');';
-
-	        $compiler->prefix .= "\n".'$pinet-no-alias-resolutions: (';
-	        foreach ($resolutions as $k => $rs) {
-	             if (is_numeric($k) && is_string($rs) && !is_numeric($rs) ) {
-	                  $compiler->prefix .=  $k;
-	             } else if (is_string($k) && !is_numeric($k)) {
-	                  $compiler->prefix .=  $rs;
-	             }
-	             else {
-	                  $compiler->prefix .= $rs;
-	             }
-	             if($rs != end($resolutions)) {
-	                  $compiler->prefix .= ",";
-	             }
-	        }
-	        $compiler->prefix .= ');';
-	   }
+		$resolutions = $this->getResolutions($compiler);
+		$this->appendVariables($resolutions, $compiler);
 	}
 
 	public function suffix($compiler) {
@@ -251,6 +194,65 @@ class AutoResolution extends \Clips\Libraries\Sass\SassPlugin {
 		if(strpos($compiler->content, $the_name) !== FALSE) {
 			$compiler->suffix .= "\t".'@include '.$the_name.'();'."\n";
 		}
+	}
+
+	protected function appendVariables($resolutions, $compiler) {
+		if (is_array($resolutions)) {
+
+	        $firstkey = key($resolutions);
+	        $firstres = $resolutions[$firstkey];
+	        if (is_numeric($firstkey) && is_string($firstres) && !is_numeric($firstres) ) {
+	             $compiler->prefix .= "\n".'$init-min-screen-width: '.$firstkey.';';
+	             $compiler->prefix .= "\n".'$min-screen-width: '.$firstkey.';';
+	        }
+	        else {
+	             $compiler->prefix .= "\n".'$init-min-screen-width: '.$firstres.';';
+	             $compiler->prefix .= "\n".'$min-screen-width: '.$firstres.';';
+	        }
+
+	        $lastkey = array_pop(array_keys($resolutions));;
+	        $lastres = $resolutions[$lastkey];
+	        if (is_numeric($lastkey) && is_string($lastres) && !is_numeric($lastres) ) {
+	             $compiler->prefix .= "\n".'$init-max-screen-width: '.$lastkey.';';
+	             $compiler->prefix .= "\n".'$max-screen-width: '.$lastkey.';';
+	        }
+	        else {
+	             $compiler->prefix .= "\n".'$init-max-screen-width: '.$lastres.';';
+	             $compiler->prefix .= "\n".'$max-screen-width: '.$lastres.';';
+	        }
+
+	        $compiler->prefix .= "\n".'$pinet-resolutions: (';
+	        foreach ($resolutions as $k => $rs) {
+	             if (is_numeric($k) && is_string($rs) && !is_numeric($rs) ) {
+	                  $compiler->prefix .=  '('.$k.':'.$rs.')';
+	             } else if (is_string($k) && !is_numeric($k)) {
+	                  $compiler->prefix .=  '('.$rs.':'.$k.')';
+	             }
+	             else {
+	                  $compiler->prefix .= '('.$rs.')';
+	             }
+	             if($rs != end($resolutions)) {
+	                  $compiler->prefix .= ",";
+	             }
+	        }
+	        $compiler->prefix .= ');';
+
+	        $compiler->prefix .= "\n".'$pinet-no-alias-resolutions: (';
+	        foreach ($resolutions as $k => $rs) {
+	             if (is_numeric($k) && is_string($rs) && !is_numeric($rs) ) {
+	                  $compiler->prefix .=  $k;
+	             } else if (is_string($k) && !is_numeric($k)) {
+	                  $compiler->prefix .=  $rs;
+	             }
+	             else {
+	                  $compiler->prefix .= $rs;
+	             }
+	             if($rs != end($resolutions)) {
+	                  $compiler->prefix .= ",";
+	             }
+	        }
+	        $compiler->prefix .= ');';
+	   }
 	}
 
 	protected function getResolutions($compiler) {
