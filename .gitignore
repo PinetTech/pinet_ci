@@ -14,6 +14,8 @@ application/cache
 .idea
 *~
 launcher*
+composer.lock
+vendor/
 application/static/uploads/
 /vendor/
 composer.lock
