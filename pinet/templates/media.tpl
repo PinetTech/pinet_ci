@@ -1,2 +1,4 @@
 {{media}} 
-{{#variables}}{{variable}}{{/variables}}
+{{#variables}}
+	{{variable}};
+{{/variables}}
