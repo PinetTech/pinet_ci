@@ -42,3 +42,7 @@
 	@include switch-box-variant();
 	@include switch-box-color($pinet-blue, #bee7f9, $border-color:#1d99d2);
 }
+.switch-box.switch-box-green{
+	@include switch-box-variant();
+	@include switch-box-color($pinet-green, #dbfbe6, $border-color:#55d684);
+}
