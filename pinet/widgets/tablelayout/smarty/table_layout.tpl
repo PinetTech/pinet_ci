@@ -6,7 +6,9 @@
   	{bs_container display=table}
 		{row}
 			{col id="layout-navigation"}
-				{block name=navigations}{** This is the location for navigations **}{/block}
+				{if $has_head}
+					{block name=navigations}{** This is the location for navigations **}{/block}
+				{/if}
 			{/col}
 			{col id="layout-main"}
 				{table_container}

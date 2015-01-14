@@ -217,7 +217,7 @@ function layout(items, cols, mb, mr) {
 	items.each(function(i, item) {
 		var lp = fetch_pos(i, layout_data);
 		var flp = fetch_pos(i, flow_layout_data);
-		console.info('Index = ' + i + ' pos = ' + lp + ' fpos = ' + flp);
+		// console.info('Index = ' + i + ' pos = ' + lp + ' fpos = ' + flp);
 		if(flp[1] == cols - 1) {
 			$(item).addClass('edge');
 		}
