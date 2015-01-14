@@ -4,6 +4,7 @@
 	"sass_folders": ["pinet://static/scss/"],
 	"sass_preload": ["variables"],
 	"namespace": "Pinet\\",
+	"template_dir": "pinet/templates",
 	"models": {
 	},
 	"resource_handlers": {

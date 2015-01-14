@@ -1,3 +1,7 @@
+@function site_url($url) {
+	@return php(site_url, unquote($url));
+}
+
 @function strip-units($val) {
 	@return ($val / ($val * 0 + 1));
 }
@@ -530,6 +534,7 @@
 		@return $result;
 	}
 }
+
 
 @function func_get_args($params...) {
 	$length: length($params);
