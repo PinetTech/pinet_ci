@@ -13,15 +13,8 @@
 class AutoResolution extends \Clips\Libraries\Sass\SassPlugin {
 
 	public function prefix($compiler) {
-	   	$compiler->prefix .= ' @function site_url($url) {
-			@return "'.site_url('/').'" + $url;
-		}';
-	   
-	   	$compiler->prefix .= '@function base_path($path) {
-	        @return "'.FCPATH.' + $path";
-		}';
-	   $compiler->prefix .= '$screen_width: 0;
-	$alias_width: 0;
+	   $compiler->prefix .= '$screen-width: 0;
+	$alias-width: 0;
 	$next-screen-width: 0;
 	';
 

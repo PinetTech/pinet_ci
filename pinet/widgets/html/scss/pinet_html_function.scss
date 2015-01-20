@@ -2,6 +2,10 @@
 	@return php(site_url, unquote($url));
 }
 
+@function base_path($path) {
+	@return php(constant, FCPATH) + $path;
+}
+
 @function strip-units($val) {
 	@return ($val / ($val * 0 + 1));
 }
@@ -494,7 +498,7 @@
 		@return $args;
 	}
 	@else if $arglength > 1 {
-		$lastarg: list-end($args);
+		$lastarg: last($args);
 		@if $arglength == 2 {
 			@if type-of($lastarg) == string {
 				$callback: $lastarg;
