@@ -1042,3 +1042,36 @@ function redirect_post($url, $values, $title='Redirecting...', $message='Redirec
 TEXT;
     return $text;
 }
+
+
+function get_value_in_array($v, $array) {
+	if (array_key_exists($v, $array)) {
+		return $array[$v];
+	}
+	else if(array_search($v, $array)) {
+		return array_search($v, $array);
+	}	
+	else {
+		return false;
+	}
+}
+
+function get_alias_by_width($num) {
+	if (is_numeric($num)) {
+		$resolutions = get_ci_config('resolutions');
+		return get_value_in_array($num, $resolutions);
+	}
+	else {
+		return false;
+	}
+}
+
+function get_width_by_alias($str) {
+	if (is_string($str)) {
+		$resolutions = get_ci_config('resolutions');
+		return get_value_in_array($str, $resolutions);
+	}
+	else {
+		return false;
+	}
+}
