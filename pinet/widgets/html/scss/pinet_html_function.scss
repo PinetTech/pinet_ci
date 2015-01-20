@@ -1,3 +1,11 @@
+@function site_url($url) {
+	@return php(site_url, unquote($url));
+}
+
+@function strip-units($val) {
+	@return ($val / ($val * 0 + 1));
+}
+
 @function to-array-map($value) {
 	@if type-of($value) == list {
 	$map: ();
@@ -481,14 +489,15 @@
 
 @function autos($args...)  {
 	$params: $args;
-	@if length($params) == 1 {
-		$result: $params;
-		@return $result;
+	$arglength: length($args);
+	@if $arglength == 1 {
+		@return $args;
 	}
-	@else if length($params) > 1 {
-		@if length($params) == 2 {
-			@if type-of(last($args)) == string {
-				$callback: last($args);
+	@else if $arglength > 1 {
+		$lastarg: list-end($args);
+		@if $arglength == 2 {
+			@if type-of($lastarg) == string {
+				$callback: $lastarg;
 				$result: autocheck(nth($params, 1));
 			}
 			@else {
@@ -496,23 +505,17 @@
 				$result: autocheck($args...);
 			}
 		}
-		@else if  length($params) == 3 {
-			// @return  go in;
-			// @return map-keys(nth($args, 2));
-			@if type-of(last($args)) == string {
-				$callback: last($args);
-				$thparams: func_remove_arg(3, $args...);
+		@else if  $arglength == 3 {
+			@if type-of($lastarg) == string {
+				$callback: $lastarg;
+				// $thparams: func_remove_arg(3, $args...);
+				$thparams: list-splice($args, 3, 1);
 			}
 			@else {
 				$callback: -1;
 				$thparams: $args;
 			}
-			// $thparams: func_get_args($args...);
-			// @return length($thparams);
-			// @return $thparams;
-			// @return type-of($thparams);
 			$result: autocheck($thparams...);
-			// @return the result is $result;
 		}
 		@if nth($result, 1) == false {
 			$result: nth(nth($result, 2), 1);
@@ -526,6 +529,7 @@
 		@return $result;
 	}
 }
+
 
 @function func_get_args($params...) {
 	$length: length($params);
@@ -582,57 +586,26 @@
 }
 
 @function res($args...) {
-	// Todo check args
-	// $params: func_get_args($args...);
-	// $params: func_set_arg(cal, $args...);
 	$min: false;
-	@if length($args) == 1 {
-		$params: func_set_arg(cal, $args...);
+	$arglength: length($args);
+	@if $arglength == 1 {
+		// $params: list-splice($args, $arglength, 0, cal);
+		@return call(cal, $args...);
 	}
-	@else if length($args) > 1 {
-		$second-arg: func_get_arg(2, $args...);
-		// @return length($second-arg);
-		// @return $second-arg;
-		// @return type-of($second-arg);
-		// @return length($params);
-		// @return $params;
-		// @return type-of($params);
-		// @return nth($params, 1);
-		// @return type-of(nth($params, 1));
-		// @return nth($params, 2);
-		// @return type-of(nth($params, 2));
-		// @return go in;
+	@else if $arglength > 1 {
+		// $second-arg: func_get_arg(2, $args...);
+		$second-arg: nth($args, 2);
 		@if type-of($second-arg) == number {
-			// @return go in;
-			// $params: func_remove_arg(2, $args...);
 			$min: true;
-			$params: func_replace_arg(2, cal, $args...);
-			// @return length($params);
-			// @return $params;
-			// @return type-of($params);
-			// @return length(nth($params, 1));
-			// @return nth($params, 1);
-			// @return type-of(nth($params, 1));
-			// @return length(nth($params, 2));
-			// @return nth($params, 2);
-			// @return type-of(nth($params, 2));
+			// $params: func_replace_arg(2, cal, $args...);
+			$params: list-splice($args, 2, 0, cal);
 		}
 		@else {
-			$params: func_set_arg(cal, $args...);
-			// @return length($params);
-			// @return $params;
-			// @return type-of($params);
-			// @return length(nth($params, 1));
-			// @return nth($params, 1);
-			// @return type-of(nth($params, 1));
-			// @return length(nth($params, 2));
-			// @return nth($params, 2);
-			// @return type-of(nth($params, 2));
+			$params: list-splice($args, $arglength, 0, cal);
 		}
 	}
 
 	$result: autos($params...);
-	// @return $result;
 
 	@if $min == true {
 		@if $result <= $second-arg {

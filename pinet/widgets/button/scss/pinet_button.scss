@@ -29,7 +29,6 @@
 	}
 }
 
-
 @mixin responsive_pinet_button($args...) {
 	$themes: (
 		blue: (
@@ -53,7 +52,7 @@
 	.btn-blue {
 		@include button-common();
 		@include pinet-btn-variant();
-	    	@include button-color($pinet-blue, $pinet-blue-hover, $pinet-blue-active, $btn-box-shadow-blue);
+	    @include button-color($pinet-blue, $pinet-blue-hover, $pinet-blue-active, $btn-box-shadow-blue);
 	}
 
 	.btn-green {
