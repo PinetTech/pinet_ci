@@ -13,10 +13,10 @@ class Action {
 	public $name;
 	public $label;
 
-	/** @ClipsMulti */
+	/** @Multi */
     public $args;
 
-	/** @ClipsMulti */
+	/** @Multi */
 	public $fields;
 
 	public function __construct($label = null, $controller = null, $method = null) {

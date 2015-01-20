@@ -3,9 +3,6 @@
 class Rule_Manager {
 	public function __construct() {
 		$this->CI = &get_instance();
-
-		// Load the clips rule engine
-		$this->CI->load->library('clips');
 		$this->clips = $this->CI->clips;
 	}
 

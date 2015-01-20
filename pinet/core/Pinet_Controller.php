@@ -169,12 +169,12 @@ class FormField {
 	public $label;
 	public $defaultValue;
 
-	/** @ClipsMulti */
+	/** @Multi */
 	public $rules;
 
 	public $placeholder;
 
-	/** @ClipsMulti */
+	/** @Multi */
 	public $translateRules;
 	public $field = '';
 	public $state;
@@ -344,6 +344,9 @@ class Pinet_Controller extends CI_Controller {
 	function __construct() {
 		parent::__construct();
 
+		$this->tool = &get_clips_tool();
+		$this->clips = $this->tool->clips;
+
 		$this->hackFormValidation();
 
 		$this->load->helper(array('language', 'url', 'common', 'page','form'));
@@ -371,8 +374,6 @@ class Pinet_Controller extends CI_Controller {
 			$this->log('The themes support is enabled');
 			$this->load->library('theme_manager');
 		}
-
-		$this->tool = &get_clips_tool();
 
 		$this->tool->config->addConfig(array(
 			'datasources' => 
