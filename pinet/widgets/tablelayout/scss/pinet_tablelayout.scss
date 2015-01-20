@@ -20,6 +20,9 @@
 		#layout-workbench {
 			width: 100%;
 			padding-right: res(60px);
+			iframe {
+				border: 0;
+			}
 		}
 		#layout-toolbar {
 			margin-bottom: res(35px);
