@@ -168,6 +168,7 @@ class FormField {
 	public $name;
 	public $label;
 	public $defaultValue;
+	public $required;
 
 	/** @Multi */
 	public $rules;
