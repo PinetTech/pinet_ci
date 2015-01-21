@@ -4,8 +4,16 @@
 	"sass_folders": ["pinet://static/scss/"],
 	"sass_preload": ["variables"],
 	"namespace": "Pinet\\",
-	"template_dir": "pinet/templates",
+	"template_dir": "pinet/templates",	
 	"models": {
+	},
+	"logger": {
+		"handlers": {
+			"FirePHP" : ["debug"],
+			"ChromePHP": ["debug"], 
+			"RotatingFile": ["/tmp/usercenter.log", 4, "debug"]
+		},
+		"processors": ["Git", "PsrLogMessage", "Introspection", "Tag"]
 	},
 	"resource_handlers": {
 	}
