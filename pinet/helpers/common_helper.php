@@ -6,6 +6,7 @@ define("CONFIG_DIR", FCPATH.APPPATH.'config/');
  * The class of Action object
  */
 class Action {
+	public $id;
 	public $controller;
 	public $method;
 	public $group;

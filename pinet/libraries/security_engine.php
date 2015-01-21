@@ -12,6 +12,7 @@ class Security_Engine {
 		$this->CI->load->library(array('session'));
 		$this->clips = $this->CI->clips;
 		$this->clips->createEnv(Security_Engine::CLIPS_SECURITY_ENV);
+		$this->logger = $this->CI->tool->getLogger(get_class($this));
 	}
 
 	public function validate($obj) {

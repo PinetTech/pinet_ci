@@ -21,7 +21,7 @@ class Action_Model extends Pinet_Model {
         if(!isset($CI->security_engine))
             return true;
 
-		$result = $CI->security_engine->validate($action);
+		$result = $CI->security_engine->validate(copy_object($action, null, 'Action'));
 		ci_log('The result for action is %s', $action, $result);
 
 		if($action->group == MAIN_NAVIGATION) {
