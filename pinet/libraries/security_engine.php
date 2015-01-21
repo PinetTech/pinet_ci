@@ -8,7 +8,9 @@ class Security_Engine {
 		$this->CI = &get_instance();
 		$this->CI->load->model('security_model');
 		$this->CI->load->helper(array('session'));
-		$this->CI->load->helper(get_ci_config('security_helper'), array());
+		$sh = get_ci_config('security_helper');
+		if($sh)
+			$this->CI->load->helper($sh, array());
 		$this->CI->load->library(array('session'));
 		$this->clips = $this->CI->clips;
 		$this->clips->createEnv(Security_Engine::CLIPS_SECURITY_ENV);

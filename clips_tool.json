@@ -9,7 +9,7 @@
 		"handlers": {
 			"FirePHP" : ["debug"],
 			"ChromePHP": ["debug"], 
-			"RotatingFile": ["/tmp/usercenter.log", 4, "debug"]
+			"RotatingFile": ["/tmp/pinet.log", 4, "debug"]
 		},
 		"processors": ["Git", "PsrLogMessage", "Introspection", "Tag"]
 	},
