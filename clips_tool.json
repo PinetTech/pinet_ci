@@ -5,6 +5,14 @@
 	"sass_preload": ["variables"],
 	"namespace": "Pinet\\",
 	"template_dir": "pinet/templates",
+	"logger": {
+		"handlers": {
+			"FirePHP" : ["debug"],
+			"ChromePHP": ["debug"], 
+			"RotatingFile": ["/tmp/usercenter.log", 4, "debug"]
+		},
+		"processors": ["Git", "PsrLogMessage", "Introspection", "Tag"]
+	},
 	"models": {
 	},
 	"resource_handlers": {
