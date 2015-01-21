@@ -5,6 +5,8 @@
  */
 class SassCompiler extends Clips\Libraries\Sass {
 
+	public $resolutions;
+
 	public function widget($name) {
 		if(is_array($name)) {
 			foreach($name as $n) {

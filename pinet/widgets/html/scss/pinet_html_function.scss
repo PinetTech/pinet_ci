@@ -1,3 +1,5 @@
+// "pinet_html_function","pinet_html_advance_function","pinet_html_maxvar_function","pinet_html_maxauto_function",
+
 @function site_url($url) {
 	@return php(site_url, unquote($url));
 }
