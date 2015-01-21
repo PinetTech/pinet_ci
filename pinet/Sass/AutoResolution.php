@@ -247,7 +247,7 @@ class AutoResolution extends \Clips\Libraries\Sass\SassPlugin {
 	             }
 	        }
 	        $compiler->prefix .= ');';
-
+	
 	        $compiler->prefix .= "\n".'$pinet-no-alias-resolutions: (';
 	        foreach ($resolutions as $k => $rs) {
 	             if (is_numeric($k) && is_string($rs) && !is_numeric($rs) ) {
@@ -267,7 +267,7 @@ class AutoResolution extends \Clips\Libraries\Sass\SassPlugin {
 	}
 
 	protected function getResolutions($compiler) {
-		if (isset($compiler->resolutions)) {
+		if ($compiler->resolutions && $compiler->resolutions != '') {
 			return $compiler->resolutions;
 		}
 		else if (get_ci_config('resolutions')) {

@@ -602,7 +602,7 @@
 		@if type-of($second-arg) == number {
 			$min: true;
 			// $params: func_replace_arg(2, cal, $args...);
-			$params: list-splice($args, 2, 0, cal);
+			$params: list-splice($args, 1, 1, cal);
 		}
 		@else {
 			$params: list-splice($args, $arglength, 0, cal);
