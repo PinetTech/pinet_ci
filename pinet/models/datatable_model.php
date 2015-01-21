@@ -7,8 +7,11 @@ class DataTableColumn {
 	public $contentPadding = 0;	
 	public $data = null;
 	public $defaultContent = null;
+	public $action = null;
 	public $name = null;
 	public $orderable = true;
+	public $toggle = false;
+	public $render = null;
 	/*
 	public $orderData = null;
 	public $orderSequence = 'asc';
@@ -90,11 +93,12 @@ class DataTableColumns implements JsonSerializable {
 		$CI = &get_instance();
 		if(gettype($columns) === 'array') {
 			foreach($columns as $column) {
-				if(isset($CI->security_engine) && $CI->security_engine->validate($column) == 'deny') { // If we do have security engine, and the security engine says that the column should not be shown, we won't show it.
+				$c = DataTableColumn::from_object($column);
+				if(isset($CI->security_engine) && $CI->security_engine->validate($c) == 'deny') { // If we do have security engine, and the security engine says that the column should not be shown, we won't show it.
 					$CI->log('Won\'t show column for this security configuration', $column);
 					continue;
 				}
-				$ret->columns []= DataTableColumn::from_object($column);
+				$ret->columns []= $c;
 			}
 		}
 		return $ret;

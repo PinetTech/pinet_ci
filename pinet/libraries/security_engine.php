@@ -20,7 +20,7 @@ class Security_Engine {
 	public function validate($obj) {
 		return $this->clips->runWithEnv(Security_Engine::CLIPS_SECURITY_ENV, function($clips, $obj){
 			$clips->clear();
-			$clips->template(array('Pinet_User', 'Pinet_Anonymous_User', 'Pinet_Group', 'Action', 'FormField'));
+			$clips->template(array('Pinet_User', 'Pinet_Anonymous_User', 'Pinet_Group', 'Action', 'FormField', 'DataTableColumn'));
 			$clips->load('ci://config/rules/user.rules');
 			$clips->load('ci://config/rules/security.rules');
 			if(is_string($obj)) {

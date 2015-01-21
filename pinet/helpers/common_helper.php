@@ -169,6 +169,15 @@ function smarty_get_parent_tag($template) {
 	return '';
 }
 
+function get_stacktrace($level = 2) {
+	$trace = debug_backtrace();
+	$ret = array();
+	for($i = 1; $i < $level; $i++) {
+		$ret []= $trace[$i];
+	}
+	return $ret;
+}
+
 function stacktrace($level = 2) {
 	$trace = debug_backtrace();
 	for($i = 1; $i < $level; $i++) {
