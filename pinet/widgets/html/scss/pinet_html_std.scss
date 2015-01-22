@@ -1,6 +1,14 @@
 @function site_url($url) {
-	$url: php(site_url, unquote($url));
-	@return unquote($url + '/');
+	$params: $url;
+	$laststr: str-get($params, str-length($params) + 1);
+	$list: unquote("/"), '/', "/";	
+	$result: php(site_url, unquote($url));
+	@if index($list, $laststr) {
+		@return unquote( $result + "/");
+	}
+	@else {
+		@return $result;
+	}
 }
 
 @function base_path($path) {
