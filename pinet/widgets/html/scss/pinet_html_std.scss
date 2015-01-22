@@ -1,5 +1,6 @@
 @function site_url($url) {
-	@return php(site_url, unquote($url));
+	$url: php(site_url, unquote($url));
+	@return unquote($url + '/');
 }
 
 @function base_path($path) {
