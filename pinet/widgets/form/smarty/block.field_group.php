@@ -59,8 +59,8 @@ function smarty_block_field_group($params, $content = '', $template, &$repeat) {
 	$layout = get_default($params, 'layout', array());
 
 	$classes = make_classes(get_default($params, 'class'), array('form-group', 'control-group'));
-	$label_layout_class = 'col-1280-2';
-	$element_layout_class = 'col-1280-10';
+	$label_layout_class = 'col-1280-2 col-pc-2';
+	$element_layout_class = 'col-1280-10 col-pc-10';
 	if(is_array($layout)) {
 		if(isset($layout['label']))
 			$label_layout_class = 'col-1280-'.$layout['label'];
