@@ -1,6 +1,6 @@
 @function site_url($url) {
 	$params: $url;
-	$laststr: str-get($params, str-length($params) + 1);
+	$laststr: str-get(unquote($params), str-length($params));
 	$list: unquote("/"), '/', "/";	
 	$result: php(site_url, unquote($url));
 	@if index($list, $laststr) {
