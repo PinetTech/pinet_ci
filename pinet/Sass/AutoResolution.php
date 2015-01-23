@@ -13,8 +13,8 @@
 class AutoResolution extends \Clips\Libraries\Sass\SassPlugin {
 
 	public function prefix($compiler) {
-		$resolutions = $this->getResolutions($compiler);
-		$this->appendVariables($resolutions, $compiler);
+		$this->appendVariables($this->getResolutions($compiler),
+		   	$compiler);
 	}
 
 	public function suffix($compiler) {
@@ -201,77 +201,73 @@ class AutoResolution extends \Clips\Libraries\Sass\SassPlugin {
 
 	protected function appendVariables($resolutions, $compiler) {
 		if (is_array($resolutions)) {
+			$result = array();
+			$max = 0;
+			$min = 0;
 
-	        $firstkey = key($resolutions);
-	        $firstres = $resolutions[$firstkey];
-	        if (is_numeric($firstkey) && is_string($firstres) && !is_numeric($firstres) ) {
-	             $compiler->prefix .= "\n".'$init-min-screen-width: '.$firstkey.';';
-	             $compiler->prefix .= "\n".'$min-screen-width: '.$firstkey.';';
-	        }
-	        else {
-	             $compiler->prefix .= "\n".'$init-min-screen-width: '.$firstres.';';
-	             $compiler->prefix .= "\n".'$min-screen-width: '.$firstres.';';
-	        }
+			foreach($resolutions as $k => $v) {
+				$arr = null;
+				if(is_string($k)) {
+					$arr = array('alias' => $k, 'value' => $v);
+				}
+				else {
+					if(is_string($v)) {
+						$arr = array('alias' => $v, 'value' => $k);
+					}
+					else {
+						$arr = array('alias' => 0, 'value' => $v);
+					}
+				}
+				$result []= $arr;
+				if($min > $arr['value'])
+					$min = $arr['value'];
 
-	        $lastkey = array_pop(array_keys($resolutions));;
-	        $lastres = $resolutions[$lastkey];
-	        if (is_numeric($lastkey) && is_string($lastres) && !is_numeric($lastres) ) {
-	             $compiler->prefix .= "\n".'$init-max-screen-width: '.$lastkey.';';
-	             $compiler->prefix .= "\n".'$max-screen-width: '.$lastkey.';';
-	        }
-	        else {
-	             $compiler->prefix .= "\n".'$init-max-screen-width: '.$lastres.';';
-	             $compiler->prefix .= "\n".'$max-screen-width: '.$lastres.';';
-	        }
+				if($max < $arr['value'])
+					$max = $arr['value'];
+			}
 
-	        $compiler->prefix .= "\n".'$pinet-resolutions: (';
-	        foreach ($resolutions as $k => $rs) {
-	             if (is_numeric($k) && is_string($rs) && !is_numeric($rs) ) {
-	                  $compiler->prefix .=  '('.$k.':'.$rs.')';
-	             } else if (is_string($k) && !is_numeric($k)) {
-	                  $compiler->prefix .=  '('.$rs.':'.$k.')';
-	             }
-	             else {
-	                  $compiler->prefix .= '('.$rs.')';
-	             }
-	             if($rs != end($resolutions)) {
-	                  $compiler->prefix .= ",";
-	             }
-	        }
-	        $compiler->prefix .= ');';
+			$str = 'string://$min-screen-width: {{min}};
+	$max-screen-width: {{max}};
+	$init-min-screen-width: {{min}};
+	$init-max-screen-width: {{max}};
 	
-	        $compiler->prefix .= "\n".'$pinet-no-alias-resolutions: (';
-	        foreach ($resolutions as $k => $rs) {
-	             if (is_numeric($k) && is_string($rs) && !is_numeric($rs) ) {
-	                  $compiler->prefix .=  $k;
-	             } else if (is_string($k) && !is_numeric($k)) {
-	                  $compiler->prefix .=  $rs;
-	             }
-	             else {
-	                  $compiler->prefix .= $rs;
-	             }
-	             if($rs != end($resolutions)) {
-	                  $compiler->prefix .= ",";
-	             }
-	        }
-	        $compiler->prefix .= ');';
-	   }
+	$pinet-resolutions: (
+{{#resolutions}}
+{{#alias}}
+	({{alias}}:{{value}})
+{{/alias}}
+{{^alias}}
+	{{value}}
+{{/alias}},
+{{/resolutions}}
+	);
+	$pinet-no-alias-resolutions: (
+{{#resolutions}}
+	{{value}},
+{{/resolutions}}
+	);
+';
+			$compiler->prefix .= clips_out($str, array(
+				'min' => $min,
+				'max' => $max,
+				'resolutions' => $result
+			));
+		}
 	}
 
 	protected function getResolutions($compiler) {
-		if ($compiler->resolutions && $compiler->resolutions != '') {
-			return $compiler->resolutions;
+		foreach(array('get_default', 'get_ci_config', 'clips_config') as $func) {
+			$res = null;
+			if($func == 'get_default') {
+				$res = get_default($compiler, 'resolutions', null);
+			}
+			else {
+				$res = call_user_func_array($func, array('resolutions', null));
+			}
+			if($res)
+				return $res;
 		}
-		else if (get_ci_config('resolutions')) {
-			return get_ci_config('resolutions');
-		} 
-		else if (clips_config('resolutions')) {
-			return clips_config('resolutions');
-		}
-		else {
-			trigger_error('you must need resolutions, you can put in clips_config or ci_config or complier');
-			return false;
-		}
+		trigger_error('you must need resolutions, you can put in clips_config or ci_config or complier');
+		return false;
 	}
-
 }
