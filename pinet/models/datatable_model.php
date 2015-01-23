@@ -11,8 +11,6 @@ class DataTableColumn {
 	public $name = null;
 	public $refer = null;
 	public $orderable = true;
-	public $toggle = false;
-	public $render = null;
 	/*
 	public $orderData = null;
 	public $orderSequence = 'asc';

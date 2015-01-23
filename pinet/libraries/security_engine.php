@@ -1,9 +1,23 @@
 <?php defined("BASEPATH") or exit("No direct script access allowed");
 
+class SecurityDataTableColumn {
+	public $name;
+	public $data;
+	public $type;
+
+	public function __construct($obj) {
+		if(is_string($obj))
+			$obj = array('name' => $obj);
+		$this->name = get_default($obj, 'name', null);
+		$this->data = get_default($obj, 'data', null);
+		$this->type = get_default($obj, 'type', null);
+	}
+}
+
 class Security_Engine {
 	private $CI;
 	const CLIPS_SECURITY_ENV = "SECURITY";
-	public $classes = array('Pinet_User', 'Pinet_Anonymous_User', 'Pinet_Group', 'Action', 'FormField', 'DataTableColumn');
+	public $classes = array('Pinet_User', 'Pinet_Anonymous_User', 'Pinet_Group', 'Action', 'FormField', 'SecurityDataTableColumn');
 
 	public function __construct() { 
 		$this->CI = &get_instance();
@@ -29,8 +43,8 @@ class Security_Engine {
 			$clips->template($c);
 			$clips->load('ci://config/rules/user.rules');
 			$clips->load('ci://config/rules/security.rules');
-			if(is_string($obj)) {
-				$obj = array('Column', $obj);
+			if(is_string($obj) || is_object($obj) && get_class($obj) == 'DataTableColumn') {
+				$obj = new SecurityDataTableColumn($obj);
 			}
 			$clips->assertFacts($obj);
 			$clips->run();

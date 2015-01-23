@@ -179,7 +179,6 @@ $('#datatable').on('click', '.datatable-toggle', function(e){
 			iframe_container.iframe = iframe;
 			iframe_containers[index] = iframe_container;
 		}else {
-			console.dir(Settings.iframe.animateUpTime);
 			iframe_container.css({
 				// "visibility": "visible"
 				"display": "table-row"
