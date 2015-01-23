@@ -1,0 +1,26 @@
+{
+	"author": "Andy",
+	"date": "Tue Dec 09 11:00:34 2014",
+	"version": "1.0",
+	"name": "pinet.nav",
+	"doc":"[doc]",
+	"js": {
+		"depends": [],
+		"files" : []
+	},
+	"scss": {
+		"depends": [
+			{
+				"module": "bootstrap",
+				"file": "bootstrap/_normalize",
+				"version": "3.3.1"
+			},
+			{
+				"module": "bootstrap",
+				"file": "bootstrap/_navs",
+				"version": "3.3.1"
+			}
+		],
+		"files": ["pinet_nav"]
+	}
+}

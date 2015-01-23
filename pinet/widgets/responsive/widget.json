@@ -17,7 +17,7 @@
 				"version": "1.0.0"
 			}
 		],
-		"files" : []
+		"files" : ["pinet_responsive_init"]
 	},
 	"depends": ["jquery","bootstrap"],
 	"scss": {

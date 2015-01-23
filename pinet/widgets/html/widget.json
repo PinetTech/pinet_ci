@@ -6,7 +6,7 @@
 	"doc":"[doc]",
 	"js": {
 		"depends": [],
-		"files" : []
+		"files" : ["pinet_html_init"]
 	},
 	"depends": ["link"],
 	"scss": {
