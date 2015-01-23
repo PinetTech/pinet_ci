@@ -9,6 +9,7 @@ class DataTableColumn {
 	public $defaultContent = null;
 	public $action = null;
 	public $name = null;
+	public $refer = null;
 	public $orderable = true;
 	public $toggle = false;
 	public $render = null;
