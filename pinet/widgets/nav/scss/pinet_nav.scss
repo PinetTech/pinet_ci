@@ -1,0 +1,34 @@
+// default
+// -------------------------
+.nav-default {
+  > li {
+    float: left;
+
+    // Links rendered as pills
+    > a {
+      border-radius: $nav-default-border-radius;
+      &:hover,
+      &:focus {
+        text-decoration: none;
+        background-color: $nav-default-link-hover-bg;
+      }
+    }
+    + li {
+      margin-left: 2px;
+    }
+
+  }
+}
+
+.nav-list {
+	> li {
+		> a {
+			padding: 0;
+			&:hover,
+		  	&:focus  {
+		    	outline: none;
+		    	background-color: transparent;
+		   	}
+		}
+	}
+}
