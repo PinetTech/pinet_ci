@@ -13,11 +13,6 @@
 class AutoResolution extends \Clips\Libraries\Sass\SassPlugin {
 
 	public function prefix($compiler) {
-	   $compiler->prefix .= '$screen-width: 0;
-	$alias-width: 0;
-	$next-screen-width: 0;
-	';
-
 		$resolutions = $this->getResolutions($compiler);
 		$this->appendVariables($resolutions, $compiler);
 	}
@@ -57,9 +52,6 @@ class AutoResolution extends \Clips\Libraries\Sass\SassPlugin {
 			}
 
 			$this->addBeforeResolution($compiler, $screen_width);
-			// $compiler->suffix .= '@media screen and (min-width: '.$screen_width.'px) {'."\n";
-			// $compiler->suffix .= '$screen-width:'. $screen_width.';';
-		 	// $compiler->suffix .= '$alias-width:'.$alias_width.';';
 			$compiler->suffix .= clips_out('media', array(
 				'media'=> '@media screen and (min-width: '.$screen_width.'px) {', 
 				'variables'=>array(array('variable'=>'$screen-width:'.$screen_width), array('variable'=>'$alias-width:'. $alias_width))

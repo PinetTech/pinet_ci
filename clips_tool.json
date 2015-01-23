@@ -2,7 +2,7 @@
 	"sass_plugins": ["Sass\\AutoConstruct", "Sass\\AutoResolution"],
 	"resolutions": [480, 640, 720, 1280, 1440, 1280, 2880],
 	"sass_folders": ["pinet://static/scss/"],
-	"sass_preload": ["variables"],
+	"sass_preload": ["common", "variables"],
 	"namespace": "Pinet\\",
 	"template_dir": "pinet/templates",
 	"logger": {
