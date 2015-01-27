@@ -801,10 +801,20 @@ function generate_ad($zone_id, $type='image'){
 			$name = site_url('application/static/luhu_small');
 			$bg = site_url('application/static/img/tv_bg.jpg');
 			return <<<TEXT
-      <video id="video1" style="background: url($bg) no-repeat;" width="100%" height="100%" autoplay loop>
-        <source src="$name.ogg" type="video/ogg">
-        <source src="$name.mp4" type="video/mp4">
-      </video>
+<div id="jp_container_1" style="width: 100%; height: 100%; background: url($bg);" class="jp-video" role="application" aria-label="media player">
+	<div class="jp-type-single" style="height: 100%">
+		<div id="jquery_jplayer_1" class="jp-jplayer" style="height: 100%"></div>
+		<div class="jp-gui">
+			<div class="jp-video-play">
+				<button class="jp-video-play-icon" role="button" tabindex="0">play</button>
+			</div>
+		</div>
+		<div class="jp-no-solution">
+			<span>Update Required</span>
+			To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
+		</div>
+	</div>
+</div>
 TEXT;
         case 'image':
         default:
