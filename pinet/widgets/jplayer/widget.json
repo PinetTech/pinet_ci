@@ -9,6 +9,6 @@
 	},
 	"depends": ["jquery"],
 	"css": {
-		"files": ["blue.monday/css/jplayer.blue.monday.css"]
+		"files": ["blue.monday/css/jplayer.blue.monday"]
 	}
 }
