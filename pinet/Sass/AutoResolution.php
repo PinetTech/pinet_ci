@@ -2,7 +2,7 @@
 
 /**
  *	Author: andy
- *	Date: 三  1/14 11:22:25 2015
+ *	Date: Three  1/14 11:22:25 2015
  *
  * 	Three support resolutions type
  *	$resolutions = array(320, 480, 640);
