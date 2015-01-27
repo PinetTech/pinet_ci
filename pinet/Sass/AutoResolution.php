@@ -20,7 +20,6 @@ class AutoResolution extends \Clips\Libraries\Sass\SassPlugin {
 	protected function getSortedResolutions($compiler) {
 		$resolutions = $this->getResolutions($compiler);
 		$ret = $this->analyzeResolutions($resolutions);
-		p($ret);
 		usort($ret[0], function($a, $b) {
 			if($a['value'] == $b['value'])
 				return 0;
