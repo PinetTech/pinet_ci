@@ -94,15 +94,15 @@ class AutoResolution extends \Clips\Libraries\Sass\SassPlugin {
 			}
 
 			if(strpos($content, 'responsive_'.$name) !== FALSE) {
-				$ret []= 'responsive_'.$name;
+				$ret []['responsive_con']= 'responsive_'.$name;
 			}
 
 			if(strpos($content, 'section_'.$name) !== FALSE) {
-				$ret []= 'section_'.$name;
+				$ret []['section_con'] = 'section_'.$name;
 			}
 
 			if(strpos($content, 'module_'.$name) !== FALSE) {
-				$ret []= 'module_'.$name;
+				$ret []['module_con'] = 'module_'.$name;
 			}
 		}
 		return $ret;

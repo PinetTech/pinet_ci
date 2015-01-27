@@ -12,9 +12,11 @@
 	{{#prepend_resolution}}
 		{{prepend_resolution}}({{value.value}});
 	{{/prepend_resolution}}
-	{{#sasses}}
-	@include {{.}}({{value.value}}, {{value.alias}});
-	{{/sasses}}
+{{#sasses}}
+{{#responsive_con}}
+	@include {{.}}({{value.value}},{{value.alias}});
+{{/responsive_con}}
+{{/sasses}}
 	{{#append_resolution}}
 		{{append_resolution}}({{value.value}});
 	{{/append_resolution}}
@@ -31,9 +33,14 @@
 	$screen-width: {{prev_value.value}};
 	$alias-width: {{prev_value.alias}};
 	$next-screen-width: {{value.value}};
-	{{#sasses}}
-	@include {{.}}({{prev_value.value}}, {{value.alias}}, {{value.value}});
-	{{/sasses}}
+{{#sasses}}
+{{#section_con}}
+	@include {{.}}({{value.value}},{{value.alias}});
+{{/section_con}}
+{{#module_con}}
+	@include {{.}}({{value.value}},{{value.alias}});
+{{/module_con}}
+{{/sasses}}
 }
 {{#after_section}}
 	{{after_section}}();
