@@ -298,7 +298,7 @@ class CssLink {
 		else
 			$href .= $this->name.'.css';
 
-		foreach(array(APPPATH, 'pinet/') as $d) {
+		foreach(array('', APPPATH, 'pinet/') as $d) {
 			$p = FCPATH.$d.$href;
 			if(file_exists($p)) {
 				if($this->is_less) {
