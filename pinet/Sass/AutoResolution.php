@@ -151,8 +151,8 @@ class AutoResolution extends \Clips\Libraries\Sass\SassPlugin {
 		if (is_array($resolutions)) {
 			$ret = $this->analyzeResolutions($resolutions);
 			$result = $ret[0];
-			$max = $ret[1];
-			$min = $ret[2];
+			$min = $ret[1];
+			$max = $ret[2];
 
 			$str = 'string://$min-screen-width: {{min}};
 	$max-screen-width: {{max}};
