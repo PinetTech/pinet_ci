@@ -1,5 +1,5 @@
 // res(number num)                => num
-// res(number num, number minnum) => if (num < minnum)  minnum 
+// res(number num, number minnum) => if (num < minnum)  minnum
 
 @function cal($args...) {
 	$firstarg: nth($args, 1);

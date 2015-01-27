@@ -3,7 +3,7 @@
 /**
  *	Author: andy
  *	Date: 三  1/14 11:22:25 2015
- * 
+ *
  * 	Three support resolutions type
  *	$resolutions = array(320, 480, 640);
  *	$resolutions = array(320=>'device1', 480, 640);
@@ -20,6 +20,7 @@ class AutoResolution extends \Clips\Libraries\Sass\SassPlugin {
 	protected function getSortedResolutions($compiler) {
 		$resolutions = $this->getResolutions($compiler);
 		$ret = $this->analyzeResolutions($resolutions);
+		p($ret);
 		usort($ret[0], function($a, $b) {
 			if($a['value'] == $b['value'])
 				return 0;
@@ -47,7 +48,7 @@ class AutoResolution extends \Clips\Libraries\Sass\SassPlugin {
 				$this->_process('append_section', $compiler->content, $res, $prev_value['value'].'_'.$value);
 				$this->_process('after_section', $compiler->content, $res, $prev_value['value'].'_'.$value);
 				$resolutions []= $res;
-			}	
+			}
 
 			$res = array(
 				'value' => $r,
@@ -92,7 +93,7 @@ class AutoResolution extends \Clips\Libraries\Sass\SassPlugin {
 					$name = implode('_', $names);
 				}
 			}
-			
+
 			if(strpos($content, 'responsive_'.$name) !== FALSE) {
 				$ret []= 'responsive_'.$name;
 			}
@@ -129,11 +130,11 @@ class AutoResolution extends \Clips\Libraries\Sass\SassPlugin {
 				$arr = array('alias' => $k, 'value' => $v);
 			}
 			else {
-				if(is_string($v)) {
-					$arr = array('alias' => $v, 'value' => $k);
+				if(is_numeric($v)) {
+					$arr = array('alias' => 0, 'value' => $v);
 				}
 				else {
-					$arr = array('alias' => 0, 'value' => $v);
+					$arr = array('alias' => $v, 'value' => $k);
 				}
 			}
 			$result []= $arr;
@@ -157,7 +158,7 @@ class AutoResolution extends \Clips\Libraries\Sass\SassPlugin {
 	$max-screen-width: {{max}};
 	$init-min-screen-width: {{min}};
 	$init-max-screen-width: {{max}};
-	
+
 	$pinet-resolutions: (
 {{#resolutions}}
 {{#alias}}
