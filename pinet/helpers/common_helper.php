@@ -799,8 +799,9 @@ function generate_ad($zone_id, $type='image'){
     switch($type){
 		case 'video':
 			$name = site_url('application/static/luhu_small');
+			$bg = site_url('application/static/img/tv_bg.jpg');
 			return <<<TEXT
-      <video id="video1" width="100%" height="100%" controls autoplay loop>
+      <video id="video1" style="background: url($bg) no-repeat;" width="100%" height="100%" autoplay loop>
         <source src="$name.ogg" type="video/ogg">
         <source src="$name.mp4" type="video/mp4">
       </video>
