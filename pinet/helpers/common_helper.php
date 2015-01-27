@@ -797,6 +797,14 @@ function &get_current_module() {
 
 function generate_ad($zone_id, $type='image'){
     switch($type){
+		case 'video':
+			$name = site_url('application/static/luhu_small');
+			return <<<TEXT
+      <video id="video1" width="100%" height="100%" controls autoplay loop>
+        <source src="$name.ogg" type="video/ogg">
+        <source src="$name.mp4" type="video/mp4">
+      </video>
+TEXT;
         case 'image':
         default:
             return "<script type='text/javascript'><!--//<![CDATA[
