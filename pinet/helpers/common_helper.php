@@ -80,7 +80,7 @@ function rollover($arr) {
 		return $carry;
 	} ,array());
 }
-    
+
 
 function parse_datetime($datetime, $default = null) {
 	if(is_string($datetime)) {
@@ -236,7 +236,7 @@ function get_controller_meta() {
 }
 
 function get_controller_args() {
-	if(isset($GLOBALS['CURRENT_ARGS'])) 
+	if(isset($GLOBALS['CURRENT_ARGS']))
 		return $GLOBALS['CURRENT_ARGS'];
 	$CI = &get_instance();
 	return array_slice($CI->uri->rsegments, 2);
@@ -276,13 +276,13 @@ function guess_lang() {
 		if (count($lang_parse[1])) {
 			// create a list like "en" => 0.8
 			$langs = array_combine($lang_parse[1], $lang_parse[4]);
-			
+
 			// set default to 1 for any without q factor
 			foreach ($langs as $lang => $val) {
 				if ($val === '') $langs[$lang] = 1;
 			}
 
-			// sort list based on value	
+			// sort list based on value
 			arsort($langs, SORT_NUMERIC);
 		}
 	}
@@ -293,7 +293,7 @@ function guess_lang() {
 			// show German site
 		} else if (strpos($lang, 'en') === 0) {
 			// show English site
-		} 
+		}
 	}
 	foreach($langs as $key => $value) {
 		if($value == 1) {
@@ -370,7 +370,7 @@ function get_image_size($src) {
 
 	if (extension_loaded('imagick')) {
 		$img = new Imagick($file);
-		return $img->getImageGeometry(); 
+		return $img->getImageGeometry();
 	}
 	if (extension_loaded('gd')) {
 		$path_parts = pathinfo($file);
@@ -380,7 +380,7 @@ function get_image_size($src) {
 		else
 			$src_img=imagecreatefrompng($file);
 		return array(
-			'width' => imageSX($src_img), 
+			'width' => imageSX($src_img),
 			'height' => imageSY($src_img));
 	}
 	return array(0, 0);
@@ -801,7 +801,7 @@ function generate_ad($zone_id, $type='image'){
 			$name = site_url('application/static/luhu_small');
 			$bg = site_url('application/static/img/tv_bg.jpg');
 			return <<<TEXT
-<div id="jp_container_1" style="width: 100%; height: 100%; background: url($bg);" class="jp-video" role="application" aria-label="media player">
+<div id="jp_container_1" style="width: 100%; height: 100%; background-image: url($bg);" class="jp-video" role="application" aria-label="media player">
 	<div class="jp-type-single" style="height: 100%">
 		<div id="jquery_jplayer_1" class="jp-jplayer" style="height: 100%"></div>
 		<div class="jp-gui">
@@ -1079,7 +1079,7 @@ function get_value_in_array($v, $array) {
 	}
 	else if(array_search($v, $array)) {
 		return array_search($v, $array);
-	}	
+	}
 	else {
 		return false;
 	}
