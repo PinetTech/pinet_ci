@@ -1,0 +1,14 @@
+{
+	"author": "Jack <jack.fu@pinet.co>",
+	"date": "Tue Jan 27 14:40:52 2015",
+	"version": "1.0",
+	"name": "pinet.jplayer",
+	"doc":"[JPlayer library for pinet framework]",
+	"js": {
+		"files" : ["jquery.jplayer"]
+	},
+	"depends": ["jquery"],
+	"css": {
+		"files": ["blue.monday/css/jplayer.blue.monday.css"]
+	}
+}
