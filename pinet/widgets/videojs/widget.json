@@ -1,0 +1,17 @@
+{
+	"author": "Andy",
+	"date": "Fri Jan 30 10:48:19 2015",
+	"version": "1.0",
+	"name": "pinet.videojs",
+	"doc":"[doc]",
+	"js": {
+		"files" : ["video"]
+	},
+	"css": {
+		"files" : ["video-js.min"]
+	},
+	"scss": {
+		"depends": [],
+		"files": []
+	}
+}

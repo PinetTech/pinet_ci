@@ -1,0 +1,19 @@
+{
+	"author": "Andy",
+	"date": "Fri Jan 30 11:23:04 2015",
+	"version": "1.0",
+	"name": "pinet.videoad",
+	"doc":"[doc]",
+	"depends": ["videojs","responsive"],
+	"js": {
+		"depends": [],
+		"files" : ["videojs.ads", "vast-client", "videojs.vast"]
+	},
+	"css": {
+		"files": ["videojs.ads", "videojs.vast"]
+	},
+	"scss": {
+		"depends": [],
+		"files": []
+	}
+}
