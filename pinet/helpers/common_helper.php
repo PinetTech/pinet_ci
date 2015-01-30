@@ -798,22 +798,21 @@ function &get_current_module() {
 function generate_ad($zone_id, $type='image'){
     switch($type){
 		case 'video':
-			$name = site_url('application/static/luhu_small');
 			$bg = site_url('application/static/img/tv_bg.jpg');
 			return <<<TEXT
 <div id="jp_container_1" style="width: 100%; height: 100%; background-image: url($bg);" class="jp-video" role="application" aria-label="media player">
 	<div class="embed-responsive embed-responsive-16by9">
-	    <video id="vid1" class="video-js vjs-default-skin embed-responsive-item vjs-controls-enabled" autoplay preload="auto"
-	           poster="http://video-js.zencoder.com/oceans-clip.png"
+	    <video id="video_whole_ads" class="video-js vjs-default-skin embed-responsive-item vjs-controls-enabled" autoplay preload="auto"
 	           data-setup='{}'
 	           width="100%"
 	           height="100%"
 	            >
+	        <source src="http://video-js.zencoder.com/oceans-clip.ogv" type='video/ogg'>
 	        <source src="http://video-js.zencoder.com/oceans-clip.mp4" type='video/mp4'>
 	        <p>Video Playback Not Supported</p>
 	    </video>
 	</div>
-</div>
+</div><script>window.video_zone_id = $zone_id;</script>
 TEXT;
         case 'image':
         default:
