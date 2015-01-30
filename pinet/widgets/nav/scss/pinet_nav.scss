@@ -6,11 +6,11 @@
 
     // Links rendered as pills
     > a {
-      border-radius: $nav-default-border-radius;
+      border-radius: 4px;
       &:hover,
       &:focus {
         text-decoration: none;
-        background-color: $nav-default-link-hover-bg;
+        background-color: none;
       }
     }
     + li {
