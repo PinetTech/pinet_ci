@@ -187,6 +187,8 @@
         var blocker = window.document.createElement("a");
         blocker.className = "vast-blocker";
         blocker.href = clickthrough || "#";
+        if(!clickthrough)
+            blocker.style.display = "none"
         blocker.target = "_blank";
         blocker.onclick = function() {
           if (player.paused()) {
