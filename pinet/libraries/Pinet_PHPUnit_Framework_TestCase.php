@@ -12,8 +12,6 @@ class Pinet_PHPUnit_Framework_TestCase extends PHPUnit_Framework_TestCase {
 		$this->CI =& get_instance();
 		$this->doSetUp();
 		$this->CI->load->helper(array('url', 'test'));
-		$this->CI->load->spark('curl/1.3.0');
-		$this->CI->curl->http_header('User-Agent', fake_uagent());
 	}
 
 	public function helper($name) {

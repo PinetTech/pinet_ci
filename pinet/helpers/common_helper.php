@@ -1059,7 +1059,8 @@ function redirect_post($url, $values, $title='Redirecting...', $message='Redirec
         $message .= $url;
     $text .=$message .'<form action="'.$url.'" method="post">';
     foreach($values as $k=>$v){
-        $text .= "<input type='hidden' name='$k' value='".$v."'>";
+        if($k != 'showad')
+            $text .= "<input type='hidden' name='$k' value='".$v."'>";
     }
     $text .=<<<TEXT
             </form>
