@@ -447,7 +447,7 @@ if(!function_exists('copy_arr')) {
 	}
 }
 
-if(!function_exists('copy_arr')) {
+if(!function_exists('copy_object')) {
 	function copy_object($src, $dest = null, $class = null) {
 		if($src == null)
 			return null;
@@ -805,6 +805,8 @@ function generate_ad($zone_id, $type='image'){
     switch($type){
 		case 'video':
 			$bg = site_url('application/static/img/tv_bg.jpg');
+			$pinet_ogg = site_url('application/static/pinet.ogg');
+            $pinet_mp4 = site_url('application/static/pinet.mp4');
 			return <<<TEXT
 <div id="jp_container_1" style="width: 100%; height: 100%; background-image: url($bg);" class="jp-video" role="application" aria-label="media player">
 	<div class="embed-responsive embed-responsive-16by9">
@@ -813,8 +815,8 @@ function generate_ad($zone_id, $type='image'){
 	           width="100%"
 	           height="100%"
 	            >
-	        <source src="http://video-js.zencoder.com/oceans-clip.ogv" type='video/ogg'>
-	        <source src="http://video-js.zencoder.com/oceans-clip.mp4" type='video/mp4'>
+	        <source src="$pinet_ogg" type='video/ogg'>
+	        <source src="$pinet_mp4" type='video/mp4'>
 	        <p>Video Playback Not Supported</p>
 	    </video>
 	</div>
@@ -1063,7 +1065,8 @@ function redirect_post($url, $values, $title='Redirecting...', $message='Redirec
         $message .= $url;
     $text .=$message .'<form action="'.$url.'" method="post">';
     foreach($values as $k=>$v){
-        $text .= "<input type='hidden' name='$k' value='".$v."'>";
+        if($k != 'showad')
+            $text .= "<input type='hidden' name='$k' value='".$v."'>";
     }
     $text .=<<<TEXT
             </form>
