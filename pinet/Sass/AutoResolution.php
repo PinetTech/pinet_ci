@@ -116,7 +116,7 @@ class AutoResolution extends \Clips\Libraries\Sass\SassPlugin {
 			'sasses' => $this->getSasses($compiler->sasses, $compiler->content)
 		);
 
-		$compiler->suffix .= clips_out('media', $data, false);
+		$compiler->suffix .= \Clips\clips_out('media', $data, false);
 	}
 
 	protected function analyzeResolutions($resolutions) {
@@ -174,7 +174,7 @@ class AutoResolution extends \Clips\Libraries\Sass\SassPlugin {
 {{/resolutions}}
 	);
 ';
-			$compiler->prefix .= clips_out($str, array(
+			$compiler->prefix .= \Clips\clips_out($str, array(
 				'min' => $min,
 				'max' => $max,
 				'resolutions' => $result

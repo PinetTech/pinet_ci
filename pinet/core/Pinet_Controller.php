@@ -346,7 +346,7 @@ class Pinet_Controller extends CI_Controller {
 	function __construct() {
 		parent::__construct();
 
-		$this->tool = &get_clips_tool();
+		$this->tool = &Clips\get_clips_tool();
 		$this->clips = $this->tool->clips;
 
 		$this->hackFormValidation();
