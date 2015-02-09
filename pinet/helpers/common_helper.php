@@ -425,40 +425,46 @@ if(!function_exists('get_default')) {
 	}
 }
 
-function copy_new($src, $class = null) {
-	return copy_object($src, null, $class);
+if(!function_exists('copy_new')) {
+	function copy_new($src, $class = null) {
+		return copy_object($src, null, $class);
+	}
 }
 
-function copy_arr($src, $dest = null) {
-	if($src == null)
-		return null;
+if(!function_exists('copy_arr')) {
+	function copy_arr($src, $dest = null) {
+		if($src == null)
+			return null;
 
-	if($dest == null) {
-		$dest = array();
-	}
+		if($dest == null) {
+			$dest = array();
+		}
 
-	foreach($src as $key => $value) {
-		$dest[$key] = $value;
+		foreach($src as $key => $value) {
+			$dest[$key] = $value;
+		}
+		return $dest;
 	}
-	return $dest;
 }
 
-function copy_object($src, $dest = null, $class = null) {
-	if($src == null)
-		return null;
+if(!function_exists('copy_arr')) {
+	function copy_object($src, $dest = null, $class = null) {
+		if($src == null)
+			return null;
 
-	if($dest == null) {
-		if($class == null)
-			$dest = new stdclass();
-		else
-			$dest = new $class();
-	}
+		if($dest == null) {
+			if($class == null)
+				$dest = new stdclass();
+			else
+				$dest = new $class();
+		}
 
-	foreach($src as $key => $value) {
-		$k = str_replace('.', '_', $key);
-		$dest->$k = $value;
+		foreach($src as $key => $value) {
+			$k = str_replace('.', '_', $key);
+			$dest->$k = $value;
+		}
+		return $dest;
 	}
-	return $dest;
 }
 
 function insert_at($array, $item, $index) {
