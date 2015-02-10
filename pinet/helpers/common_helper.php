@@ -901,7 +901,7 @@ function send_sms($apikey, $text, $mobile){
 
 function sms_send_randcode($code, $mobile, $tpl_id=1){
     $CI = &get_instance();
-    $CI->config->load('oauth2');
+    $CI->config->load('sms');
     $sms_info = $CI->config->item('sms_info');
     $api_key = $sms_info['apikey'];
     $company = $sms_info['company'];
@@ -911,7 +911,7 @@ function sms_send_randcode($code, $mobile, $tpl_id=1){
 
 function sms_send_randcode_nocompany($code, $mobile, $tpl_id){
     $CI = &get_instance();
-    $CI->config->load('oauth2');
+    $CI->config->load('sms');
     $sms_info = $CI->config->item('sms_info');
     $api_key = $sms_info['apikey'];
     $tpl_value="#code#=$code";
