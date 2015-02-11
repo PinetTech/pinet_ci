@@ -36,8 +36,11 @@ class AutoResolution extends \Clips\Libraries\Sass\SassPlugin {
 			$value = $r['value'];
 
 			if($prev_value) {
+				$t = $r;
+				$t['value'] = $t['value'] - 1;
+
 				$res = array(
-					'value' => $r,
+					'value' => $t,
 					'prev_value' => $prev_value,
 					'section' => true
 				);
