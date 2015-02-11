@@ -62,14 +62,22 @@ function smarty_block_field_group($params, $content = '', $template, &$repeat) {
 	$label_layout_class = 'col-1280-2 col-pc-2';
 	$element_layout_class = 'col-1280-10 col-pc-10';
 	if(is_array($layout)) {
-		if(isset($layout['label']))
+		if(isset($layout['label'])) {
 			$label_layout_class = 'col-1280-'.$layout['label'];
-		if(isset($layout['element']))
+			$label_layout_class .= ' col-pc-'.$layout['label'];
+		}
+		if(isset($layout['element'])) {
 			$element_layout_class = 'col-1280-'.$layout['element'];
-		if(isset($layout['mobile-label']))
+			$element_layout_class .= ' col-pc-'.$layout['element'];
+		}
+		if(isset($layout['mobile-label'])) {
 			$label_layout_class .= ' col-320-'.$layout['mobile-label'];
-		if(isset($layout['mobile-element']))
+			$label_layout_class .= ' col-mobile-'.$layout['mobile-label'];
+		}
+		if(isset($layout['mobile-element'])) {
 			$element_layout_class .= ' col-320-'.$layout['mobile-element'];
+			$element_layout_class .= ' col-mobile-'.$layout['mobile-element'];
+		}
 	}
 	else {
         if(isset($f->container))
