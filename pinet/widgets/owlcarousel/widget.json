@@ -1,0 +1,19 @@
+{
+	"author": "Jack",
+	"date": "Wed Feb 11 12:05:13 2015",
+	"version": "1.0",
+	"name": "pinet.owlcarousel",
+	"doc":"[doc]",
+	"depends": ["jquery"],
+	"js": {
+		"depends": [],
+		"files" : [
+			"owl.carousel.min"
+		]
+	},
+	"css": {
+		"files": [
+			"owl.carousel"
+		]
+	}
+}
