@@ -8,12 +8,13 @@
 	"js": {
 		"depends": [],
 		"files" : [
-			"owl.carousel.min"
+			"owl.carousel"
 		]
 	},
 	"css": {
 		"files": [
-			"owl.carousel"
+			"owl.carousel",
+			"owl.theme"
 		]
 	}
 }
