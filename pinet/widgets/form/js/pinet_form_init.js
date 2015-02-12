@@ -17,7 +17,9 @@ $(function(){
 				}
 				else {
 					// console.log('not has default value');
-					self.find("option").first()[0].selected = true;
+					if (self.find("option").first().length > 0) {
+						self.find("option").first()[0].selected = true;
+					};
 				}
 			};
 		});
