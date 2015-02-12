@@ -23,10 +23,10 @@
 		return ret;
 	}
 
-	array_remove = function(array, from, to) {  
-    	var rest = array.slice((to || from) + 1 || array.length);  
-    	array.length = from < 0 ? array.length + from : from;  
-    	return array.push.apply(array, rest);  
+	array_remove = function(array, from, to) {
+    	var rest = array.slice((to || from) + 1 || array.length);
+    	array.length = from < 0 ? array.length + from : from;
+    	return array.push.apply(array, rest);
 	};
 
 	$.fn.listview = function(args) {
@@ -55,8 +55,8 @@
 			pagination_button_template: '<a class="paginate_button" data-dt-idx="_(index)" tabindex="0" aria-controls="listview">_(index)</a>',
 			pagination_button_group_template: '<span></span>',
 			pagination_next_template: '<a class="paginate_button next" aria-controls="listview"><i class="glyphicon glyphicon-forward"></i></a>',
-			length_select_template: '<div class="dataTables_length"><label>Show<select class="" name="datatable_length" aria-controls="datatable"></select>entries</label></div>',
-			fliter_template: '<div class="dataTables_filter"><label>Search<input class="" type="search" placeholder="" aria-controls="datatable"></input></label></div>',		
+			length_select_template: '<div class="dataTables_length">Show<label><select class="" name="datatable_length" aria-controls="datatable"></select></label>entries</div>',
+			fliter_template: '<div class="dataTables_filter">Search<label><input class="" type="search" placeholder="" aria-controls="datatable"></input></label></div>',
 			wrap: '<div class="dataTables_wrapper listview_wrapper"/>',
 			order_box: '<select id="listview_orderbox", class="orderbox"></select>',
 			order_dir_box: '<select id="listview_order" class="orderbox"><option id="asc">ASC</option><option id="desc">DESC</option></select>'
@@ -135,7 +135,7 @@
 				}
 
 				var option = list.states || {};
-				var listview_option = $.extend(true, option, { 
+				var listview_option = $.extend(true, option, {
 					draw : list.draw,
 					columns : cols,
 					start : list.start,
@@ -151,7 +151,7 @@
 				});
 
 				if(list.search_value || list.search_value == '') {
-					listview_option.search.value = list.search_value	
+					listview_option.search.value = list.search_value
 				}
 
 				$.getJSON(settings.ajax, listview_option, function(data) {
@@ -176,7 +176,7 @@
 				}
 				else {
 					template = template.get(0);
-				}	
+				}
 				$.each(listData, function(i, e) {
 					var li = $(template_string(template, e)).removeClass('listview_item_template');
 					li.attr('itemId',e.users_id);
@@ -184,7 +184,7 @@
                     li.data('itemdata', e);
                     list.append(li);
 				});
-				makePagination(list, data);	
+				makePagination(list, data);
 			}
 		}
 
@@ -206,7 +206,7 @@
 					if(index < 0) {
 						list.states.selectedItems.push(itemId);
 						saveState(list, list.states);
-					}				
+					}
 				}
 			})
 			list.off('selectableunselected').on('selectableunselected', function(event, ui){
@@ -218,31 +218,31 @@
 						saveState(list, list.states);
 					}
 				}
-			})			
+			})
 		}
 
 		function getSelectedNums(list, index) {
 			var nums = []
 			list.find('li').not('li.listview_item_template').each(function(i){
-				var itemId = parseInt($(this).attr('itemId'));				
+				var itemId = parseInt($(this).attr('itemId'));
 
 				if($(this).hasClass('ui-selected')) {
 					nums.push(parseInt(itemId));
-				}				
-				
+				}
+
 			})
 			return nums;
-		}		
+		}
 
 		function getUnSelectedNums(list, index) {
 			var nums = []
 			list.find('li').not('li.listview_item_template').each(function(i){
-				var itemId = parseInt($(this).attr('itemId'));				
+				var itemId = parseInt($(this).attr('itemId'));
 
 				if(!$(this).hasClass('ui-selected')) {
 					nums.push(parseInt(itemId));
-				}				
-				
+				}
+
 			})
 			return nums;
 		}
@@ -316,7 +316,7 @@
 						last.addClass('current');
 					}
 					bg.append(last);
-				}				
+				}
 			}
 
 
@@ -329,7 +329,7 @@
 
 			if(p.current > 1) {
 				bg.parent().find('a.previous').removeClass('disabled');
-				bg.parent().on('click', 'a.previous', function(){				
+				bg.parent().on('click', 'a.previous', function(){
 					list.start = (p.current - 2) * list.pageLength;
 					requestData(list);
 				});
@@ -339,10 +339,10 @@
 
 			if(p.current < p.total) {
 				bg.parent().find('a.next').removeClass('disabled');
-				bg.parent().on('click', 'a.next', function(){				
+				bg.parent().on('click', 'a.next', function(){
 					list.start = p.current * list.pageLength;
 					requestData(list);
-				});			
+				});
 			}else{
 				bg.parent().find('a.next').addClass('disabled');
 			}
@@ -385,7 +385,7 @@
 
 			lengthSelect.find('select').on('change', function(){
 				list.pageLength = parseInt(lengthSelect.find('select').val());
-				requestData(list);				
+				requestData(list);
 			})
 		}
 
@@ -415,7 +415,7 @@
 				start: function(event, ui) {
 					$(this).find("li").each(function(){
 						$(this).removeClass('selected');
-					})	
+					})
 				},
 				selected: function(event, ui) {
 					$(this).find("li").each(function() {
@@ -424,7 +424,7 @@
 						else
 							$(this).removeClass('selected');
 					})
-				}	
+				}
 			});
 		}
 
@@ -457,7 +457,7 @@
 				// list.css('padding-left', box.pl);
 				// list.css('padding-right', box.pr);
 				// list.children('li').not('.listview_item_template').each(function(index, item) {
-				// 	if((index + 1) % box.columns != 0 || box.columns == 1) { // 
+				// 	if((index + 1) % box.columns != 0 || box.columns == 1) { //
 				// 		$(item).css('margin-right', box.gap);
 				// 	}
 				// 	$(item).css('margin-bottom', box.vgap);
@@ -465,7 +465,7 @@
 				var listview_items =  list.children("li").filter('.listview_item').not('.listview_item_template');
 				var mr =  parseInt(listview_items.eq(0).css("margin-right")) || 0;
 				var mb = parseInt(listview_items.eq(0).css("margin-bottom")) || 0;
-				var cols = Math.floor((list.width() + mr) /  (listview_items.eq(0).width() + mr) ); 
+				var cols = Math.floor((list.width() + mr) /  (listview_items.eq(0).width() + mr) );
 				layout(listview_items, cols, mb, mr);
 			}
 			else {
@@ -505,7 +505,7 @@
 			});
 			orderDirBox.find('option').each(function(i, dir) {
 				if (orderDir && orderDir == $(dir).val()) {
-					$(dir).attr('selected','');	
+					$(dir).attr('selected','');
 				}
 			})
 			orderBox.change(function(){
@@ -519,7 +519,7 @@
 				requestData(list);
 			});
 			list.parent().prepend(orderDirBox);
-			list.parent().prepend(orderBox);	
+			list.parent().prepend(orderBox);
 		}
 
 		var Api = function(list){
