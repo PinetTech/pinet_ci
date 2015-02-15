@@ -1,14 +1,14 @@
 @mixin mixin-pinet-form-select() {
 	.selectboxit-container {
 		span {
-			height: res(75px);
-			line-height: res(75px);
+			height: res(75px, 35px);
+			line-height: res(75px, 35px);
 		}
 		.selectboxit-options {
 			border-radius: 0;
 			a {
-				height: res(75px);
-				line-height: res(75px);
+				height: res(75px, 35px);
+				line-height: res(75px, 35px);
 			}
 		} 
 		.selectboxit-btn {
