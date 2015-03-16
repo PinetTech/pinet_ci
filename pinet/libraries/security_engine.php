@@ -55,8 +55,8 @@ class Security_Engine {
 					$c []= $class;
 			}
 			$clips->template($c);
-			$clips->load('ci://config/rules/user.rules');
-			$clips->load('ci://config/rules/security.rules');
+			$clips->load('application/config/rules/user.rules');
+			$clips->load('application/config/rules/security.rules');
 			if(is_string($obj) || is_object($obj) && get_class($obj) == 'DataTableColumn') {
 				$obj = new SecurityDataTableColumn($obj);
 			}

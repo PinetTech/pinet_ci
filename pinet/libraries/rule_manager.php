@@ -43,7 +43,7 @@ class Rule_Manager {
 					$run->value = array($run->value);
 
 				foreach($run->value as $v) {
-					$this->clips->load('ci://config/rules/'.$v);
+					$this->clips->load('application/config/rules/'.$v);
 				}
 			}
 
