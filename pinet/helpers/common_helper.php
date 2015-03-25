@@ -1059,11 +1059,29 @@ function redirect_post($url, $values, $title='Redirecting...', $message='Redirec
             <head>
                 <meta charset="utf-8">
                 <title>'.$title.'</title>
+                <style type="text/css">
+					html, body {
+						width: 100%;
+						height: 100%;
+						overflow: hidden;
+					}
+					.message {
+						width: 50%;
+						height: 50%;
+						position: absolute;
+						left: 0;
+						right: 0;
+						top: 0;
+						bottom: 0;
+						margin: auto;
+						text-align: center;
+					}
+                </style>
             </head>
             <body>';
     if(!$customize)
         $message .= $url;
-    $text .=$message .'<form action="'.$url.'" method="post">';
+    $text .="<div class='message'>".$message .'</div><form action="'.$url.'" method="post">';
     foreach($values as $k=>$v){
         if($k != 'showad')
             $text .= "<input type='hidden' name='$k' value='".$v."'>";
